@@ -79,7 +79,8 @@ class _NumberFieldXState extends State<NumberFieldX> {
               widget.onChanged(val);
             },
             decoration: InputDecoration(
-              helperStyle: TextStyleX.supTitleMedium,
+              helperStyle: TextStyleX.supTitleMedium.copyWith(
+      color: Theme.of(context).colorScheme.secondary,),
               border: InputBorder.none,
             ),
           ),

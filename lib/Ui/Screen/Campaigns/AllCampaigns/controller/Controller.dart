@@ -53,7 +53,7 @@ class AllCampaignsController extends GetxController {
     await payDonationSheet(campaign.donation,campaign:campaign);
   }
 
-  onAddToCart(campaign) async {
+  onAddToCart(CampaignX campaign) async {
     await payDonationSheet(campaign.donation,campaign:campaign, onlyAddToCart: true);
   }
 

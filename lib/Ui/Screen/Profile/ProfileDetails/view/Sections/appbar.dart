@@ -79,6 +79,7 @@ class AppBarSectionX extends GetView<ProfileDetailsController> {
                 TextX(
                   'Contribute with us by spreading goodness',
                   style: TextStyleX.supTitleLarge,
+                  color: Theme.of(context).colorScheme.secondary,
                 ).fadeAnimation300
               ],
             ),

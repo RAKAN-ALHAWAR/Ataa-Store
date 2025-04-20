@@ -15,12 +15,14 @@ import '../../../../Data/Model/Cart/cartItem.dart';
 import '../../../../Data/data.dart';
 import '../../../../UI/Widget/widget.dart';
 import '../../../ScreenSheet/Other/MandatoryAuth/mandatoryAuth.dart';
+import '../../Basic/Root/controller/Controller.dart';
 
 class CartController extends GetxController {
   //============================================================================
   // Injection of required controls
 
   final AppControllerX app = Get.find();
+  final RootController root = Get.find();
   final CartGeneralControllerX cartGeneral = Get.find();
   final DeliveryAddressControllerX deliveryAddressController = Get.find();
 
@@ -48,7 +50,7 @@ class CartController extends GetxController {
     try {
       /// Get Cart Data
       await cartGeneral.getData();
-      cartSummary.value= cartGeneral.cart.value.totalPrice;
+      cartSummary.value = cartGeneral.cart.value.totalPrice;
 
       /// Get delivery data if available
       if (cartGeneral.cart.value.isProduct) {
@@ -67,7 +69,9 @@ class CartController extends GetxController {
   //----------------------------------------------------------------------------
   // Pay
 
-  get isHasAppleAndGooglePay =>(Platform.isAndroid && app.generalPaymentMethodsSettings.isGooglePay) || (Platform.isIOS && app.generalPaymentMethodsSettings.isApplePay);
+  get isHasAppleAndGooglePay =>
+      (Platform.isAndroid && app.generalPaymentMethodsSettings.isGooglePay) ||
+      (Platform.isIOS && app.generalPaymentMethodsSettings.isApplePay);
 
   /// Verify the entered data
   bool dataVerification() {
@@ -79,9 +83,11 @@ class CartController extends GetxController {
       // check text fields
       autoValidate = AutovalidateMode.always;
       return throw "Check the donation entry fields";
-    }else if(validateAmount() !=null){
-      return throw validateAmount()??'';
-    }else if(!app.generalPaymentMethodsSettings.isCreditCards && !app.generalPaymentMethodsSettings.isBankTransfers && !isHasAppleAndGooglePay){
+    } else if (validateAmount() != null) {
+      return throw validateAmount() ?? '';
+    } else if (!app.generalPaymentMethodsSettings.isCreditCards &&
+        !app.generalPaymentMethodsSettings.isBankTransfers &&
+        !isHasAppleAndGooglePay) {
       return throw "Unfortunately, there are no payment methods available now";
     }
     return true;
@@ -89,22 +95,23 @@ class CartController extends GetxController {
 
   onPay() async {
     if (isLoading.isFalse) {
-      if(app.isLogin.isFalse){
+      if (app.isLogin.isFalse) {
         var numberOfItemsBeforeLogin = cartGeneral.countItem.value;
         await mandatoryAuthSheetX();
         // انتظر حتى يتم إغلاق جميع شاشات البوتم شيت المفتوحة
         while (Get.isBottomSheetOpen ?? false) {
-          await Future.delayed(const Duration(milliseconds: 100)); // إضافة تأخير بسيط للتحقق بشكل دوري
+          await Future.delayed(const Duration(
+              milliseconds: 100)); // إضافة تأخير بسيط للتحقق بشكل دوري
         }
-        if(numberOfItemsBeforeLogin!=cartGeneral.countItem.value){
+        if (numberOfItemsBeforeLogin != cartGeneral.countItem.value) {
           /// Stop the payment process because the items and price may change
           cartGeneral.cart.refresh();
           update();
-          cartSummary.value= cartGeneral.cart.value.totalPrice;
+          cartSummary.value = cartGeneral.cart.value.totalPrice;
           return;
         }
       }
-      if(app.isLogin.isTrue){
+      if (app.isLogin.isTrue) {
         try {
           if (dataVerification()) {
             isLoading.value = true;
@@ -114,10 +121,10 @@ class CartController extends GetxController {
               RouteNameX.generalPayment,
               arguments: {
                 NameX.totalCart: cartGeneral.cart.value.totalPrice,
-                NameX.fromCart:true,
+                NameX.fromCart: true,
               },
             );
-            cartSummary.value= cartGeneral.cart.value.totalPrice;
+            cartSummary.value = cartGeneral.cart.value.totalPrice;
           }
         } catch (error) {
           ToastX.error(message: error);
@@ -128,7 +135,7 @@ class CartController extends GetxController {
         /// Reset the button state
         Timer(
           const Duration(seconds: StyleX.returnButtonToNormalStateSecond),
-              () {
+          () {
             buttonState.value = ButtonStateEX.normal;
           },
         );
@@ -138,17 +145,19 @@ class CartController extends GetxController {
 
   String? validateAmount() {
     String? message;
+
     /// Verify the lowest possible donation value in Free Donation
-    if (cartGeneral.cart.value.totalPrice < app.generalSettings.minimumDonationAmount) {
+    if (cartGeneral.cart.value.totalPrice <
+        app.generalSettings.minimumDonationAmount) {
       message =
-      "${"The minimum donation amount is".tr} ${app.generalSettings.minimumDonationAmount} ${"SAR".tr}";
+          "${"The minimum donation amount is".tr} ${app.generalSettings.minimumDonationAmount} ${"SAR".tr}";
     }
     return message;
   }
   //----------------------------------------------------------------------------
 
   onDeleteAllItems() async {
-    if(isLoading.isFalse){
+    if (isLoading.isFalse) {
       try {
         isLoading.value = true;
         buttonStateDeleteAll.value = ButtonStateEX.loading;
@@ -156,13 +165,14 @@ class CartController extends GetxController {
         MiniCartX miniCart = await DatabaseX.deleteAllCartItems(
           cartId: cartGeneral.cart.value.id,
         );
+
         /// For Create new cart id
         await cartGeneral.getData();
-        cartGeneral.countItem.value=miniCart.countItem;
-        cartGeneral.cart.value.countItem=miniCart.countItem;
-        cartSummary.value= 0;
+        cartGeneral.countItem.value = miniCart.countItem;
+        cartGeneral.cart.value.countItem = miniCart.countItem;
+        cartSummary.value = 0;
         cartGeneral.cart.value.totalPrice = cartSummary.value;
-        cartGeneral.cart.value.items=[];
+        cartGeneral.cart.value.items = [];
         cartGeneral.cart.refresh();
         ToastX.success(message: miniCart.message);
       } catch (e) {
@@ -170,10 +180,11 @@ class CartController extends GetxController {
         buttonStateDeleteAll.value = ButtonStateEX.failed;
       }
       isLoading.value = false;
+
       /// Reset the button state
       Timer(
         const Duration(seconds: StyleX.returnButtonToNormalStateSecond),
-            () {
+        () {
           buttonStateDeleteAll.value = ButtonStateEX.normal;
         },
       );
@@ -181,15 +192,15 @@ class CartController extends GetxController {
   }
 
   onDeleteItem(CartItemX item) async {
-    if(isLoading.isFalse){
+    if (isLoading.isFalse) {
       try {
         isLoading.value = true;
         MiniCartX miniCart = await DatabaseX.deleteCartItem(
           itemId: item.id,
         );
-        cartGeneral.countItem.value=miniCart.countItem;
-        cartGeneral.cart.value.countItem=miniCart.countItem;
-        cartSummary.value= cartSummary.value-(item.price*item.quantity);
+        cartGeneral.countItem.value = miniCart.countItem;
+        cartGeneral.cart.value.countItem = miniCart.countItem;
+        cartSummary.value = cartSummary.value - (item.price * item.quantity);
         cartGeneral.cart.value.totalPrice = cartSummary.value;
         cartGeneral.cart.value.items.removeWhere((e) => e.id == item.id);
         cartGeneral.cart.refresh();
@@ -211,7 +222,7 @@ class CartController extends GetxController {
     String? donationDeductionPackageId,
   }) async {
     var index = cartGeneral.cart.value.items.indexWhere((e) => e.id == item.id);
-    if(isLoading.isTrue){
+    if (isLoading.isTrue) {
       /// So that the item's status on the screen is restored to its basic data before the update.
       cartGeneral.cart.value.items[index] = CartItemX(
         id: item.id,
@@ -237,16 +248,18 @@ class CartController extends GetxController {
             donationDeductionPackageId: donationDeductionPackageId,
           ),
         );
-        cartSummary.value=result.$1.totalPrice;
+        cartSummary.value = result.$1.totalPrice;
         cartGeneral.cart.value.totalPrice = cartSummary.value;
-        cartGeneral.cart.value.items[index]= result.$1.items.firstWhere((e) => e.id == item.id);
-        cartGeneral.countItem.value= result.$1.countItem;
-        cartGeneral.cart.value.countItem=result.$1.countItem;
+        cartGeneral.cart.value.items[index] =
+            result.$1.items.firstWhere((e) => e.id == item.id);
+        cartGeneral.countItem.value = result.$1.countItem;
+        cartGeneral.cart.value.countItem = result.$1.countItem;
         if (result.$2 != null) {
           ToastX.success(message: result.$2);
         }
       } catch (e) {
         e.toErrorX.log();
+
         /// So that the item's status on the screen is restored to its basic data before the update.
         cartGeneral.cart.value.items[index] = CartItemX(
           id: item.id,

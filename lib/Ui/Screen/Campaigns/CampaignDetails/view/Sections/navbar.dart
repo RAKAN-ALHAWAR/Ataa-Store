@@ -26,6 +26,7 @@ class NavBarSectionX extends GetView<CampaignDetailsController> {
         /// Buttons
         child: Obx(
               () => AddToCartAndDonationButtonsX(
+            disabled: !controller.campaign.donationStatus,
             onDonation: controller.onPayDonation,
             onAddToCart: controller.onDonationAddToCart,
             payDonationButtonState: controller.payDonationButtonState.value,

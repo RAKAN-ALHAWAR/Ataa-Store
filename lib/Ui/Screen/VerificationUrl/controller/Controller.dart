@@ -1,4 +1,3 @@
-import 'package:ataa/Data/Enum/payment_status_status.dart';
 import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -9,9 +8,7 @@ class VerificationUrlController extends GetxController {
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
     ..setNavigationDelegate(
       NavigationDelegate(
-        onProgress: (int progress) {
-          // Update loading bar.
-        },
+        onProgress: (int progress) {},
         onPageStarted: (String url) {},
         onPageFinished: (String url) {},
         onHttpError: (HttpResponseError error) {},

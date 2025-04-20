@@ -5,7 +5,7 @@ import '../../../Data/Enum/linkable_type_status.dart';
 import '../../../Data/Model/ShareLink/miniShareLink.dart';
 import '../../core.dart';
 
-class ShaeControllerX extends GetxController {
+class ShareControllerX extends GetxController {
   //============================================================================
   // Injection of required controls
 
@@ -48,7 +48,6 @@ class ShaeControllerX extends GetxController {
       case LinkableTypeStatusX.org:
         return 'https://store.edialoguec.org.sa/ProgramsDetail/$code';
       case LinkableTypeStatusX.campaign:
-        /// TODO: check this url share
         return 'https://store.edialoguec.org.sa/donation-campaigns/$code';
     }
   }

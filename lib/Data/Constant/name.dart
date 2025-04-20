@@ -220,6 +220,7 @@ class NameX {
   static const String relatableType = 'relatable_type';
 
   static const String totalDonations = 'price';
+  static const String totalDonation = 'total_donation';
   static const String currentDonations = 'total_donation';
   static const String remainingDonations = 'donate_rest';
   static const String countDonations = 'count_donation';
@@ -401,6 +402,7 @@ class NameX {
   static const String googlePayToken = 'googlepay_token';
   static const String modelData = 'model_data';
   static const String projectId = 'project_id';
+  static const String campaignId = 'campaign_id';
   static const String donationOnBehalfOfFamilyAndFriends = 'donation_on_behalf_of_family_and_friends';
   static const String transferImageUrl = 'transfer_image';
   static const String bankAccount = 'bank_account';

@@ -36,7 +36,6 @@ import '../../Data/Model/Deduction/deduction.dart';
 import '../../Data/Model/Donation/donation.dart';
 import '../../Data/Model/Gift/Order/giftOrder.dart';
 import '../../Data/Model/Other/notification.dart';
-import '../../Data/Model/PaymentTransaction/paymentTransaction.dart';
 import '../../Data/Model/ShareLink/shareLink.dart';
 import '../../Data/data.dart';
 import 'package:intl/intl.dart' as intl;

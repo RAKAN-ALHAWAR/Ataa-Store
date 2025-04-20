@@ -58,10 +58,21 @@ class CartProductCardX extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 10),
-                      TextX(
-                        "${FunctionX.formatLargeNumber(product.price * productItem.numProduct)} ${"SAR".tr}",
-                        style: TextStyleX.supTitleLarge,
-                        fontWeight: FontWeight.w700,
+                      Row(
+                        children: [
+                          TextX(
+                            FunctionX.formatLargeNumber(product.price * productItem.numProduct),
+                            style: TextStyleX.supTitleLarge,
+                            color: Theme.of(context).colorScheme.secondary,
+                            fontWeight: FontWeight.w700,
+                          ),
+                          const SizedBox(width: 4),
+                          Icon(
+                            IconX.sar,
+                            size: 14,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                        ],
                       ),
                     ],
                   ),

@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 
 import '../../../../../Config/Translation/translation.dart';
 import '../../../../../Data/Enum/linkable_type_status.dart';
+import '../../../../../Data/Model/Campaign/campaignDonation.dart';
 import '../../../../../Data/data.dart';
 import '../../../../../UI/ScreenSheet/Other/Share/shareSheet.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -26,6 +27,14 @@ class MyCampaignDetailsController extends GetxController {
     );
   }
 
+  Future<List<CampaignDonationX>> getCampaignDonations(ScrollRefreshLoadMoreParametersX data) async {
+      return await DatabaseX.getAllCampaignDonations(
+        page: data.page,
+        perPage: data.perPage,
+        campaignId: campaign.id,
+      );
+  }
+  
   //============================================================================
   // Initialization
 

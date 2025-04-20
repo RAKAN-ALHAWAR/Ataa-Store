@@ -30,6 +30,7 @@ class HeaderSectionX extends GetView<AllSponsorshipsController> {
           TextX(
             controller.getDescription(),
             style: TextStyleX.supTitleLarge,
+            color: Theme.of(context).colorScheme.secondary,
             maxLines: 4,
           ).fadeAnimation200,
         ],

@@ -19,6 +19,7 @@ class IntroductionSectionX extends StatelessWidget {
         TextX(
           "Create your own campaign to support one of our projects, and share it with others to contribute to the advocacy.",
           style: TextStyleX.supTitleLarge,
+          color: Theme.of(context).colorScheme.secondary,
           maxLines: 4,
         ).fadeAnimation200,
       ],

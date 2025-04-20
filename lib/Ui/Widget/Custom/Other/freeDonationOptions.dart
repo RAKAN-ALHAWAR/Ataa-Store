@@ -24,44 +24,38 @@ class FreeDonationOptionsX extends StatelessWidget {
         ),
         Row(
           children: [
-            Flexible(
-              child: selected == 20
-                  ? ButtonX(
-                      onTap: () => onSelected(20),
-                      text: "20 ${"SAR".tr}",
-                    )
-                  : ButtonX.gray(
-                      onTap: () => onSelected(20),
-                      text: "20 ${"SAR".tr}",
-                      colorText: Theme.of(context).iconTheme.color,
-                    ),
-            ),
-            const SizedBox(width: 10),
-            Flexible(
-              child: selected == 50
-                  ? ButtonX(
-                      onTap: () => onSelected(50),
-                      text: "50 ${"SAR".tr}",
-                    )
-                  : ButtonX.gray(
-                      onTap: () => onSelected(50),
-                      text: "50 ${"SAR".tr}",
-                      colorText: Theme.of(context).iconTheme.color,
-                    ),
-            ),
-            const SizedBox(width: 10),
-            Flexible(
-              child: selected == 100
-                  ? ButtonX(
-                      onTap: () => onSelected(100),
-                      text: "100 ${"SAR".tr}",
-                    )
-                  : ButtonX.gray(
-                      onTap: () => onSelected(100),
-                      text: "100 ${"SAR".tr}",
-                      colorText: Theme.of(context).iconTheme.color,
-                    ),
-            ),
+            for (int x in [20, 50, 100])
+              Flexible(
+                child: Padding(
+                  padding: EdgeInsetsDirectional.only(end: x != 100 ? 10 : 0),
+                  child: selected == x
+                      ? ButtonX(
+                          onTap: () => onSelected(x),
+                          text: x.toString(),
+                          iconFirst: TranslationX.getLanguageCode == 'ar'
+                              ? false
+                              : true,
+                          icon: Icon(
+                            IconX.sar,
+                            color: Theme.of(context).colorScheme.secondary,
+                            size: 14,
+                          ),
+                        )
+                      : ButtonX.gray(
+                          onTap: () => onSelected(x),
+                          text: x.toString(),
+                          iconFirst: TranslationX.getLanguageCode == 'ar'
+                              ? false
+                              : true,
+                          icon: Icon(
+                            IconX.sar,
+                            color: Theme.of(context).colorScheme.secondary,
+                            size: 16,
+                          ),
+                          colorText: Theme.of(context).iconTheme.color,
+                        ),
+                ),
+              ),
           ],
         ),
       ],

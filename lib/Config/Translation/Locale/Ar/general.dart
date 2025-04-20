@@ -721,7 +721,7 @@ const Map<String, String> arGeneral = {
   "The money should be at least 1":"يجب أن يكون المبلغ 1 على الأقل",
   "Watch the video":"مشاهدة الفيديو",
   "You must choose the type of gift.":"يجب اختيار نوع الهدية.",
-  "Are you sure you want to delete all items from your cart?":"هل أنت متأكد أنك تريد حذف جميع العناصر من سلة الخاصة بك؟",
+  "Are you sure you want to delete all items from your cart?":"هل أنت متأكد أنك تريد حذف جميع العناصر من السلة الخاصة بك؟",
   "Delete All":"حذف الكل",
   "Mobile number and email cannot be modified at the same time":"لايمكن تعديل رقم الجوال والبريد الإلكتروني في نفس الوقت",
   "Unfortunately, there are no payment methods available now":"للأسف، لا توجد وسائل دفع متاحة حاليًا",
@@ -748,5 +748,6 @@ const Map<String, String> arGeneral = {
   "Number of registered users on the platform":"عدد المسجلين في المنصة",
   "Campaign Donations List":"قائمة تبرعات الحملة",
   "Save changes":"حفظ التعديلات",
+  "Donation time":"وقت التبرع",
   // "":"",
 };

@@ -58,14 +58,25 @@ class MyDeductionCardX extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 5),
-          TextX(
-            "${FunctionX.formatLargeNumber(myDeduction.price)} ${"SAR".tr} / ${myDeduction.deduction.recurringLocalized ?? myDeduction.deduction.recurring.name.tr}",
-            fontWeight: FontWeight.w600,
+          Row(
+            children: [
+              TextX(
+                FunctionX.formatLargeNumber(myDeduction.price),
+                fontWeight: FontWeight.w600,
+              ),
+              const SizedBox(width: 6),
+              const Icon(IconX.sar,size: 14),
+              TextX(
+                " / ${myDeduction.deduction.recurring.name.tr}",
+                fontWeight: FontWeight.w600,
+              ),
+            ],
           ),
           const SizedBox(height: 10),
           TextX(
             '${'Next discount in'.tr} ${intl.DateFormat('yyyy/MM/dd').format(myDeduction.nextSubscriptionDiscountDate)}',
             style: TextStyleX.supTitleLarge,
+            color: Theme.of(context).colorScheme.secondary,
           ),
           const SizedBox(height: 16),
           Row(

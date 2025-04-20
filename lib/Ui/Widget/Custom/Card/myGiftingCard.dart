@@ -20,22 +20,32 @@ class MyGiftCardX extends StatelessWidget {
           ).fadeAnimation100,
           ActivityDataRowX(
             title: "Gift amount",
-            data: "${FunctionX.formatLargeNumber(gift.price)} ${"SAR".tr}",
+            dataWidget: Row(
+              children: [
+                TextX(
+                  FunctionX.formatLargeNumber(gift.price),
+                  fontWeight: FontWeight.w700,
+                  maxLines: 1,
+                ),
+                const SizedBox(width: 6),
+                const Icon(IconX.sar, size: 15),
+              ],
+            ),
           ).fadeAnimation100,
           ActivityDataRowX(
             title: "Payment method",
             data: gift.paymentTransaction.paymentMethodLocalized ??
                 gift.paymentTransaction.paymentMethod.name,
           ).fadeAnimation200,
-          if(gift.paymentTransaction.createdAt!=null)
-          ActivityDataRowX(
-                  title: "Gift date",
-                  data: intl.DateFormat('dd/MM/yyyy')
-                      .format(gift.paymentTransaction.createdAt!),
-          )
-              .fadeAnimation200,
+          if (gift.paymentTransaction.createdAt != null)
+            ActivityDataRowX(
+              title: "Gift date",
+              data: intl.DateFormat('dd/MM/yyyy')
+                  .format(gift.paymentTransaction.createdAt!),
+            ).fadeAnimation200,
           InkWell(
-            onTap: () => Get.toNamed(RouteNameX.previewGift,arguments:gift.orderModel),
+            onTap: () =>
+                Get.toNamed(RouteNameX.previewGift, arguments: gift.orderModel),
             child: ActivityDataRowX(
               title: "Gift",
               dataWidget: Row(

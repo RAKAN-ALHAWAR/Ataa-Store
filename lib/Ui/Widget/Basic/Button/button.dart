@@ -15,6 +15,7 @@ class ButtonX extends StatelessWidget {
   final bool isMaxFinite;
   final double? height;
   final EdgeInsets padding;
+  final bool iconFirst;
   Color? borderColor;
   Color? colorButton;
   Color? colorText;
@@ -26,6 +27,7 @@ class ButtonX extends StatelessWidget {
     this.iconData,
     this.icon,
     this.width,
+    this.iconFirst=true,
     this.marginVertical = 4,
     this.halfWidth = false,
     this.isMaxFinite = true,
@@ -34,7 +36,8 @@ class ButtonX extends StatelessWidget {
     this.colorText = Colors.white,
     this.radius = StyleX.radius,
     this.padding = const EdgeInsets.symmetric(horizontal: 12),
-    super.key, this.height,
+    super.key,
+    this.height,
   }) {
     this.colorButton = colorButton ?? ColorX.primary;
   }
@@ -47,12 +50,14 @@ class ButtonX extends StatelessWidget {
     this.iconData,
     this.icon,
     this.width,
+    this.iconFirst=true,
     this.marginVertical = 5,
     this.halfWidth = false,
     this.marginHorizontal = 0,
     this.radius = StyleX.radius,
     this.padding = const EdgeInsets.symmetric(horizontal: 12),
-    super.key, this.height,
+    super.key,
+    this.height,
   }) {
     colorText = ColorX.primary;
     borderColor = ColorX.primary;
@@ -65,41 +70,45 @@ class ButtonX extends StatelessWidget {
     this.iconData,
     this.icon,
     this.width,
+    this.iconFirst = true,
     Color? colorText,
     this.marginVertical = 5,
     this.halfWidth = false,
     this.marginHorizontal = 0,
     this.radius = StyleX.radius,
     this.padding = const EdgeInsets.symmetric(horizontal: 12),
-    super.key, this.height,
+    super.key,
+    this.height,
   }) {
-    this.colorText =  colorText??Get.theme.colorScheme.secondary;
+    this.colorText = colorText ?? Get.theme.colorScheme.secondary;
     borderColor = ColorX.grey.shade300;
   }
 
-  ButtonX.dangerous(
-      {required this.onTap,
-      this.disabled = false,
-        this.isMaxFinite = true,
-      this.text,
-      this.iconData,
-        this.icon,
-      this.width,
-      this.halfWidth = false,
-      this.marginVertical = 5,
-      this.marginHorizontal = 0,
-        this.radius = StyleX.radius,
-        this.padding = const EdgeInsets.symmetric(horizontal: 12),
-      super.key, this.height,
-      }) {
+  ButtonX.dangerous({
+    required this.onTap,
+    this.disabled = false,
+    this.isMaxFinite = true,
+    this.text,
+    this.iconData,
+    this.icon,
+    this.width,
+    this.iconFirst = true,
+    this.halfWidth = false,
+    this.marginVertical = 5,
+    this.marginHorizontal = 0,
+    this.radius = StyleX.radius,
+    this.padding = const EdgeInsets.symmetric(horizontal: 12),
+    super.key,
+    this.height,
+  }) {
     colorText = ColorX.danger;
     borderColor = ColorX.danger;
   }
   @override
   Widget build(BuildContext context) {
-    if(borderColor==ColorX.primary && colorText==ColorX.primary){
-      colorText=Theme.of(context).primaryColor;
-      borderColor=Theme.of(context).primaryColor;
+    if (borderColor == ColorX.primary && colorText == ColorX.primary) {
+      colorText = Theme.of(context).primaryColor;
+      borderColor = Theme.of(context).primaryColor;
     }
     return GestureDetector(
       onTap: () {
@@ -108,8 +117,8 @@ class ButtonX extends StatelessWidget {
         }
       },
       child: Container(
-        height: height??StyleX.buttonHeight,
-        width: width ?? (isMaxFinite?double.maxFinite:null),
+        height: height ?? StyleX.buttonHeight,
+        width: width ?? (isMaxFinite ? double.maxFinite : null),
         padding: padding,
         margin: EdgeInsets.symmetric(
           vertical: marginVertical,
@@ -123,14 +132,29 @@ class ButtonX extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if(icon!=null)
-              icon!,
-            if(iconData != null && icon==null)
-           Icon(iconData, color: colorText,size: text != null?20:22,),
-            if((iconData != null || icon!=null) && text != null)
+            if(iconFirst)
+            if (icon != null) icon!
+            else if(iconData != null)
+              Icon(
+                iconData,
+                color: colorText,
+                size: text != null ? 20 : 22,
+              ),
+              if(!iconFirst)
+              if (text != null) TextX(text!, color: colorText),
+            if ((iconData != null || icon != null) && text != null)
               const SizedBox(width: 8),
-            if(text != null)
-            TextX(text!, color: colorText),
+            if (!iconFirst)
+              if (icon != null)
+                icon!
+              else if (iconData != null)
+                Icon(
+                  iconData,
+                  color: colorText,
+                  size: text != null ? 20 : 22,
+                ),
+            if (iconFirst)
+              if (text != null) TextX(text!, color: colorText),
           ],
         ),
       ),

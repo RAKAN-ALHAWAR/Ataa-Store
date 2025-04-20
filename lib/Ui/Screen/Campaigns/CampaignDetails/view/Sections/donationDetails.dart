@@ -32,14 +32,14 @@ class DonationDetailsSectionX extends GetView<CampaignDetailsController> {
                 children: [
                   TextX(
                     controller.campaign.title,
-                    color: Theme.of(context).primaryColor,
+                    color: ColorX.primary,
                     style: TextStyleX.headerSmall,
                   ),
                   const SizedBox(height: 8),
                   RichText(
                     text: TextSpan(
                       text:
-                      "${"This campaign was created by a user of the Ataa platform via".tr} ",
+                          "${"This campaign was created by a user of the Ataa platform via".tr} ",
                       style: TextStyleX.titleMedium.copyWith(
                         color: ColorX.primary,
                         fontWeight: FontWeight.w400,
@@ -83,22 +83,33 @@ class DonationDetailsSectionX extends GetView<CampaignDetailsController> {
             ).fadeAnimation400,
             const SizedBox(height: 6),
             HtmlWidget(
-              Get.isDarkMode
+               Get.isDarkMode
                   ? controller.campaign.donation.donationDetails.description
-                  .replaceAllMapped(
-                  RegExp(
-                      r'color:\s*(rgb\(0,\s*0,\s*0\)|#000000|black|rgb\(255,\s*255,\s*255\)|#ffffff|white)',
-                      caseSensitive: false), (match) {
-                const colorMap = {
-                  'rgb(0, 0, 0)': 'rgb(255, 255, 255)',
-                  '#000000': '#ffffff',
-                  'black': 'white',
-                  'rgb(255, 255, 255)': 'rgb(0, 0, 0)',
-                  '#ffffff': '#000000',
-                  'white': 'black',
-                };
-                return 'color: ${colorMap[match.group(1)?.toLowerCase()] ?? match.group(1)}';
-              })
+                      .replaceAllMapped(
+                      RegExp(
+                          r'color:\s*(rgb\((\d+),\s*(\d+),\s*(\d+)\)|#([0-9a-fA-F]{6})|black|white)',
+                          caseSensitive: false), (match) {
+                      if (match.group(1)?.startsWith('rgb(') ?? false) {
+                        final r = int.parse(match.group(2)!);
+                        final g = int.parse(match.group(3)!);
+                        final b = int.parse(match.group(4)!);
+                        if (r == g && g == b) {
+                          return 'color: rgb(255, 255, 255)';
+                        }
+                        return 'color: rgb(0, 0, 0)';
+                      }
+                      if (match.group(1)?.startsWith('#') ?? false) {
+                        final hex = match.group(5)!;
+                        if (hex[0] == hex[1] &&
+                            hex[2] == hex[3] &&
+                            hex[4] == hex[5]) {
+                          return 'color: #ffffff';
+                        }
+                        return 'color: #000000';
+                      }
+                      const colorMap = {'black': 'white', 'white': 'black'};
+                      return 'color: ${colorMap[match.group(1)?.toLowerCase()] ?? match.group(1)}';
+                    })
                   : controller.campaign.donation.donationDetails.description,
               textStyle: TextStyleX.titleSmall,
             ).fadeAnimation500,
@@ -111,41 +122,52 @@ class DonationDetailsSectionX extends GetView<CampaignDetailsController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                // if (controller.campaign.donation.donationSettings.isShowCompletionIndicator &&
-                //     controller.campaign.donation.donationSettings.isShowDonationsPercentage)
-                //   TextX(
-                //     "${"Collected".tr} ${controller.campaign.donation.donationBasic.completionRate % 1 == 0 ? controller.campaign.donation.donationBasic.completionRate.toInt().toString() : controller.campaign.donation.donationBasic.completionRate.toStringAsFixed(2)}%",
-                //     color: Theme.of(context).primaryColor,
-                //   ),
-                // if (controller
-                //     .campaign.donation.donationSettings.isShowCompletionIndicator &&
-                //     !controller.campaign.donation.donationSettings.isShowDonationsPercentage)
+                  // if (controller.campaign.donation.donationSettings.isShowCompletionIndicator &&
+                  //     controller.campaign.donation.donationSettings.isShowDonationsPercentage)
+                  //   TextX(
+                  //     "${"Collected".tr} ${controller.campaign.donation.donationBasic.completionRate % 1 == 0 ? controller.campaign.donation.donationBasic.completionRate.toInt().toString() : controller.campaign.donation.donationBasic.completionRate.toStringAsFixed(2)}%",
+                  //     color: Theme.of(context).primaryColor,
+                  //   ),
+                  // if (controller
+                  //     .campaign.donation.donationSettings.isShowCompletionIndicator &&
+                  //     !controller.campaign.donation.donationSettings.isShowDonationsPercentage)
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextX(
-                        "${"Collected".tr} ${FunctionX.formatLargeNumber(controller.campaign.currentDonations)} ${"SAR".tr}",
+                        "${"Collected".tr} ${FunctionX.formatLargeNumber(controller.campaign.currentDonations)}",
                         color: Theme.of(context).primaryColor,
                       ),
-                      const SizedBox(width: 8),
+                      const SizedBox(width: 5),
+                      Icon(
+                          IconX.sar,
+                          color: Theme.of(context).primaryColor,
+                          size: 14,
+                        ),
+                      const Spacer(),
                       TextX(
-                        "${"Remaining".tr} ${FunctionX.formatLargeNumber(controller.campaign.remainingDonations)} ${"SAR".tr}",
+                        "${"Remaining".tr} ${FunctionX.formatLargeNumber(controller.campaign.remainingDonations)}",
                         color: Theme.of(context).colorScheme.secondary,
+                      ),
+                      const SizedBox(width: 5),
+                      Icon(
+                        IconX.sar,
+                         color: Theme.of(context).colorScheme.secondary,
+                        size: 14,
                       ),
                     ],
                   ),
-                // if (controller.campaign.donation.donationSettings.isShowCompletionIndicator)
+                  // if (controller.campaign.donation.donationSettings.isShowCompletionIndicator)
                   const SizedBox(height: 10),
 
-                /// Completion Indicator Line
-                // if (controller.campaign.donation.donationSettings.isShowCompletionIndicator)
+                  /// Completion Indicator Line
+                  // if (controller.campaign.donation.donationSettings.isShowCompletionIndicator)
                   LinearProgressIndicator(
-                    value: controller.campaign.currentDonations /
-                        controller.campaign.totalDonations,
+                    value: controller.campaign.completionRate,
                     borderRadius: BorderRadius.circular(50),
                     minHeight: 10,
                   ),
-              ],),
+                ],
+              ),
             ).fadeAnimation550.marginOnly(bottom: 16),
 
             /// Statistics
@@ -156,26 +178,24 @@ class DonationDetailsSectionX extends GetView<CampaignDetailsController> {
                   child: StatisticCardX(
                     color: Theme.of(context).cardColor,
                     icon: Icons.payments_rounded,
-                    statistic:
-                    controller.campaign.currentDonations,
+                    statistic: controller.campaign.currentDonations,
                     subtitle: "Total amount of donations",
                     isMoney: true,
                   ),
                 ),
                 // if (controller.campaign.donation.donationSettings.isShowDonorsCount)
-                  const SizedBox(width: 8),
+                const SizedBox(width: 8),
                 // if (controller.campaign.donation.donationSettings.isShowDonorsCount)
 
                 /// Total Targets
-                  Flexible(
-                    child: StatisticCardX(
-                      color: Theme.of(context).cardColor,
-                      icon: Icons.favorite_rounded,
-                      statistic:
-                      controller.campaign.countDonations,
-                      subtitle: "Number of donations",
-                    ),
+                Flexible(
+                  child: StatisticCardX(
+                    color: Theme.of(context).cardColor,
+                    icon: Icons.favorite_rounded,
+                    statistic: controller.campaign.countDonations,
+                    subtitle: "Number of donations",
                   ),
+                ),
               ],
             ).fadeAnimation600
           ],

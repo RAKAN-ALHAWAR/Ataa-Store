@@ -4,6 +4,7 @@ class DonationCardX extends StatelessWidget {
   const DonationCardX({
     super.key,
     required this.donation,
+    this.campaign,
     this.isSmallCard = false,
     required this.onDonation,
     this.onTap,
@@ -12,6 +13,7 @@ class DonationCardX extends StatelessWidget {
   });
   final bool isSmallCard;
   final DonationX donation;
+  final CampaignX? campaign;
   final String? doneImageUrl;
   final Function()? onTap;
   final Function(DonationX donation) onDonation;
@@ -92,10 +94,20 @@ class DonationCardX extends StatelessWidget {
                               horizontal: 10,
                               vertical: 5,
                             ),
-                            child: TextX(
-                              "${"Value share is".tr} ${donation.donationShares?.price} ${"SAR".tr}",
-                              color: Colors.white,
-                              style: TextStyleX.supTitleMedium,
+                            child: Row(
+                              children: [
+                                TextX(
+                                  "${"Value share is".tr} ${donation.donationShares?.price}",
+                                  color: Colors.white,
+                                  style: TextStyleX.supTitleMedium,
+                                ),
+                                const SizedBox(width: 4),
+                                const Icon(
+                                  IconX.sar,
+                                  size: 12,
+                                  color: Colors.white,
+                                ),
+                              ],
                             ),
                           ),
                         ),
@@ -137,7 +149,7 @@ class DonationCardX extends StatelessWidget {
                       children: [
                         /// Donation Name
                         TextX(
-                          donation.donationBasic.name,
+                          campaign?.title??donation.donationBasic.name,
                           style: TextStyleX.titleMedium,
                           fontWeight: FontWeight.w700,
                           maxLines: 1,
@@ -156,16 +168,27 @@ class DonationCardX extends StatelessWidget {
                             !donation
                                 .donationSettings.isShowDonationsPercentage)
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               TextX(
-                                "${"Collected".tr} ${FunctionX.formatLargeNumber(donation.donationBasic.currentDonations)} ${"SAR".tr}",
+                                "${"Collected".tr} ${FunctionX.formatLargeNumber(donation.donationBasic.currentDonations)}",
                                 color: Theme.of(context).primaryColor,
                               ),
-                              const SizedBox(width: 8),
+                              const SizedBox(width: 5),
+                              Icon(
+                                IconX.sar,
+                                color: Theme.of(context).primaryColor,
+                                size: 14,
+                              ),
+                              const Spacer(),
                               TextX(
-                                "${"Remaining".tr} ${FunctionX.formatLargeNumber(donation.donationBasic.remainingDonations)} ${"SAR".tr}",
+                                "${"Remaining".tr} ${FunctionX.formatLargeNumber(donation.donationBasic.remainingDonations)}",
                                 color: Theme.of(context).colorScheme.secondary,
+                              ),
+                              const SizedBox(width: 5),
+                              Icon(
+                                IconX.sar,
+                                color: Theme.of(context).colorScheme.secondary,
+                                size: 14,
                               ),
                             ],
                           ),
@@ -197,7 +220,7 @@ class DonationCardX extends StatelessWidget {
                 left: 16,
                 right: 16,
                 child: AddToCartAndDonationButtonsX(
-                  disabled: donation.donationBasic.isDone,
+                  disabled: donation.donationBasic.isDone || campaign?.donationStatus==false,
                   onDonation: () async => await onDonation(donation),
                   onAddToCart: () async => await onAddToCart(donation),
                   payDonationButtonState: ButtonStateEX.normal,

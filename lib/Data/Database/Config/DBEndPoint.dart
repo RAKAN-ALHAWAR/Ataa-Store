@@ -156,6 +156,7 @@ class DBEndPointX {
   static final String getAllCampaigns = '${mainAPI}campaigns/all';
   static final String getCampaignsBySearch = '${mainAPI}campaigns/search';
   static final String getCampaignDetails = '${mainAPI}campaigns/{code}';
+  static final String getAllCampaignDonations = '${mainAPI}campaign/orders';
   static final String getCampaignDetailsById = '${mainAPI}campaigns/id/{id}';
   static final String getMyCampaigns = '${mainAPI}campaigns';
   static final String postCreateNewCampaign = '${mainAPI}campaigns';

@@ -18,9 +18,12 @@ class LabelInputX extends StatelessWidget {
         ),
         const SizedBox(width: 5),
         if(isRequired!=true && isOptional==true)
-          TextX("(${"optional".tr})",style: TextStyleX.supTitleLarge,),
+          TextX("(${"optional".tr})",style: TextStyleX.supTitleLarge,
+      color: Theme.of(context).colorScheme.secondary,),
         if(isRequired??false)
-          TextX("*",style: TextStyleX.supTitleLarge,),
+          TextX("*",style: TextStyleX.supTitleLarge,
+            color: Theme.of(context).colorScheme.secondary,
+          ),
       ],
     );
   }

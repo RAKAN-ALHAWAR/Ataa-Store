@@ -30,7 +30,7 @@ class EmptySectionX extends GetView<CartController> {
               ).fadeAnimation200,
             ),
             const SizedBox(height: 20),
-      
+
             /// Message
             TextX(
               "You don't have any items added to your cart",
@@ -39,10 +39,13 @@ class EmptySectionX extends GetView<CartController> {
               color: Theme.of(context).colorScheme.secondary,
             ).fadeAnimation300,
             const SizedBox(height: 15),
-      
+
             /// Button
             ButtonX(
-              onTap: Get.back,
+              onTap: () {
+                controller.root.goToHome();
+                Get.back();
+              },
               width: 200,
               text: "Back to Home",
             ).fadeAnimation300

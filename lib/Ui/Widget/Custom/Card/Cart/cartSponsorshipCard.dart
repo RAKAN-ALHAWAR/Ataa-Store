@@ -54,18 +54,28 @@ class CartSponsorshipCardX extends StatelessWidget {
                 ),
                 Container(
                   constraints: const BoxConstraints(maxWidth: 250),
-                  child: TextX(
-                    "${FunctionX.formatLargeNumber(sponsorship.donationAmount)} ${"SAR".tr}",
-                    style: TextStyleX.titleSmall,
-                    fontWeight: FontWeight.w700,
-                    color: Theme.of(context).colorScheme.secondary,
+                  child: Row(
+                    children: [
+                      TextX(
+                        FunctionX.formatLargeNumber(sponsorship.donationAmount),
+                        style: TextStyleX.titleSmall,
+                        fontWeight: FontWeight.w700,
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                      const SizedBox(width: 5),
+                      Icon(
+                        IconX.sar,
+                        size: 14,
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
           ),
           const SizedBox(
-            width: 20,
+            width: 20
           ),
           IconButton(
             onPressed: () async => onDelete(sponsorship),

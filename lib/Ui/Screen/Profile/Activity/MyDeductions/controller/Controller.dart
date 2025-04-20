@@ -6,9 +6,7 @@ import 'package:get/get.dart';
 
 import '../../../../../../Config/config.dart';
 import '../../../../../../Core/Controller/DeductionHistory/deductionHistoryController.dart';
-import '../../../../../../Data/Enum/model_type_status.dart';
 import '../../../../../../Data/Model/Deduction/Order/deductionOrder.dart';
-import '../../../../../../Data/Model/PaymentTransaction/paymentTransactionItem.dart';
 import '../../../../../../Data/data.dart';
 import '../../../../../Widget/Basic/Other/scrollRefreshLoadMore.dart';
 import '../../../../../Widget/widget.dart';

@@ -51,6 +51,7 @@ class ZakatCalculatorCardX extends StatelessWidget {
                           TextX(
                             'Calculating the value of Zakat',
                             style: TextStyleX.supTitleLarge,
+                              color: Theme.of(context).colorScheme.secondary,
                             size: 14,
                             fontWeight: FontWeight.w500,
                           ),

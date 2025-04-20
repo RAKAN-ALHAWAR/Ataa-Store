@@ -41,10 +41,17 @@ class NavBarSectionX extends GetView<ZakatCalculatorController> {
                       ),
                     ),
                     const SizedBox(width: 15),
-                    TextX(
-                      "${FunctionX.formatLargeNumber(controller.totalMoney.value)} ${"SAR".tr}",
-                      fontWeight: FontWeight.w700,
-                      style: TextStyleX.titleLarge,
+                    Row(
+                      children: [
+                        TextX(
+                          FunctionX.formatLargeNumber(
+                              controller.totalMoney.value),
+                          fontWeight: FontWeight.w700,
+                          style: TextStyleX.titleLarge,
+                        ),
+                        const SizedBox(width: 6),
+                        const Icon(IconX.sar, size: 16)
+                      ],
                     ),
                   ],
                 ).fadeAnimationX(400, isFromEnd: true),
@@ -65,6 +72,7 @@ class NavBarSectionX extends GetView<ZakatCalculatorController> {
                             TextX(
                               " (${"optional".tr})",
                               style: TextStyleX.supTitleLarge,
+                              color: Theme.of(context).colorScheme.secondary,
                             ),
                           ],
                         ),
@@ -86,32 +94,37 @@ class NavBarSectionX extends GetView<ZakatCalculatorController> {
                             color: Theme.of(context).cardColor,
                             errorMaxLines: 2,
                             validate: ValidateX.moneyOptional,
-                            onChangedFocus: (val) => controller.isFocusAdditionalAmount.value=val,
+                            onChangedFocus: (val) =>
+                                controller.isFocusAdditionalAmount.value = val,
                             onChanged: (_) =>
                                 controller.calculateAdditionalAmount(),
-                            suffixWidget: TextX(
-                              "SAR",
-                              style: TextStyleX.titleSmall,
-                              color: Get.theme.colorScheme.secondary,
+                            suffixWidget: Icon(
+                              IconX.sar,
+                              size: 16,
+                              color: Theme.of(context).colorScheme.secondary,
                             ),
                           ),
-                        )),
+                        ),),
                   ],
                 ).fadeAnimationX(400, isFromEnd: true),
                 const SizedBox(height: 8),
                 Obx(
-                      () => MultipleSelectionCardX(
+                  () => MultipleSelectionCardX(
                     title: controller.zakatSelectionController.optionSelected
-                        .value?.donationBasic.name ?? 'Choose a donation project',
+                            .value?.donationBasic.name ??
+                        'Choose a donation project',
                     onTap: controller.onTapZakatSelection,
-                     asInputField: controller.zakatSelectionController.optionSelected
-                         .value?.donationBasic.name==null,
+                    asInputField: controller.zakatSelectionController
+                            .optionSelected.value?.donationBasic.name ==
+                        null,
                   ),
                 ).fadeAnimationX(400, isFromEnd: true),
+
                 /// line
                 const SizedBox(height: 8),
                 const Divider().fadeAnimationX(400, isFromEnd: true),
                 const SizedBox(height: 6),
+
                 /// Total amount of zakat
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -127,10 +140,16 @@ class NavBarSectionX extends GetView<ZakatCalculatorController> {
                     const SizedBox(width: 15),
 
                     /// The value of Zakat is displayed after the value of gold is brought
-                    TextX(
-                      "${FunctionX.formatLargeNumber(controller.totalZakat.value)} ${"SAR".tr}",
-                      fontWeight: FontWeight.w700,
-                      style: TextStyleX.titleLarge,
+                    Row(
+                      children: [
+                        TextX(
+                          FunctionX.formatLargeNumber(controller.totalZakat.value),
+                          fontWeight: FontWeight.w700,
+                          style: TextStyleX.titleLarge,
+                        ),
+                        const SizedBox(width: 6),
+                        const Icon(IconX.sar,size: 17)
+                      ],
                     ),
                   ],
                 ).fadeAnimationX(400, isFromEnd: true),
@@ -143,7 +162,8 @@ class NavBarSectionX extends GetView<ZakatCalculatorController> {
                       child: ButtonStateX(
                         disabled: controller.totalZakat.value == 0,
                         state: controller.payButtonState.value,
-                        onTap: ()async=>await controller.onAddToCart(isPay:true),
+                        onTap: () async =>
+                            await controller.onAddToCart(isPay: true),
                         text: "Pay Zakat Now",
                         iconData: Icons.payments_rounded,
                       ),

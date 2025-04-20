@@ -25,12 +25,12 @@ class FlexList extends MultiChildRenderObjectWidget {
   /// [verticalSpacing] defines the spacing between row.
   const FlexList({
     super.key,
-    required List<Widget> children,
+    required super.children,
     this.horizontalSpacing = 10.0,
     this.verticalSpacing = 10.0,
     this.tryUniformWidth = false,
     this.textDirection,
-  }) : super(children: children);
+  });
 
   /// Defines spacing between items in same row
   final double horizontalSpacing;

@@ -50,6 +50,7 @@ class PaymentSuccessfulView extends GetView<PaymentSuccessfulController> {
                             'Your request has been received, and the bank transfer will be reviewed. You will be notified of the payment status.',
                             textAlign: TextAlign.center,
                             style: TextStyleX.supTitleMedium,
+                            color: Theme.of(context).colorScheme.secondary,
                             size: 14,
                           ).fadeAnimation300.marginOnly(top: 12),
                         if (controller
@@ -61,6 +62,7 @@ class PaymentSuccessfulView extends GetView<PaymentSuccessfulController> {
                             'Your request is under review by the payment gateway. We will notify you of any updates as soon as possible.',
                             textAlign: TextAlign.center,
                             style: TextStyleX.supTitleMedium,
+                            color: Theme.of(context).colorScheme.secondary,
                             size: 14,
                           ).fadeAnimation300.marginOnly(top: 12),
                           const DetailsSection(),

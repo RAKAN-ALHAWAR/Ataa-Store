@@ -30,6 +30,7 @@ class HeaderSectionX extends StatelessWidget {
           TextX(
             "All donation campaigns created by you",
             style: TextStyleX.supTitleLarge,
+            color: Theme.of(context).colorScheme.secondary,
             size: 14,
             maxLines: 4,
           ).fadeAnimation200,

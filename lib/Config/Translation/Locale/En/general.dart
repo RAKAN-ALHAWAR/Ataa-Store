@@ -775,5 +775,6 @@ const Map<String, String> enGeneral = {
   "Number of registered users on the platform":"Number of registered users on the platform",
   "Campaign Donations List":"Campaign Donations List",
   "Save changes":"Save changes",
+  "Donation time":"Donation time",
   // "":"",
 };

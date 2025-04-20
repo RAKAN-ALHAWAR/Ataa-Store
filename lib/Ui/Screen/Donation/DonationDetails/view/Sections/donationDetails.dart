@@ -33,16 +33,27 @@ class DonationDetailsSectionX extends GetView<DonationDetailsController> {
                     .donation.donationSettings.isShowCompletionIndicator &&
                 !controller.donation.donationSettings.isShowDonationsPercentage)
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextX(
-                    "${"Collected".tr} ${FunctionX.formatLargeNumber(controller.donation.donationBasic.currentDonations)} ${"SAR".tr}",
+                    "${"Collected".tr} ${FunctionX.formatLargeNumber(controller.donation.donationBasic.currentDonations)}",
                     color: Theme.of(context).primaryColor,
                   ),
-                  const SizedBox(width: 8),
+                  const SizedBox(width: 5),
+                  Icon(
+                    IconX.sar,
+                    color: Theme.of(context).primaryColor,
+                    size: 14,
+                  ),
+                  const Spacer(),
                   TextX(
-                    "${"Remaining".tr} ${FunctionX.formatLargeNumber(controller.donation.donationBasic.remainingDonations)} ${"SAR".tr}",
+                    "${"Remaining".tr} ${FunctionX.formatLargeNumber(controller.donation.donationBasic.remainingDonations)}",
                     color: Theme.of(context).colorScheme.secondary,
+                  ),
+                  const SizedBox(width: 5),
+                  Icon(
+                    IconX.sar,
+                    color: Theme.of(context).colorScheme.secondary,
+                    size: 14,
                   ),
                 ],
               ).fadeAnimation350,
@@ -65,23 +76,38 @@ class DonationDetailsSectionX extends GetView<DonationDetailsController> {
             ).fadeAnimation500,
             const SizedBox(height: 6),
             HtmlWidget(
-              Get.isDarkMode
-                  ? controller.donation.donationDetails.description
-                      .replaceAllMapped(
-                          RegExp(
-                              r'color:\s*(rgb\(0,\s*0,\s*0\)|#000000|black|rgb\(255,\s*255,\s*255\)|#ffffff|white)',
-                              caseSensitive: false), (match) {
-                      const colorMap = {
-                        'rgb(0, 0, 0)': 'rgb(255, 255, 255)',
-                        '#000000': '#ffffff',
-                        'black': 'white',
-                        'rgb(255, 255, 255)': 'rgb(0, 0, 0)',
-                        '#ffffff': '#000000',
-                        'white': 'black',
-                      };
-                      return 'color: ${colorMap[match.group(1)?.toLowerCase()] ?? match.group(1)}';
-                    })
-                  : controller.donation.donationDetails.description,
+               Get.isDarkMode
+                            ? controller.donation.donationDetails.description
+                                .replaceAllMapped(
+                                    RegExp(
+                                        r'color:\s*(rgb\((\d+),\s*(\d+),\s*(\d+)\)|#([0-9a-fA-F]{6})|black|white)',
+                                        caseSensitive: false), (match) {
+                                if (match.group(1)?.startsWith('rgb(') ??
+                                    false) {
+                                  final r = int.parse(match.group(2)!);
+                                  final g = int.parse(match.group(3)!);
+                                  final b = int.parse(match.group(4)!);
+                                  if (r == g && g == b) {
+                                    return 'color: rgb(255, 255, 255)';
+                                  }
+                                  return 'color: rgb(0, 0, 0)';
+                                }
+                                if (match.group(1)?.startsWith('#') ?? false) {
+                                  final hex = match.group(5)!;
+                                  if (hex[0] == hex[1] &&
+                                      hex[2] == hex[3] &&
+                                      hex[4] == hex[5]) {
+                                    return 'color: #ffffff';
+                                  }
+                                  return 'color: #000000';
+                                }
+                                const colorMap = {
+                                  'black': 'white',
+                                  'white': 'black'
+                                };
+                                return 'color: ${colorMap[match.group(1)?.toLowerCase()] ?? match.group(1)}';
+                              })
+                            : controller.donation.donationDetails.description,
               textStyle: TextStyleX.titleSmall,
             ).fadeAnimation500,
             const SizedBox(height: 16),

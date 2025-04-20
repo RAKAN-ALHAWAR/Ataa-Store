@@ -1,7 +1,6 @@
 import 'package:ataa/Ui/Animation/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 import '../../../../Config/config.dart';
 import '../../../../Core/core.dart';
 import '../../../../UI/Widget/widget.dart';
@@ -54,6 +53,7 @@ confirmCampaignCreationSheetX({
         TextX(
           title,
           style: TextStyleX.supTitleLarge,
+          color: Theme.of(Get.context!).colorScheme.secondary,
         ).fadeAnimation200,
 
         /// Line
@@ -68,6 +68,7 @@ confirmCampaignCreationSheetX({
         TextX(
           donationName,
           style: TextStyleX.supTitleLarge,
+          color: Theme.of(Get.context!).colorScheme.secondary,
         ).fadeAnimation200,
 
         /// Line
@@ -79,9 +80,20 @@ confirmCampaignCreationSheetX({
           fontWeight: FontWeight.w600,
         ).fadeAnimation300,
         const SizedBox(height: 8),
-        TextX(
-          "${FunctionX.formatLargeNumber(targetAmount)} ${"SAR".tr}",
-          style: TextStyleX.supTitleLarge,
+        Row(
+          children: [
+            TextX(
+              FunctionX.formatLargeNumber(targetAmount),
+              style: TextStyleX.supTitleLarge,
+              color: Theme.of(Get.context!).colorScheme.secondary,
+            ),
+            const SizedBox(width: 5),
+            Icon(
+              IconX.sar,
+              size: 14,
+              color: Theme.of(Get.context!).colorScheme.secondary,
+            ),
+          ],
         ).fadeAnimation300,
         const SizedBox(height: 16),
 

@@ -38,10 +38,10 @@ class OthersSectionX extends GetView<ZakatCalculatorController> {
                 validate: ValidateX.moneyOptional,
                 errorMaxLines: 2,
                 hint: "0",
-                suffixWidget: TextX(
-                  "SAR",
-                  style: TextStyleX.titleSmall,
-                  color: Get.theme.colorScheme.secondary,
+                suffixWidget: Icon(
+                  IconX.sar,
+                  size: 16,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
               ),
             ),

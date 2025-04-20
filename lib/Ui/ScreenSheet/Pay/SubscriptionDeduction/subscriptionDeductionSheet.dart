@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../Config/config.dart';
 import '../../../../Core/Controller/Pay/subscriptionDeductionController.dart';
-import '../../../../Core/core.dart';
 import '../../../../Data/Enum/recurring_status.dart';
 import '../../../../Data/Model/Deduction/deduction.dart';
 import '../../../Widget/widget.dart';
@@ -66,10 +65,19 @@ subscriptionDeductionSheetX(DeductionX deduction) {
                         const SizedBox(height: 6),
 
                         /// Fixed Deduction Amount
-                        TextX(
-                          "${controller.deduction.initialPrice.toString()} ${"SAR".tr}",
-                          style: TextStyleX.titleLarge,
-                          fontWeight: FontWeight.w600,
+                        Row(
+                          children: [
+                            TextX(
+                              controller.deduction.initialPrice.toString(),
+                              style: TextStyleX.titleLarge,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            const SizedBox(width: 6),
+                            const Icon(
+                              IconX.sar,
+                              size: 16,
+                            )
+                          ],
                         )
                       ],
                     ),
@@ -99,10 +107,10 @@ subscriptionDeductionSheetX(DeductionX deduction) {
                           textInputAction: TextInputAction.done,
                           hint: "0",
                           validate: controller.validateAmount,
-                          suffixWidget: TextX(
-                            "SAR",
-                            style: TextStyleX.titleSmall,
-                            color: Get.theme.colorScheme.secondary,
+                          suffixWidget: Icon(
+                            IconX.sar,
+                            size: 16,
+                            color: Theme.of(Get.context!).colorScheme.secondary,
                           ),
                         ),
                       ).fadeAnimation300,

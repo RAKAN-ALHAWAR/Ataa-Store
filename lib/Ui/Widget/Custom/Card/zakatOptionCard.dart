@@ -27,7 +27,8 @@ class OptionWithIconCardX extends StatelessWidget {
                   children: [
                     TextX(title,fontWeight: FontWeight.w700,),
                     const SizedBox(height: 6),
-                    TextX(subtitle,style: TextStyleX.supTitleMedium,maxLines: 2,),
+                    TextX(subtitle,style: TextStyleX.supTitleMedium,
+      color: Theme.of(context).colorScheme.secondary,maxLines: 2,),
                   ],
                 ),
               ),

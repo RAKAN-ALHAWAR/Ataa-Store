@@ -2,6 +2,7 @@ import 'package:ataa/Config/Translation/translation.dart';
 import 'package:ataa/Core/core.dart';
 import 'package:ataa/Data/Enum/campaign_status.dart';
 import 'package:ataa/UI/Animation/animation.dart';
+import 'package:ataa/Ui/Widget/Basic/Other/scrollRefreshLoadMore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
@@ -117,9 +118,19 @@ class MyCampaignDetailsView extends GetView<MyCampaignDetailsController> {
                       fontWeight: FontWeight.w400,
                     ),
                     const SizedBox(height: 8),
-                    TextX(
-                      "${FunctionX.formatLargeNumber(controller.campaign.totalDonations)} ${"SAR".tr}",
-                      fontWeight: FontWeight.w600,
+                    Row(
+                      children: [
+                        TextX(
+                          FunctionX.formatLargeNumber(
+                              controller.campaign.totalDonations),
+                          fontWeight: FontWeight.w600,
+                        ),
+                        const SizedBox(width: 5),
+                        const Icon(
+                          IconX.sar,
+                          size: 14,
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 16),
                     TextX(
@@ -152,16 +163,27 @@ class MyCampaignDetailsView extends GetView<MyCampaignDetailsController> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               TextX(
-                                "${"Collected".tr} ${FunctionX.formatLargeNumber(controller.campaign.currentDonations)} ${"SAR".tr}",
+                                "${"Collected".tr} ${FunctionX.formatLargeNumber(controller.campaign.currentDonations)}",
                                 color: Theme.of(context).primaryColor,
                               ),
-                              const SizedBox(width: 8),
+                              const SizedBox(width: 5),
+                              Icon(
+                                IconX.sar,
+                                color: Theme.of(context).primaryColor,
+                                size: 14,
+                              ),
+                              const Spacer(),
                               TextX(
-                                "${"Remaining".tr} ${FunctionX.formatLargeNumber(controller.campaign.remainingDonations)} ${"SAR".tr}",
+                                "${"Remaining".tr} ${FunctionX.formatLargeNumber(controller.campaign.remainingDonations)}",
                                 color: Theme.of(context).colorScheme.secondary,
+                              ),
+                              const SizedBox(width: 5),
+                              Icon(
+                                IconX.sar,
+                                color: Theme.of(context).colorScheme.secondary,
+                                size: 14,
                               ),
                             ],
                           ),
@@ -169,8 +191,7 @@ class MyCampaignDetailsView extends GetView<MyCampaignDetailsController> {
 
                           /// Completion Indicator Line
                           LinearProgressIndicator(
-                            value: controller.campaign.currentDonations /
-                                controller.campaign.totalDonations,
+                            value: controller.campaign.completionRate,
                             borderRadius: BorderRadius.circular(50),
                             minHeight: 10,
                           ),
@@ -189,8 +210,7 @@ class MyCampaignDetailsView extends GetView<MyCampaignDetailsController> {
                                 isMoney: true,
                                 icon: Icons.payments_rounded,
                                 color: Theme.of(context).cardColor,
-                                statistic:
-                                    controller.campaign.statistics.donationsSum,
+                                statistic: controller.campaign.totalDonations,
                                 subtitle: "Total Donation Amount",
                               ),
                             ),
@@ -199,8 +219,7 @@ class MyCampaignDetailsView extends GetView<MyCampaignDetailsController> {
                               child: StatisticCardX(
                                 icon: Icons.favorite_rounded,
                                 color: Theme.of(context).cardColor,
-                                statistic: controller
-                                    .campaign.statistics.donationsCount,
+                                statistic: controller.campaign.countDonations,
                                 subtitle: "Number of donations",
                               ),
                             ),
@@ -225,7 +244,8 @@ class MyCampaignDetailsView extends GetView<MyCampaignDetailsController> {
                                 color: Theme.of(context).cardColor,
                                 statistic: controller
                                     .campaign.statistics.registrations,
-                                subtitle: "Number of registered users on the platform",
+                                subtitle:
+                                    "Number of registered users on the platform",
                               ),
                             ),
                           ],
@@ -233,7 +253,8 @@ class MyCampaignDetailsView extends GetView<MyCampaignDetailsController> {
                       ],
                     ),
 
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 20),
+
                     /// Campaign Donations List
                     const TextX(
                       'Campaign Donations List',
@@ -241,6 +262,55 @@ class MyCampaignDetailsView extends GetView<MyCampaignDetailsController> {
                       fontWeight: FontWeight.w700,
                     ).fadeAnimation600,
                     const SizedBox(height: 12),
+                    ScrollRefreshLoadMoreX(
+                      isExpanded: false,
+                      emptyMessage: 'There are no current donations',
+                      fetchData: controller.getCampaignDonations,
+                      itemBuilder: (data, index) => ContainerX(
+                        margin: const EdgeInsets.only(bottom: 12),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                TextX(
+                                  'Donation amount',
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                  style: TextStyleX.titleSmall,
+                                ),
+                                const Spacer(),
+                                TextX(
+                                  FunctionX.formatLargeNumber(data.price),
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                const SizedBox(width: 5),
+                                const Icon(IconX.sar,size: 14)
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                TextX(
+                                  'Donation time',
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                  style: TextStyleX.titleSmall,
+                                ),
+                                const Spacer(),
+                                TextX(
+                                  intl.DateFormat('y/M/d | h:mm ').format(data.createdAt),
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                TextX(
+                                  intl.DateFormat('a',TranslationX.getLanguageCode).format(data.createdAt),
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
                   ],
                 ),
             ],

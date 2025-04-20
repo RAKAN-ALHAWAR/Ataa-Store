@@ -48,9 +48,9 @@ class QuickDonationView extends StatelessWidget {
                           textInputAction: TextInputAction.done,
                           hint: "0",
                           validate: controller.validateAmount,
-                          suffixWidget: TextX(
-                            "SAR",
-                            style: TextStyleX.titleSmall,
+                          suffixWidget: Icon(
+                            IconX.sar,
+                            size: 16,
                             color: Theme.of(context).colorScheme.secondary,
                           ),
                         ).fadeAnimation300,

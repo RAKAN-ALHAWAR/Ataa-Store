@@ -123,9 +123,9 @@ class _CartGiftCardXState extends State<CartGiftCardX> {
                                       });
                                     }
                                   },
-                                  suffixWidget: TextX(
-                                    "SAR",
-                                    style: TextStyleX.titleSmall,
+                                  suffixWidget: Icon(
+                                    IconX.sar,
+                                    size: 16,
                                     color: Theme.of(context).colorScheme.secondary,
                                   ),
                                 ),

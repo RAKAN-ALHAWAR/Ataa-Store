@@ -176,11 +176,11 @@ class _CartDonationCardXState extends State<CartDonationCardX> {
                                       overflow: null,
                                       maxLines: 1,
                                     ),
-                                    TextX(
-                                      ' ${"SAR".tr}',
-                                      style: TextStyleX.titleSmall,
-                                      maxLines: 1,
-                                    ),
+                                    const SizedBox(width: 5),
+                                    const Icon(
+                                      IconX.sar,
+                                      size: 14,
+                                    )
                                   ],
                                 ),
                               ],
@@ -233,9 +233,9 @@ class _CartDonationCardXState extends State<CartDonationCardX> {
                                       });
                                     }
                                   },
-                                  suffixWidget: TextX(
-                                    "SAR",
-                                    style: TextStyleX.titleSmall,
+                                  suffixWidget: Icon(
+                                    IconX.sar,
+                                    size: 16,
                                     color: Theme.of(context)
                                         .colorScheme
                                         .secondary,
@@ -298,7 +298,7 @@ class _CartDonationCardXState extends State<CartDonationCardX> {
                                 priceController.text = donationOrder
                                     .openPackages
                                     .firstWhere((x) => x.id == id)
-                                    .price
+                                    .price.toInt()
                                     .toString();
                                 isLoadingUpdate = true;
                               });
@@ -386,7 +386,7 @@ class _CartDonationCardXState extends State<CartDonationCardX> {
                                 priceController.text = donationOrder
                                     .donationDeductionPackages
                                     .firstWhere((x) => x.id == id)
-                                    .price
+                                    .price.toInt()
                                     .toString();
                                 isLoadingUpdate = true;
                               });

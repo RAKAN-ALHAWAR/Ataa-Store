@@ -70,9 +70,15 @@ class DetailsSection extends GetView<PaymentSuccessfulController> {
                     .colorScheme
                     .secondary,
               ),
-              TextX(
-                "${FunctionX.formatLargeNumber(controller.paymentTransaction.price??0)} ${"SAR".tr}",
-                fontWeight: FontWeight.w700,
+              Row(
+                children: [
+                  TextX(
+                    FunctionX.formatLargeNumber(controller.paymentTransaction.price??0),
+                    fontWeight: FontWeight.w700,
+                  ),
+                  const SizedBox(width: 6),
+                  const Icon(IconX.sar,size: 16),
+                ],
               ),
             ],
           ).paddingSymmetric(horizontal: 18,vertical: 8),

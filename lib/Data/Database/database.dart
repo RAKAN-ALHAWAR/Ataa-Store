@@ -8,9 +8,9 @@ class DatabaseX {
   static init() async {
     try {
       /// Here codes are added to configure anything within this section when the application starts
-      DBEndPointX.mainAPI= FirebaseRemoteConfigServiceX.getString('base_url','https://api-store.edialoguec.org.sa/api/v1/');
+      DBEndPointX.mainAPI = FirebaseRemoteConfigServiceX.getString(
+          'base_url', 'https://api-store.edialoguec.org.sa/api/v1/');
       // DBEndPointX.mainAPI= 'https://ataa-store-backend-staging.edialoguecenter.com/api/v1/';
-
     } catch (e) {
       return Future.error(e);
     }
@@ -249,7 +249,7 @@ class DatabaseX {
       ),
     );
     final Map<String, dynamic> elementMap = {
-      for (var item in (data.$1[NameX.data] ?? []) as List )
+      for (var item in (data.$1[NameX.data] ?? []) as List)
         item[NameX.name].toString(): item,
     };
     return HomeElementSettingsX.fromJson(elementMap);
@@ -911,8 +911,8 @@ class DatabaseX {
     int perPage = 20,
   }) async {
     Map<String, dynamic>? filterParams = {
-      if(isHome!=null)NameX.isShowHome: isHome.toIntNullableX,
-      if(isZakat!=null)NameX.isZakat: isZakat.toIntNullableX,
+      if (isHome != null) NameX.isShowHome: isHome.toIntNullableX,
+      if (isZakat != null) NameX.isZakat: isZakat.toIntNullableX,
       NameX.donationCategoryId: categoryID,
     };
     var data = await RemoteDataSourceX.get(
@@ -926,7 +926,8 @@ class DatabaseX {
         filterParams: filterParams,
       ),
     );
-    List<DonationX> result = ModelUtilX.generateItems(data.$1[NameX.data], DonationX.fromJson);
+    List<DonationX> result =
+        ModelUtilX.generateItems(data.$1[NameX.data], DonationX.fromJson);
     if (result.isEmpty && isZakat == true) {
       result = [await getDefaultZakat()];
     }
@@ -941,11 +942,16 @@ class DatabaseX {
     int page = 1,
     int perPage = 20,
   }) async {
-    if((searchQuery==null || searchQuery.isEmpty) && (sortType==null || sortType.isEmpty)){
-      return await getAllDonations(isZakat: isZakat,categoryID: categoryID,page: page,perPage: perPage);
-    }else{
+    if ((searchQuery == null || searchQuery.isEmpty) &&
+        (sortType == null || sortType.isEmpty)) {
+      return await getAllDonations(
+          isZakat: isZakat,
+          categoryID: categoryID,
+          page: page,
+          perPage: perPage);
+    } else {
       Map<String, dynamic>? filterParams = {
-        if(isZakat!=null)NameX.isZakat: isZakat.toIntNullableX,
+        if (isZakat != null) NameX.isZakat: isZakat.toIntNullableX,
         NameX.donationCategoryId: categoryID,
         NameX.sortType: sortType,
       };
@@ -963,7 +969,7 @@ class DatabaseX {
         ),
       );
       List<DonationX> result =
-      ModelUtilX.generateItems(data.$1[NameX.data], DonationX.fromJson);
+          ModelUtilX.generateItems(data.$1[NameX.data], DonationX.fromJson);
       if (result.isEmpty &&
           isZakat == true &&
           (searchQuery == null || searchQuery.isEmpty)) {
@@ -1096,6 +1102,24 @@ class DatabaseX {
       ),
     );
   }
+
+  static Future<List<CampaignDonationX>> getAllCampaignDonations({
+    required String campaignId,
+    int page = 1,
+    int perPage = 20,
+  }) async {
+    var data = await RemoteDataSourceX.get(
+      DBEndPointX.getAllCampaignDonations,
+      param: DataSourceParamX(
+        authToken: LocalDataX.token,
+        page: page,
+        limit: perPage,
+        filterParams: {NameX.campaignId: campaignId},
+      ),
+    );
+    return ModelUtilX.generateItems(data.$1[NameX.data], CampaignDonationX.fromJson);
+  }
+
   static Future<List<CampaignX>> getAllCampaigns({
     int page = 1,
     int perPage = 20,
@@ -1110,15 +1134,17 @@ class DatabaseX {
     );
     return ModelUtilX.generateItems(data.$1[NameX.data], CampaignX.fromJson);
   }
+
   static Future<List<CampaignX>> getCampaignsBySearch({
     String? sortType,
     String? searchQuery,
     int page = 1,
     int perPage = 20,
   }) async {
-    if((searchQuery==null || searchQuery.isEmpty) && (sortType==null || sortType.isEmpty)){
-      return await getAllCampaigns(page: page,perPage: perPage);
-    }else{
+    if ((searchQuery == null || searchQuery.isEmpty) &&
+        (sortType == null || sortType.isEmpty)) {
+      return await getAllCampaigns(page: page, perPage: perPage);
+    } else {
       Map<String, dynamic>? filterParams = {
         NameX.sortType: sortType,
       };
@@ -1136,6 +1162,7 @@ class DatabaseX {
       return ModelUtilX.generateItems(data.$1[NameX.data], CampaignX.fromJson);
     }
   }
+
   static Future<List<CampaignX>> getMyCampaigns({
     int page = 1,
     int perPage = 20,
@@ -1176,6 +1203,7 @@ class DatabaseX {
       DBEndPointX.putUpdateMyCampaign,
       param: DataSourceParamX(
         authToken: LocalDataX.token,
+        pathParams: {NameX.id: id},
         requestBody: form.toJson(),
       ),
     );
@@ -1292,14 +1320,15 @@ class DatabaseX {
         maxRetries: 3,
       ),
     );
-    String status = (data.$1??'').toString();
-    return PaymentStatusStatusX.values.firstWhereOrNull((x) => x.name==status);
+    String status = (data.$1 ?? '').toString();
+    return PaymentStatusStatusX.values
+        .firstWhereOrNull((x) => x.name == status);
   }
 
   //============================================================================
   // Cart
 
-  static Future assignCart(String cartId,String token) async {
+  static Future assignCart(String cartId, String token) async {
     try {
       return await RemoteDataSourceX.post(
         DBEndPointX.postAssignCart,
@@ -1338,7 +1367,7 @@ class DatabaseX {
         authToken: LocalDataX.token,
         localCacheKey: 'cart',
         localCacheMaxAge: const Duration(days: 1),
-        pathParams: {NameX.cartId: cartId??''},
+        pathParams: {NameX.cartId: cartId ?? ''},
       ),
     );
     return CartX.fromJson(
@@ -1362,7 +1391,7 @@ class DatabaseX {
             // NameX.cartId: cartId,
             NameX.modelType: modelType.name,
             NameX.modelId: modelId,
-            NameX.quantity:quantity,
+            NameX.quantity: quantity,
           },
         ),
       );
@@ -1422,7 +1451,8 @@ class DatabaseX {
         pathParams: {NameX.cartId: cartId},
       ),
     );
-    Map<String, dynamic> dataJson = data.$1 is Map?Map<String, dynamic>.from(data.$1):{};
+    Map<String, dynamic> dataJson =
+        data.$1 is Map ? Map<String, dynamic>.from(data.$1) : {};
     return MiniCartX.fromJson(dataJson);
   }
 
@@ -1566,8 +1596,8 @@ class DatabaseX {
     List<Map<String, dynamic>> allNotifications = [];
     for (var item in data.$1[NameX.data]) {
       if (item[NameX.notifications] != null) {
-
-        allNotifications.addAll(List<Map<String, dynamic>>.from(item[NameX.notifications]));
+        allNotifications
+            .addAll(List<Map<String, dynamic>>.from(item[NameX.notifications]));
       }
     }
     return ModelUtilX.generateItems(allNotifications, NotificationX.fromJson);
@@ -1594,14 +1624,15 @@ class DatabaseX {
   }
 
   static Future<MiniShareLinkX> createShareLink(
-      {required LinkableTypeStatusX linkableType,required String modelId}) async {
+      {required LinkableTypeStatusX linkableType,
+      required String modelId}) async {
     var data = await RemoteDataSourceX.post(
       DBEndPointX.postCreateShareLink,
       param: DataSourceParamX(
         authToken: LocalDataX.token,
         requestBody: {
-          NameX.linkableType:linkableType.name,
-          NameX.linkableId:modelId,
+          NameX.linkableType: linkableType.name,
+          NameX.linkableId: modelId,
         },
       ),
     );
@@ -1617,7 +1648,7 @@ class DatabaseX {
   // My Records
 
   static Future<List<PaymentTransactionItemX<T>>>
-  getAllMyRecords<T extends OrderX>({
+      getAllMyRecords<T extends OrderX>({
     ModelTypeStatusX? type,
     T Function(Map<String, dynamic>)? orderModelFromJson,
     bool isAllWithoutPaginated = false,
@@ -1631,7 +1662,7 @@ class DatabaseX {
           : DBEndPointX.getAllPaymentTransactionItemByModelTypeWithoutPaginated,
       param: DataSourceParamX(
         localCacheKey:
-        'all_my_records_by_model_type_${type?.name}_$isAllWithoutPaginated',
+            'all_my_records_by_model_type_${type?.name}_$isAllWithoutPaginated',
         localCacheMaxAge: const Duration(days: 3),
         authToken: LocalDataX.token,
         filterParams: {
@@ -1644,16 +1675,16 @@ class DatabaseX {
     );
     return ModelUtilX.generateItems<PaymentTransactionItemX<T>>(
       data.$1[NameX.data],
-          (Map<String, dynamic> json) =>
-      PaymentTransactionItemX<T>.fromJson(json, orderModelFromJson),
+      (Map<String, dynamic> json) =>
+          PaymentTransactionItemX<T>.fromJson(json, orderModelFromJson),
     );
   }
 
   static Future<List<PaymentTransactionX>>
-  getAllPaymentTransactions<T extends OrderX>({
+      getAllPaymentTransactions<T extends OrderX>({
     int page = 1,
     int perPage = 20,
-}) async {
+  }) async {
     var data = await RemoteDataSourceX.get(
       DBEndPointX.getAllPaymentTransactions,
       param: DataSourceParamX(
@@ -1664,13 +1695,11 @@ class DatabaseX {
     );
     return ModelUtilX.generateItems<PaymentTransactionX>(
       data.$1[NameX.data],
-          (Map<String, dynamic> json) =>
-          PaymentTransactionX.fromJson(json),
+      (Map<String, dynamic> json) => PaymentTransactionX.fromJson(json),
     );
   }
 
-  static Future<PaymentTransactionX>
-  getPaymentTransaction<T extends OrderX>({
+  static Future<PaymentTransactionX> getPaymentTransaction<T extends OrderX>({
     required String paymentTransactionId,
   }) async {
     var data = await RemoteDataSourceX.get(
@@ -1678,8 +1707,8 @@ class DatabaseX {
       param: DataSourceParamX(
         authToken: LocalDataX.token,
         pathParams: {
-        NameX.id: paymentTransactionId,
-      },
+          NameX.id: paymentTransactionId,
+        },
       ),
     );
     return PaymentTransactionX.fromJson(data.$1[NameX.data]);

@@ -87,7 +87,8 @@ class SponsorshipCardX extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextX("Course name", style: TextStyleX.supTitleMedium,),
+                TextX("Course name", style: TextStyleX.supTitleMedium,
+      color: Theme.of(context).colorScheme.secondary,),
                 const SizedBox(height: 6),
                 TextX(
                   sponsorship.courseName!,
@@ -108,7 +109,9 @@ class SponsorshipCardX extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TextX("Previous religion",
-                          style: TextStyleX.supTitleMedium),
+                          style: TextStyleX.supTitleMedium,
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
                       const SizedBox(height: 6),
                       TextX(
                         sponsorship.previousReligion!,
@@ -122,7 +125,9 @@ class SponsorshipCardX extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextX("Gender", style: TextStyleX.supTitleMedium),
+                    TextX("Gender", style: TextStyleX.supTitleMedium,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
                     const SizedBox(height: 6),
                     TextX(
                       sponsorship.gender,
@@ -136,7 +141,9 @@ class SponsorshipCardX extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextX("Language", style: TextStyleX.supTitleMedium),
+                    TextX("Language", style: TextStyleX.supTitleMedium,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
                     const SizedBox(height: 6),
                     TextX(
                       sponsorship.language,
@@ -157,14 +164,14 @@ class SponsorshipCardX extends StatelessWidget {
                 child: Row(
                   children: [
                     TextX(
-                      FunctionX.formatLargeNumber(sponsorship.donationAmount)
-                          .toString(),
+                      FunctionX.formatLargeNumber(sponsorship.donationAmount),
                       style: TextStyleX.titleLarge,
                       fontWeight: FontWeight.w700,
                     ),
                     const SizedBox(width: 6),
-                    const TextX(
-                      "SAR",
+                    const Icon(
+                      IconX.sar,
+                      size: 16,
                     ),
                   ],
                 ),

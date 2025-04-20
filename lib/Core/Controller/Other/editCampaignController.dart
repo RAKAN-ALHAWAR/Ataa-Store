@@ -41,7 +41,9 @@ class EditCampaignControllerX extends GetxController {
           Get.put(DonationSelectionControllerX(), tag: campaign.id);
     }
     title.text = campaign.title;
-    targetAmount.value = campaign.totalDonations;
+    if(app.generalSettings.campaignTargetAmounts.contains(campaign.totalDonations)) {
+      targetAmount.value =  campaign.totalDonations;
+    }
     donationSelectionController.donationSelected.value = campaign.donation;
   }
 

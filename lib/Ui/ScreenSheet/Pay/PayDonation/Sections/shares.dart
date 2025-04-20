@@ -60,10 +60,10 @@ class SharesSectionX extends StatelessWidget {
                 hint: "0",
                 onlyRead: !controller.donation.isCanEditAmount,
                 validate: controller.validateAmount,
-                suffixWidget: TextX(
-                  "SAR",
-                  style: TextStyleX.titleSmall,
-                  color: Get.theme.colorScheme.secondary,
+                suffixWidget: Icon(
+                  IconX.sar,
+                  size: 16,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
               ),
             ).fadeAnimation300,

@@ -162,7 +162,8 @@ class PayDonationControllerX extends GetxController {
 
             var data = await DatabaseX.createDonationOrder(
               form: DonationOrderFormX(
-                donationId: campaign?.id??donation.id,
+                donationId: donation.id,
+                campaignId: campaign?.id,
                 price: donationAmount.text.toIntX,
                 donationOpenPackageId: openPackageSelected.value?.id,
                 donationSharesPackageId: sharesPackageSelected.value?.id,

@@ -39,6 +39,7 @@ class NotificationCard extends StatelessWidget {
                 TextX(
                   notification.contentDonor!,
                   style: TextStyleX.supTitleLarge,
+                    color: Theme.of(context).colorScheme.secondary,
                   size: 13,
                 ),
                 const SizedBox(height: 7.0),

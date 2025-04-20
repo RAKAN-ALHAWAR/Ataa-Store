@@ -40,10 +40,20 @@ class TotalPricesSectionX extends GetView<CartController> {
                         color: Theme.of(context).colorScheme.secondary,
                       ),
                       const Spacer(),
-                      TextX(
-                        "${FunctionX.formatLargeNumber(controller.cartSummary.value)} ${"SAR".tr}",
-                        style: TextStyleX.titleSmall,
-                        color: Theme.of(context).colorScheme.secondary,
+                      Row(
+                        children: [
+                          TextX(
+                            FunctionX.formatLargeNumber(controller.cartSummary.value),
+                            style: TextStyleX.titleSmall,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                          const SizedBox(width: 6),
+                          Icon(
+                            IconX.sar,
+                            color: Theme.of(context).colorScheme.secondary,
+                            size: 16,
+                          ),
+                        ],
                       ),
                     ],
                   ).fadeAnimation500,
@@ -65,10 +75,20 @@ class TotalPricesSectionX extends GetView<CartController> {
                           color: Theme.of(context).colorScheme.secondary,
                         ),
                         const Spacer(),
-                        TextX(
-                          "${FunctionX.formatLargeNumber(controller.shippingCharges.value)} ${"SAR".tr}",
-                          style: TextStyleX.titleSmall,
-                          color: Theme.of(context).colorScheme.secondary,
+                        Row(
+                          children: [
+                            TextX(
+                              FunctionX.formatLargeNumber(controller.shippingCharges.value),
+                              style: TextStyleX.titleSmall,
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
+                            const SizedBox(width: 6),
+                            Icon(
+                              IconX.sar,
+                              color: Theme.of(context).colorScheme.secondary,
+                              size: 16,
+                            ),
+                          ],
                         ),
                       ],
                     ).fadeAnimation600,
@@ -92,10 +112,19 @@ class TotalPricesSectionX extends GetView<CartController> {
                     fontWeight: FontWeight.w700,
                   ),
                   const Spacer(),
-                  TextX(
-                    "${FunctionX.formatLargeNumber(controller.cartSummary.value + controller.shippingCharges.value)} ${"SAR".tr}",
-                    size: 16,
-                    fontWeight: FontWeight.w700,
+                  Row(
+                    children: [
+                      TextX(
+                        FunctionX.formatLargeNumber(controller.cartSummary.value + controller.shippingCharges.value),
+                        size: 16,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      const SizedBox(width: 6),
+                      const Icon(
+                        IconX.sar,
+                        size: 18,
+                      ),
+                    ],
                   ),
                 ],
               ).fadeAnimation600,

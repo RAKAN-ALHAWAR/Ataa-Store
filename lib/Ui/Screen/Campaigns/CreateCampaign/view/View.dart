@@ -159,8 +159,19 @@ class CreateCampaignView extends GetView<CreateCampaignController> {
                       onChanged: (val) {
                         controller.targetAmount.value = val;
                       },
-                      valueShow: (val) =>
-                          "${FunctionX.formatLargeNumber(val)} ${"SAR".tr}",
+                      valueWidget: (val) => Row(
+                        children: [
+                        TextX(
+                            FunctionX.formatLargeNumber(val),
+                            style: TextStyleX.titleSmall,
+                          ),
+                          const SizedBox(width: 6),
+                           Icon(
+                            IconX.sar,
+                            color: Theme.of(context).colorScheme.secondary,
+                            size: 14,
+                          ),
+                      ],),
                     ).fadeAnimation400,
 
                     const SizedBox(height: 10),

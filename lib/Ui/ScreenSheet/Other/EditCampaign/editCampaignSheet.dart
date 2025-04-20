@@ -16,8 +16,9 @@ editCampaignSheet(CampaignX campaign) {
   final EditCampaignControllerX controller = Get.put(
     EditCampaignControllerX(),
     tag: campaign.id,
-  )..campaign = campaign
-   ..init();
+  )
+    ..campaign = campaign
+    ..init();
 
   //============================================================================
   // Content
@@ -60,8 +61,8 @@ editCampaignSheet(CampaignX campaign) {
                     .donationSelected.value?.donationBasic.name,
               ).fadeAnimation300,
 
-              if (controller.donationSelectionController.donationSelected
-                  .value !=
+              if (controller
+                      .donationSelectionController.donationSelected.value !=
                   null)
                 InkWell(
                   onTap: () => Get.toNamed(
@@ -78,11 +79,11 @@ editCampaignSheet(CampaignX campaign) {
                       children: [
                         ImageNetworkX(
                           imageUrl: controller
-                              .donationSelectionController
-                              .donationSelected
-                              .value!
-                              .donationDetails
-                              .imageUrl ??
+                                  .donationSelectionController
+                                  .donationSelected
+                                  .value!
+                                  .donationDetails
+                                  .imageUrl ??
                               '',
                           width: 90,
                           height: 90,
@@ -92,8 +93,7 @@ editCampaignSheet(CampaignX campaign) {
                             height: 90,
                             padding: const EdgeInsets.all(12.0),
                             child: Column(
-                              crossAxisAlignment:
-                              CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 TextX(
                                   controller
@@ -118,19 +118,18 @@ editCampaignSheet(CampaignX campaign) {
                                     Flexible(
                                       child: LinearProgressIndicator(
                                         value: controller
-                                            .donationSelectionController
-                                            .donationSelected
-                                            .value!
-                                            .donationBasic
-                                            .currentDonations /
+                                                .donationSelectionController
+                                                .donationSelected
+                                                .value!
+                                                .donationBasic
+                                                .currentDonations /
                                             controller
                                                 .donationSelectionController
                                                 .donationSelected
                                                 .value!
                                                 .donationBasic
                                                 .totalDonations,
-                                        borderRadius:
-                                        BorderRadius.circular(50),
+                                        borderRadius: BorderRadius.circular(50),
                                         minHeight: 10,
                                       ),
                                     ),
@@ -153,13 +152,24 @@ editCampaignSheet(CampaignX campaign) {
                 title: 'Target amount',
                 hint: "-- Choose target amount --",
                 value: controller.targetAmount.value,
-                list:
-                controller.app.generalSettings.campaignTargetAmounts,
+                list: controller.app.generalSettings.campaignTargetAmounts,
                 onChanged: (val) {
                   controller.targetAmount.value = val;
                 },
-                valueShow: (val) =>
-                "${FunctionX.formatLargeNumber(val)} ${"SAR".tr}",
+                valueWidget: (val) => Row(
+                  children: [
+                    TextX(
+                      FunctionX.formatLargeNumber(val),
+                      style: TextStyleX.titleSmall,
+                    ),
+                    const SizedBox(width: 6),
+                    Icon(
+                      IconX.sar,
+                      color: Theme.of(Get.context!).colorScheme.secondary,
+                      size: 14,
+                    ),
+                  ],
+                ),
               ).fadeAnimation400,
 
               const SizedBox(

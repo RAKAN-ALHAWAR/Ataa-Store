@@ -21,8 +21,15 @@ class MyDonationCardX extends StatelessWidget {
           ).fadeAnimation100,
           ActivityDataRowX(
             title: "Donation amount",
-            data:
-                "${FunctionX.formatLargeNumber(myDonation.price)} ${"SAR".tr}",
+            dataWidget: Row(children: [
+              TextX(
+                FunctionX.formatLargeNumber(myDonation.price),
+                fontWeight: FontWeight.w700,
+                maxLines: 1,
+              ),
+              const SizedBox(width: 6),
+              const Icon(IconX.sar,size: 15),
+            ],),
           ).fadeAnimation200,
           ActivityDataRowX(
             title: "Payment method",

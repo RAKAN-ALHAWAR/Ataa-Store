@@ -50,7 +50,15 @@ class ShareLinkCardX extends StatelessWidget {
           ).fadeAnimation300,
           ActivityDataRowX(
             title: "Total donations",
-            data:"${FunctionX.formatLargeNumber(shareLink.donationsSum)} ${"SAR".tr}",
+            dataWidget: Row(children: [
+              TextX(
+                FunctionX.formatLargeNumber(shareLink.donationsSum),
+                fontWeight: FontWeight.w700,
+                maxLines: 1,
+              ),
+              const SizedBox(width: 6),
+              const Icon(IconX.sar,size: 15),
+            ],),
           ).fadeAnimation300,
         ],
       ),

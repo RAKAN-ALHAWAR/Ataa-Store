@@ -85,13 +85,12 @@ class ProductCardX extends StatelessWidget {
                                 style: TextStyleX.titleMedium,
                                 fontWeight: FontWeight.w600,
                               ),
-                              const SizedBox(width: 4),
+                              const SizedBox(width: 5),
 
                               /// Price Currency
-                              TextX(
-                                "SAR",
-                                style: TextStyleX.titleSmall,
-                                fontWeight: FontWeight.w400,
+                              const Icon(
+                                IconX.sar,
+                                size: 14,
                               ),
                               const Spacer(),
 

@@ -17,7 +17,7 @@ shareSheet({required String id,required int code,required LinkableTypeStatusX ty
   //============================================================================
   // Injection of required controls
 
-  final ShaeControllerX controller = Get.put(ShaeControllerX());
+  final ShareControllerX controller = Get.put(ShareControllerX());
   controller.id=id;
   controller.code=code;
   controller.type=type;

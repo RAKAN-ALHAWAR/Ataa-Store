@@ -73,8 +73,9 @@ class AllCampaignsView extends GetView<AllCampaignsController> {
                     itemBuilder: (data, index) {
                       return DonationCardX(
                         donation: data.donation,
+                        campaign:data,
                         doneImageUrl: controller.app.generalSettings.projectCompletionImageUrl,
-                        onAddToCart: controller.onAddToCart,
+                        onAddToCart: (_) async => controller.onAddToCart(data),
                         onTap: ()async=>controller.onTapCampaign(data),
                         onDonation: (_)async=>controller.onCampaignDonation(data),
                       ).fadeAnimation300;

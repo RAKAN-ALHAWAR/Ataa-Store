@@ -59,10 +59,16 @@ productAddToCartSheetX(ProductX product) async {
                   const SizedBox(width: 10),
 
                   /// Price
-                  TextX(
-                    "${controller.product.price} ${"SAR".tr}",
-                    color: Get.theme.primaryColor,
-                    fontWeight: FontWeight.w700,
+                  Row(
+                    children: [
+                      TextX(
+                        "${controller.product.price}",
+                        color: Get.theme.primaryColor,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      const SizedBox(width: 6),
+                      Icon(IconX.sar,size: 16,color: ColorX.primary,),
+                    ],
                   ),
                 ],
               ).fadeAnimation200,

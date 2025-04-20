@@ -48,7 +48,7 @@ class ModelUtilX {
       if (!containsKey(json, key)) {
         throw ErrorX.createErrorByCode(
           ErrorCodesX.missingRequiredKeysInJson,
-          details: {"Missing key": key},
+          details: {"Missing key": key,"Json":json},
         );
       }
     }

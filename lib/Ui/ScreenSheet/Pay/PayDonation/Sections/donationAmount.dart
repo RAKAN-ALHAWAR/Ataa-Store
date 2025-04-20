@@ -1,10 +1,7 @@
 import 'package:ataa/UI/Animation/animation.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
 import '../../../../../Config/config.dart';
 import '../../../../../Core/Controller/Pay/payDonationController.dart';
-import '../../../../../Core/core.dart';
 import '../../../../../UI/Widget/widget.dart';
 
 class DonationAmountSectionX extends StatelessWidget {
@@ -25,10 +22,10 @@ class DonationAmountSectionX extends StatelessWidget {
           hint: "0",
           onlyRead: !controller.donation.isCanEditAmount,
           validate: controller.validateAmount,
-          suffixWidget: TextX(
-            "SAR",
-            style: TextStyleX.titleSmall,
-            color: Get.theme.colorScheme.secondary,
+          suffixWidget: Icon(
+            IconX.sar,
+            size: 16,
+            color: Theme.of(context).colorScheme.secondary,
           ),
         ),
       ).fadeAnimation300;

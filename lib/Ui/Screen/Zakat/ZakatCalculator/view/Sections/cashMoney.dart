@@ -35,10 +35,10 @@ class CashMoneySectionX extends GetView<ZakatCalculatorController> {
                 color: Theme.of(context).cardColor,
                 errorMaxLines: 2,
                 hint: "0",
-                suffixWidget: TextX(
-                  "SAR",
-                  style: TextStyleX.titleSmall,
-                  color: Get.theme.colorScheme.secondary,
+                suffixWidget: Icon(
+                  IconX.sar,
+                  size: 16,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
               ),
             ),

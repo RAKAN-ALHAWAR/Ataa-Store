@@ -70,6 +70,7 @@ class AllOrganizationsView extends GetView<AllOrganizationsController> {
                                   TextX(
                                     HtmlX.convertToPlainText(data.description),
                                     style: TextStyleX.supTitleMedium,
+      color: Theme.of(context).colorScheme.secondary,
                                     maxLines: 2,
                                   ),
                                 ],

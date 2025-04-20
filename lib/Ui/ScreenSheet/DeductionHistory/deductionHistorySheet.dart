@@ -32,12 +32,11 @@ deductionHistorySheetX({required DeductionHistoryControllerX controller}) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             MessageCardX(
-              message: controller
-                  .myDeduction.deduction.recurring.name ==
-                  RecurringStatusX.monthly.name
-                  ? 'The amount will be automatically deducted on the first day of every calendar month.'.tr
-                  : '${'The amount is automatically deducted every'.tr} ${(controller
-                  .myDeduction.deduction.recurring.name == RecurringStatusX.daily.name) ? '' : '${controller.myDeduction.deduction.day?.tr ?? controller.myDeduction.deduction.dayLocalized} ${'of each week.'.tr}'}',
+              message: controller.myDeduction.deduction.recurring.name ==
+                      RecurringStatusX.monthly.name
+                  ? 'The amount will be automatically deducted on the first day of every calendar month.'
+                      .tr
+                  : '${'The amount is automatically deducted every'.tr} ${(controller.myDeduction.deduction.recurring.name == RecurringStatusX.daily.name) ? '' : '${controller.myDeduction.deduction.day?.tr ?? controller.myDeduction.deduction.dayLocalized} ${'of each week.'.tr}'}',
             ).fadeAnimation200,
             const SizedBox(height: 20),
             TextX(
@@ -56,10 +55,10 @@ deductionHistorySheetX({required DeductionHistoryControllerX controller}) {
                 ),
                 TextX(
                   intl.DateFormat('yyyy/MM/dd').format(
-                    controller
-                        .myDeduction.nextSubscriptionDiscountDate,
+                    controller.myDeduction.nextSubscriptionDiscountDate,
                   ),
                   style: TextStyleX.supTitleLarge,
+                  color: Theme.of(Get.context!).colorScheme.secondary,
                   size: 14,
                 ),
               ],
@@ -77,6 +76,7 @@ deductionHistorySheetX({required DeductionHistoryControllerX controller}) {
                           : 'Disabled'
                       : 'Expired',
                   style: TextStyleX.supTitleLarge,
+                  color: Theme.of(Get.context!).colorScheme.secondary,
                   size: 14,
                 ),
               ],
@@ -88,8 +88,20 @@ deductionHistorySheetX({required DeductionHistoryControllerX controller}) {
                   child: TextX('${'The Amount'.tr}:'),
                 ),
                 TextX(
-                  "${FunctionX.formatLargeNumber(controller.myDeduction.price)} ${"SAR".tr} / ${controller.myDeduction.deduction.recurringLocalized ?? controller.myDeduction.deduction.recurring.name.tr}",
+                  '${FunctionX.formatLargeNumber(controller.myDeduction.price)} ',
                   style: TextStyleX.supTitleLarge,
+                  color: Theme.of(Get.context!).colorScheme.secondary,
+                  size: 14,
+                ),
+                Icon(
+                  IconX.sar,
+                  size: 13,
+                  color: Theme.of(Get.context!).colorScheme.secondary,
+                ),
+                TextX(
+                  " / ${controller.myDeduction.deduction.recurring.name.tr}",
+                  style: TextStyleX.supTitleLarge,
+                  color: Theme.of(Get.context!).colorScheme.secondary,
                   size: 14,
                 ),
               ],
@@ -117,10 +129,8 @@ deductionHistorySheetX({required DeductionHistoryControllerX controller}) {
                               Row(
                                 children: [
                                   ImageNetworkX(
-                                    imageUrl: data
-                                            .paymentTransaction
-                                            .paymentTransactionCard
-                                            ?.iconUrl ??
+                                    imageUrl: data.paymentTransaction
+                                            .paymentTransactionCard?.iconUrl ??
                                         '',
                                     height: 26,
                                     width: 26,
@@ -147,16 +157,26 @@ deductionHistorySheetX({required DeductionHistoryControllerX controller}) {
                                 radius: StyleX.radiusSm,
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 12, vertical: 4),
-                                color: data.paymentTransaction.status == PaymentStatusStatusX.paid
-                                    ? ColorX.green.shade100: data.paymentTransaction.status == PaymentStatusStatusX.failed ||data.paymentTransaction.status == PaymentStatusStatusX.voided?
-                                ColorX.red.shade100
-                                    : Theme.of(Get.context!).dividerColor,
+                                color: data.paymentTransaction.status ==
+                                        PaymentStatusStatusX.paid
+                                    ? ColorX.green.shade100
+                                    : data.paymentTransaction.status ==
+                                                PaymentStatusStatusX.failed ||
+                                            data.paymentTransaction.status ==
+                                                PaymentStatusStatusX.voided
+                                        ? ColorX.red.shade100
+                                        : Theme.of(Get.context!).dividerColor,
                                 child: TextX(
                                   "${data.paymentTransaction.status.name[0].toUpperCase()}${data.paymentTransaction.status.name.substring(1).toLowerCase()}",
-                                  color: data.paymentTransaction.status == PaymentStatusStatusX.paid
-                                          ? ColorX.green.shade800: data.paymentTransaction.status == PaymentStatusStatusX.failed ||data.paymentTransaction.status == PaymentStatusStatusX.voided?
-                                         ColorX.red.shade800
-                                           : null,
+                                  color: data.paymentTransaction.status ==
+                                          PaymentStatusStatusX.paid
+                                      ? ColorX.green.shade800
+                                      : data.paymentTransaction.status ==
+                                                  PaymentStatusStatusX.failed ||
+                                              data.paymentTransaction.status ==
+                                                  PaymentStatusStatusX.voided
+                                          ? ColorX.red.shade800
+                                          : null,
                                 ),
                               ),
                             ],
@@ -170,10 +190,19 @@ deductionHistorySheetX({required DeductionHistoryControllerX controller}) {
                                   TextX(
                                     'The Amount',
                                     style: TextStyleX.supTitleMedium,
+                                    color: Theme.of(Get.context!)
+                                        .colorScheme
+                                        .secondary,
                                   ),
                                   const SizedBox(height: 6),
-                                  TextX(
-                                    '${FunctionX.formatLargeNumber(data.price)} ${"SAR".tr}',
+                                  Row(
+                                    children: [
+                                      TextX(
+                                        FunctionX.formatLargeNumber(data.price),
+                                      ),
+                                      const SizedBox(width: 5),
+                                      const Icon(IconX.sar, size: 13),
+                                    ],
                                   ),
                                 ],
                               ),
@@ -184,12 +213,15 @@ deductionHistorySheetX({required DeductionHistoryControllerX controller}) {
                                   TextX(
                                     'Payment date',
                                     style: TextStyleX.supTitleMedium,
+                                    color: Theme.of(Get.context!)
+                                        .colorScheme
+                                        .secondary,
                                   ),
                                   const SizedBox(height: 6),
-                                  if(data.paymentTransaction.createdAt!=null)
-                                  TextX(
-                                    '${intl.DateFormat('yyyy/MM/dd').format(data.paymentTransaction.createdAt!)} | ${intl.DateFormat('hh:mm ').format(data.paymentTransaction.createdAt!)}${intl.DateFormat('a').format(data.paymentTransaction.createdAt!).tr}',
-                                  ),
+                                  if (data.paymentTransaction.createdAt != null)
+                                    TextX(
+                                      '${intl.DateFormat('yyyy/MM/dd').format(data.paymentTransaction.createdAt!)} | ${intl.DateFormat('hh:mm ').format(data.paymentTransaction.createdAt!)}${intl.DateFormat('a').format(data.paymentTransaction.createdAt!).tr}',
+                                    ),
                                 ],
                               ),
                             ],

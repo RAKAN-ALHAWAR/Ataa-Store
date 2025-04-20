@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../../Config/config.dart';
 import '../../../../../../UI/Widget/widget.dart';
-import '../../../../../ScreenSheet/Other/Share/shareSheet.dart';
 import '../../controller/Controller.dart';
 
 class HeaderSectionX extends GetView<CampaignDetailsController> {

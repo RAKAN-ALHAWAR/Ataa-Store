@@ -44,10 +44,10 @@ directZakatPaymentSheetX() {
                   textInputAction: TextInputAction.done,
                   hint: "0",
                   validate: ValidateX.money,
-                  suffixWidget: TextX(
-                    "SAR",
-                    style: TextStyleX.titleSmall,
-                    color: Get.theme.colorScheme.secondary,
+                  suffixWidget: Icon(
+                    IconX.sar,
+                    size: 16,
+                    color: Theme.of(Get.context!).colorScheme.secondary,
                   ),
                 ),
               ).fadeAnimation300,

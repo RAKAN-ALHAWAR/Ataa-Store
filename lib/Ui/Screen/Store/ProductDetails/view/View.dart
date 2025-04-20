@@ -143,15 +143,15 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                               children: [
                                 TextX(
                                   FunctionX.formatLargeNumber(
-                                      controller.product.price),
+                                    controller.product.price,
+                                  ),
                                   style: TextStyleX.titleLarge,
                                   fontWeight: FontWeight.w700,
                                 ),
-                                const SizedBox(width: 4),
-                                TextX(
-                                  "SAR",
-                                  style: TextStyleX.titleSmall,
-                                  fontWeight: FontWeight.w500,
+                                const SizedBox(width: 6),
+                                const Icon(
+                                  IconX.sar,
+                                  size: 16,
                                 ),
                               ],
                             ).fadeAnimation400,

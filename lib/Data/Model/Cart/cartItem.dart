@@ -31,11 +31,11 @@ class CartItemX {
 
     late OrderX order;
     ModelTypeStatusX type = ModelTypeStatusX.values.firstWhere((x) => x.name==json[NameX.type].toString());
-    if(type == ModelTypeStatusX.donation){
+    if(type == ModelTypeStatusX.donation || type == ModelTypeStatusX.campaign){
       order = DonationOrderX.fromJson(orderJson);
     }else if(type == ModelTypeStatusX.gift){
       order = GiftOrderX.fromJson(orderJson);
-    }else if(type == ModelTypeStatusX.deduction){
+    } else if (type == ModelTypeStatusX.deduction) {
       order = DeductionOrderX.fromJson(orderJson);
     }
 

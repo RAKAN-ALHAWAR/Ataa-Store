@@ -39,4 +39,6 @@ class IconX {
   static const IconData x = IconData(0xe81a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData sparkles = IconData(0xe81c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData payTransfer = IconData(0xe81d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData sar = IconData(0xe83b, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+
 }

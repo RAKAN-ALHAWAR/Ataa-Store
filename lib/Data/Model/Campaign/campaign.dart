@@ -66,7 +66,7 @@ class CampaignX {
         link: linkJson.toFromJsonNullableX(MiniShareLinkX.fromJson),
         statistics: CampaignStatisticsX.fromJson(statisticsJson),
         currentDonations: json[NameX.currentDonations].toIntDefaultX(0),
-        totalDonations: json[NameX.totalDonations].toIntDefaultX(0),
+        totalDonations: json[NameX.totalDonation].toIntDefaultX(0),
         remainingDonations: json[NameX.remainingDonations].toIntDefaultX(0),
         countDonations: json[NameX.countDonations].toIntDefaultX(0),
         countDonor: json[NameX.countDonor].toIntDefaultX(0),

@@ -122,15 +122,15 @@ class DonationDetailsSectionX extends GetView<CampaignDetailsController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // if (controller.campaign.donation.donationSettings.isShowCompletionIndicator &&
-                  //     controller.campaign.donation.donationSettings.isShowDonationsPercentage)
-                  //   TextX(
-                  //     "${"Collected".tr} ${controller.campaign.donation.donationBasic.completionRate % 1 == 0 ? controller.campaign.donation.donationBasic.completionRate.toInt().toString() : controller.campaign.donation.donationBasic.completionRate.toStringAsFixed(2)}%",
-                  //     color: Theme.of(context).primaryColor,
-                  //   ),
-                  // if (controller
-                  //     .campaign.donation.donationSettings.isShowCompletionIndicator &&
-                  //     !controller.campaign.donation.donationSettings.isShowDonationsPercentage)
+                  if (controller.campaign.donation.donationSettings.isShowCompletionIndicator &&
+                      controller.campaign.donation.donationSettings.isShowDonationsPercentage)
+                    TextX(
+                      "${"Collected".tr} ${(controller.campaign.completionRate.toStringAsFixed(2))}%",
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  if (controller
+                      .campaign.donation.donationSettings.isShowCompletionIndicator &&
+                      !controller.campaign.donation.donationSettings.isShowDonationsPercentage)
                   Row(
                     children: [
                       TextX(
@@ -156,13 +156,13 @@ class DonationDetailsSectionX extends GetView<CampaignDetailsController> {
                       ),
                     ],
                   ),
-                  // if (controller.campaign.donation.donationSettings.isShowCompletionIndicator)
+                  if (controller.campaign.donation.donationSettings.isShowCompletionIndicator)
                   const SizedBox(height: 10),
 
                   /// Completion Indicator Line
-                  // if (controller.campaign.donation.donationSettings.isShowCompletionIndicator)
+                  if (controller.campaign.donation.donationSettings.isShowCompletionIndicator)
                   LinearProgressIndicator(
-                    value: controller.campaign.completionRate,
+                    value: controller.campaign.completionRate/100,
                     borderRadius: BorderRadius.circular(50),
                     minHeight: 10,
                   ),

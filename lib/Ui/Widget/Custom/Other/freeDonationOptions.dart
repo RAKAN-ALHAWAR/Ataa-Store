@@ -35,9 +35,9 @@ class FreeDonationOptionsX extends StatelessWidget {
                           iconFirst: TranslationX.getLanguageCode == 'ar'
                               ? false
                               : true,
-                          icon: Icon(
+                          icon: const Icon(
                             IconX.sar,
-                            color: Theme.of(context).colorScheme.secondary,
+                            color: Colors.white,
                             size: 14,
                           ),
                         )

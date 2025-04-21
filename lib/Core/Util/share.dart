@@ -7,10 +7,10 @@ part of '../core.dart';
 enum ShareOn { facebook, twitter, whatsapp, telegram, shareSystem }
 
 class ShareX {
-  static Future<String?> share({required ShareOn share, required String msg, required String url}) async {
+  static Future<String?> share({required ShareOn share, required String url}) async {
     try {
       String? response;
-      final fullMessage = "$msg\n$url";
+      final fullMessage = url;
 
       switch (share) {
         case ShareOn.facebook:
@@ -26,7 +26,7 @@ class ShareX {
           break;
 
         case ShareOn.telegram:
-          response = await _launchUrl("https://t.me/share/url?url=${Uri.encodeComponent(url)}&text=${Uri.encodeComponent(msg)}");
+          response = await _launchUrl("https://t.me/share/url?url=${Uri.encodeComponent(url)}");
           break;
 
         case ShareOn.shareSystem:

@@ -222,6 +222,7 @@ class NameX {
   static const String totalDonations = 'price';
   static const String totalDonation = 'total_donation';
   static const String currentDonations = 'total_donation';
+  static const String targetAmount = 'price';
   static const String remainingDonations = 'donate_rest';
   static const String countDonations = 'count_donation';
   static const String countDonor = 'count_donor';

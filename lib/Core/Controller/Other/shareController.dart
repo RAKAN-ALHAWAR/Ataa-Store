@@ -19,7 +19,6 @@ class ShareControllerX extends GetxController {
   late LinkableTypeStatusX type;
 
   String shareUrl='';
-  String shareMsg='';
 
   //============================================================================
   // Functions
@@ -33,7 +32,6 @@ class ShareControllerX extends GetxController {
      }else{
        shareUrl = createLink();
      }
-     shareMsg = "Contribute with us in spreading goodness".tr;
     }catch(e){
       return Future.error(e);
     }

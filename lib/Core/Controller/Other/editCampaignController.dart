@@ -41,8 +41,8 @@ class EditCampaignControllerX extends GetxController {
           Get.put(DonationSelectionControllerX(), tag: campaign.id);
     }
     title.text = campaign.title;
-    if(app.generalSettings.campaignTargetAmounts.contains(campaign.totalDonations)) {
-      targetAmount.value =  campaign.totalDonations;
+    if(app.generalSettings.campaignTargetAmounts.contains(campaign.targetAmount)) {
+      targetAmount.value =  campaign.targetAmount;
     }
     donationSelectionController.donationSelected.value = campaign.donation;
   }
@@ -75,7 +75,7 @@ class EditCampaignControllerX extends GetxController {
           isLoading.value = true;
           buttonState.value = ButtonStateEX.loading;
 
-          if (targetAmount.value != campaign.totalDonations ||
+          if (targetAmount.value != campaign.targetAmount ||
               title.text != campaign.title ||
               donationSelectionController.donationSelected.value!.id !=
                   campaign.donation.id) {

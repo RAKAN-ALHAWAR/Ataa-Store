@@ -120,9 +120,9 @@ class DonationCardX extends StatelessWidget {
                         child: InkResponse(
                           onTap: () async {
                             await shareSheet(
-                              id: donation.id,
-                              code: donation.donationBasic.code,
-                              type: LinkableTypeStatusX.donation,
+                              id: campaign!=null?campaign!.id:donation.id,
+                              code: campaign!=null?campaign!.code: donation.donationBasic.code,
+                              type: campaign!=null?LinkableTypeStatusX.campaign: LinkableTypeStatusX.donation,
                             );
                           },
                           child: const ContainerX(
@@ -160,7 +160,7 @@ class DonationCardX extends StatelessWidget {
                                 .donationSettings.isShowCompletionIndicator &&
                             donation.donationSettings.isShowDonationsPercentage)
                           TextX(
-                            "${"Collected".tr} ${donation.donationBasic.completionRate % 1 == 0 ? donation.donationBasic.completionRate.toInt().toString() : donation.donationBasic.completionRate.toStringAsFixed(2)}%",
+                            "${"Collected".tr} ${campaign!=null?campaign!.completionRate.toStringAsFixed(2): (donation.donationBasic.completionRate % 1 == 0 ? donation.donationBasic.completionRate.toInt().toString() : donation.donationBasic.completionRate.toStringAsFixed(2))}%",
                             color: Theme.of(context).primaryColor,
                           ),
                         if (donation
@@ -170,7 +170,7 @@ class DonationCardX extends StatelessWidget {
                           Row(
                             children: [
                               TextX(
-                                "${"Collected".tr} ${FunctionX.formatLargeNumber(donation.donationBasic.currentDonations)}",
+                                "${"Collected".tr} ${FunctionX.formatLargeNumber(campaign?.currentDonations??donation.donationBasic.currentDonations)}",
                                 color: Theme.of(context).primaryColor,
                               ),
                               const SizedBox(width: 5),
@@ -181,7 +181,7 @@ class DonationCardX extends StatelessWidget {
                               ),
                               const Spacer(),
                               TextX(
-                                "${"Remaining".tr} ${FunctionX.formatLargeNumber(donation.donationBasic.remainingDonations)}",
+                                "${"Remaining".tr} ${FunctionX.formatLargeNumber(campaign?.remainingDonations??donation.donationBasic.remainingDonations)}",
                                 color: Theme.of(context).colorScheme.secondary,
                               ),
                               const SizedBox(width: 5),
@@ -198,8 +198,8 @@ class DonationCardX extends StatelessWidget {
                         /// Completion Indicator Line
                         if (donation.donationSettings.isShowCompletionIndicator)
                           LinearProgressIndicator(
-                            value: donation.donationBasic.currentDonations /
-                                donation.donationBasic.totalDonations,
+                            value: campaign!=null?(campaign!.completionRate/100):(donation.donationBasic.currentDonations /
+                                donation.donationBasic.totalDonations),
                             borderRadius: BorderRadius.circular(50),
                             minHeight: 10,
                           ).marginOnly(top: 2, bottom: 8),

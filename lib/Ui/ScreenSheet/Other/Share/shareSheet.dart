@@ -141,7 +141,6 @@ shareSheet({required String id,required int code,required LinkableTypeStatusX ty
                     InkResponse(
                       onTap: () => ShareX.share(
                         share: ShareOn.twitter,
-                        msg: controller.shareMsg,
                         url: controller.shareUrl,
                       ),
                       child: Icon(
@@ -156,7 +155,6 @@ shareSheet({required String id,required int code,required LinkableTypeStatusX ty
                     InkResponse(
                       onTap: () => ShareX.share(
                         share: ShareOn.whatsapp,
-                        msg: controller.shareMsg,
                         url: controller.shareUrl,
                       ),
                       child: Icon(
@@ -171,7 +169,6 @@ shareSheet({required String id,required int code,required LinkableTypeStatusX ty
                     InkResponse(
                       onTap: () => ShareX.share(
                         share: ShareOn.facebook,
-                        msg: controller.shareMsg,
                         url: controller.shareUrl,
                       ),
                       child: Icon(
@@ -186,7 +183,6 @@ shareSheet({required String id,required int code,required LinkableTypeStatusX ty
                     InkResponse(
                       onTap: () => ShareX.share(
                         share: ShareOn.telegram,
-                        msg: controller.shareMsg,
                         url: controller.shareUrl,
                       ),
                       child: Icon(
@@ -201,7 +197,6 @@ shareSheet({required String id,required int code,required LinkableTypeStatusX ty
                     InkResponse(
                       onTap: () => ShareX.share(
                         share: ShareOn.shareSystem,
-                        msg: controller.shareMsg,
                         url: controller.shareUrl,
                       ),
                       child: Icon(

@@ -12,6 +12,7 @@ class CampaignX {
     required this.startDate,
     required this.endDate,
     this.link,
+    required this.targetAmount,
     required this.statistics,
     required this.remainingDonations,
     required this.totalDonations,
@@ -35,6 +36,7 @@ class CampaignX {
   final MiniShareLinkX? link;
   final CampaignStatisticsX statistics;
 
+  final num targetAmount;
   final num currentDonations;
   final num remainingDonations;
   final num totalDonations;
@@ -66,6 +68,7 @@ class CampaignX {
         link: linkJson.toFromJsonNullableX(MiniShareLinkX.fromJson),
         statistics: CampaignStatisticsX.fromJson(statisticsJson),
         currentDonations: json[NameX.currentDonations].toIntDefaultX(0),
+        targetAmount: json[NameX.targetAmount].toIntDefaultX(0),
         totalDonations: json[NameX.totalDonation].toIntDefaultX(0),
         remainingDonations: json[NameX.remainingDonations].toIntDefaultX(0),
         countDonations: json[NameX.countDonations].toIntDefaultX(0),

@@ -20,7 +20,7 @@ class DonationAmountSectionX extends StatelessWidget {
           textInputType: TextInputType.number,
           textInputAction: TextInputAction.done,
           hint: "0",
-          onlyRead: !controller.donation.isCanEditAmount,
+          onlyRead: controller.donation.isCanEditAmount == false && (controller.donation.donationDeductionPackages.isNotEmpty || controller.donation.openPackages.isNotEmpty),
           validate: controller.validateAmount,
           suffixWidget: Icon(
             IconX.sar,

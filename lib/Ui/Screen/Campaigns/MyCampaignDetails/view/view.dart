@@ -122,7 +122,8 @@ class MyCampaignDetailsView extends GetView<MyCampaignDetailsController> {
                       children: [
                         TextX(
                           FunctionX.formatLargeNumber(
-                              controller.campaign.totalDonations),
+                              controller.campaign.targetAmount,
+                          ),
                           fontWeight: FontWeight.w600,
                         ),
                         const SizedBox(width: 5),
@@ -191,7 +192,7 @@ class MyCampaignDetailsView extends GetView<MyCampaignDetailsController> {
 
                           /// Completion Indicator Line
                           LinearProgressIndicator(
-                            value: controller.campaign.completionRate,
+                            value: controller.campaign.completionRate/100,
                             borderRadius: BorderRadius.circular(50),
                             minHeight: 10,
                           ),

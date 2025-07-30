@@ -1,0 +1,2 @@
+/Users/saker/Desktop/Flutter/Ataa/Ataa/android/app/.cxx/RelWithDebInfo/524r4j5f/x86_64/CMakeFiles/edit_cache.dir
+/Users/saker/Desktop/Flutter/Ataa/Ataa/android/app/.cxx/RelWithDebInfo/524r4j5f/x86_64/CMakeFiles/rebuild_cache.dir

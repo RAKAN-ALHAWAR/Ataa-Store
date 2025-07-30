@@ -3,6 +3,7 @@ include: package:flutter_lints/flutter.yaml
 analyzer:
   errors:
     file_names: ignore
+    invalid_use_of_protected_member: ignore
 
 linter:
   rules:

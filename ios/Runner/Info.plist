@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Ataa</string>
+	<string>بوابة العطاء</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -65,7 +65,7 @@
 	<key>NSApplePaySupported</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>This app need camera permission</string>
+	<string>We use your camera to let you take a photo for your profile or to upload a bank transfer receipt for donations.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>This app needs your location.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
@@ -75,10 +75,8 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>The application does not use this feature</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>We need permission to save photos to the photo library.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app needs photo studio permission</string>
-	<key>UIApplicationSupportsIndirectInputEvents</key>
+    <string>We save the gift card image to your photo library so you can keep or share it with others.</string>	<key>NSPhotoLibraryUsageDescription</key>
+    <string>We use your photo library to let you upload a profile picture or a bank transfer receipt when making a donation.</string>	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIBackgroundModes</key>
 	<array>

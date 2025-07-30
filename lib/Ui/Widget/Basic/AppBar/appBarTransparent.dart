@@ -2,7 +2,13 @@ part of '../../widget.dart';
 
 class AppBarTransparent extends StatelessWidget {
   const AppBarTransparent(
-      {super.key, this.title, this.resultOnBack, this.resultOnBackFn, this.actions, this.color, this.iconColor});
+      {super.key,
+      this.title,
+      this.resultOnBack,
+      this.resultOnBackFn,
+      this.actions,
+      this.color,
+      this.iconColor});
   final String? title;
   final List<Widget>? actions;
   final Color? color;
@@ -21,7 +27,7 @@ class AppBarTransparent extends StatelessWidget {
           Colors.black38,
           Colors.black26,
           Colors.black12,
-          Colors.black12.withOpacity(0),
+          Colors.black12.withValues(alpha: 0),
         ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
       ),
       child: Row(
@@ -34,7 +40,8 @@ class AppBarTransparent extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       horizontal: StyleX.hPaddingApp),
                   child: InkWell(
-                    onTap: () => Get.back(result: resultOnBack??resultOnBackFn?.call()),
+                    onTap: () => Get.back(
+                        result: resultOnBack ?? resultOnBackFn?.call()),
                     borderRadius: BorderRadius.circular(StyleX.radius),
                     child: GlassX(
                       opacity: .3,

@@ -26,14 +26,14 @@ class AppleAndGooglePayController extends GetxController {
   Function? onCancelCallback;
   Function(String token)? onPayDoneCallback;
 
-  final String description = 'eDialogue Store';
+  final String description = 'Dialogue Corner - Ataa Portal';
   double amount = 1;
   //============================================================================
   // Functions
 
   createPaymentItems([double? price]) {
-    if(price!=null && price>=1) {
-      amount=price;
+    if (price != null && price >= 1) {
+      amount = price;
     }
 
     paymentItems.value = [
@@ -77,7 +77,7 @@ class AppleAndGooglePayController extends GetxController {
     error.value = null;
     initError.value = false;
     try {
-      amount = total>=1?total:1;
+      amount = total >= 1 ? total : 1;
       createPaymentItems();
       applePayConfig = await PaymentConfiguration.fromAsset(
         'paymentConfiguration/apple_pay_config.json',
@@ -96,13 +96,13 @@ class AppleAndGooglePayController extends GetxController {
     isLoading.value = false;
   }
 
-  void onApplePayResult(paymentResult)async {
+  void onApplePayResult(paymentResult) async {
     try {
-      isDone.value=true;
-      paymentItems.value=[];
-      token.value = (paymentResult[NameX.appleToken]??'').toString();
+      isDone.value = true;
+      paymentItems.value = [];
+      token.value = (paymentResult[NameX.appleToken] ?? '').toString();
       await onPayDoneCallback?.call(token.value);
-      isLoading.value=false;
+      isLoading.value = false;
     } catch (e) {
       error.value = e.toErrorX;
     }
@@ -112,7 +112,9 @@ class AppleAndGooglePayController extends GetxController {
     try {
       isDone.value = true;
       paymentItems.value = [];
-      token.value = (paymentResult['paymentMethodData']['tokenizationData']['token'] ??'')
+      token.value = (paymentResult['paymentMethodData']['tokenizationData']
+                  ['token'] ??
+              '')
           .toString();
       await onPayDoneCallback?.call(token.value);
       isLoading.value = false;

@@ -106,7 +106,8 @@ class GeneralPaymentController extends GetxController {
   sendPayToServer({required PaymentTransactionFormX form}) async {
     late PaymentTransactionX paymentTransaction;
     if (totalCart != null) {
-      paymentTransaction = await DatabaseX.createPaymentTransactionForCart(form: form);
+      paymentTransaction =
+          await DatabaseX.createPaymentTransactionForCart(form: form);
       try {
         await cart.getData();
       } catch (_) {
@@ -139,36 +140,31 @@ class GeneralPaymentController extends GetxController {
 
       if (LocalDataX.token.isEmpty) {
         PaymentStatusStatusX? miniStatus;
-        try{
-        miniStatus= await DatabaseX.getCheckStatusPaymentTransaction(id:paymentTransaction.id);
-        }catch(_){}
+        try {
+          miniStatus = await DatabaseX.getCheckStatusPaymentTransaction(
+              id: paymentTransaction.id);
+        } catch (_) {}
 
-        if(miniStatus!=null){
+        if (miniStatus != null) {
           paymentTransaction.status = miniStatus;
-        }else{
+        } else {
           PaymentStatusStatusX? status = PaymentStatusStatusX.values
               .firstWhereOrNull((element) => element.name == result);
-          if (status != null) {
-            paymentTransaction.status = status;
-          } else {
-            throw ErrorX(
-              message:
-              'We apologize, but an error occurred while processing your payment. Please check your payment information and try again.',
-            );
-          }
+          paymentTransaction.status = status ?? PaymentStatusStatusX.failed;
         }
       } else {
         var x = await DatabaseX.getPaymentTransaction(
-            paymentTransactionId: paymentTransaction.id,
+          paymentTransactionId: paymentTransaction.id,
         );
         paymentTransaction.status = x.status;
       }
     }
 
-    if (paymentTransaction.status != PaymentStatusStatusX.paid && paymentTransaction.status != PaymentStatusStatusX.initiated) {
+    if (paymentTransaction.status != PaymentStatusStatusX.paid &&
+        paymentTransaction.status != PaymentStatusStatusX.initiated) {
       throw ErrorX(
-          message:
-              'We apologize, but an error occurred while processing your payment. Please check your payment information and try again.',
+        message:
+            'We apologize, but an error occurred while processing your payment. Please check your payment information and try again.',
       );
     }
 

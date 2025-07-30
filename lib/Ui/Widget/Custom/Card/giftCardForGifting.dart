@@ -111,7 +111,8 @@ class GiftCardForGiftX extends StatelessWidget {
                                       horizontal: 17 * scaleFactor,
                                     ),
                                     child: Align(
-                                      alignment: AlignmentDirectional.centerStart,
+                                      alignment:
+                                          AlignmentDirectional.centerStart,
                                       child: TextX(
                                         '${'To'.tr} / $nameTo',
                                         style: TextStyleX.titleSmall.copyWith(
@@ -130,10 +131,9 @@ class GiftCardForGiftX extends StatelessWidget {
                                   Center(
                                     child: ImageNetworkX(
                                       imageUrl:
-                                          giftCardFormByGender?.imageUrl ??
-                                              '',
+                                          giftCardFormByGender?.imageUrl ?? '',
                                       height: 60 * scaleFactor,
-                                      width:  60 * scaleFactor,
+                                      width: 60 * scaleFactor,
                                     ),
                                   ),
                                   SizedBox(height: 14 * scaleFactor),
@@ -176,7 +176,9 @@ class GiftCardForGiftX extends StatelessWidget {
                                       ),
                                       color: ColorX.grey.shade700,
                                       overflow: TextOverflow.ellipsis,
-                                    ).paddingOnly(top: (isShowAmount ? 10 : 14) * scaleFactor),
+                                    ).paddingOnly(
+                                        top: (isShowAmount ? 10 : 14) *
+                                            scaleFactor),
 
                                   SizedBox(height: 14 * scaleFactor),
 
@@ -184,15 +186,16 @@ class GiftCardForGiftX extends StatelessWidget {
                                   ContainerX(
                                     height: 26 * scaleFactor,
                                     width: double.infinity,
-                                    color: color.withOpacity(0.1),
+                                    color: color.withValues(alpha: 0.1),
                                     radius: 100,
                                     padding: EdgeInsets.symmetric(
                                       horizontal: 17 * scaleFactor,
                                     ),
                                     child: Align(
-                                      alignment: AlignmentDirectional.centerStart,
+                                      alignment:
+                                          AlignmentDirectional.centerStart,
                                       child: TextX(
-                                        orgName??'',
+                                        orgName ?? '',
                                         style: TextStyleX.titleSmall.copyWith(
                                           fontSize: 10 * scaleFactor,
                                           fontWeight: FontWeight.w600,

@@ -1,10 +1,16 @@
 import 'package:get/get.dart';
 import '../../../../../Config/Translation/translation.dart';
 import '../../../../../Config/config.dart';
+import '../../../../../Core/core.dart';
 import '../../../../../Data/data.dart';
 import '../../../../Widget/widget.dart';
 
 class SettingsController extends GetxController {
+  //============================================================================
+  // Injection of required controls
+
+  final AppControllerX app = Get.find();
+
   //============================================================================
   // Variables
 

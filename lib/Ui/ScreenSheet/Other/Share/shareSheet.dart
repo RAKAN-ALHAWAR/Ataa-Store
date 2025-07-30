@@ -13,14 +13,18 @@ import '../../../Widget/widget.dart';
 /// with the ability to copy the link and create a link for the user
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-shareSheet({required String id,required int code,required LinkableTypeStatusX type,}) async {
+shareSheet({
+  required String id,
+  required int code,
+  required LinkableTypeStatusX type,
+}) async {
   //============================================================================
   // Injection of required controls
 
   final ShareControllerX controller = Get.put(ShareControllerX());
-  controller.id=id;
-  controller.code=code;
-  controller.type=type;
+  controller.id = id;
+  controller.code = code;
+  controller.type = type;
 
   //============================================================================
   // Content
@@ -91,7 +95,7 @@ shareSheet({required String id,required int code,required LinkableTypeStatusX ty
                       ? "Share your link"
                       : "Share a public link",
                   fontWeight: FontWeight.w600,
-                  style: TextStyleX.titleMedium.copyWith(letterSpacing:0.05),
+                  style: TextStyleX.titleMedium.copyWith(letterSpacing: 0.05),
                 ).fadeAnimation200,
                 const SizedBox(height: 8),
 
@@ -122,7 +126,7 @@ shareSheet({required String id,required int code,required LinkableTypeStatusX ty
                         child: TextX(
                           controller.shareUrl,
                           maxLines: 1,
-                          textDirection:TextDirection.ltr,
+                          textDirection: TextDirection.ltr,
                           style: TextStyleX.titleSmall,
                           color: Theme.of(context).colorScheme.secondary,
                         ),
@@ -136,7 +140,6 @@ shareSheet({required String id,required int code,required LinkableTypeStatusX ty
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-
                     /// Twitter
                     InkResponse(
                       onTap: () => ShareX.share(

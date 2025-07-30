@@ -18,16 +18,16 @@ import '../../../ScreenSheet/Other/MandatoryAuth/mandatoryAuth.dart';
 import '../../Basic/Root/controller/Controller.dart';
 
 class CartController extends GetxController {
-  //============================================================================
-  // Injection of required controls
+  // ───────────────────────────────────────────────────
+  // ────────────>> Dependency Injections <<────────────
 
   final AppControllerX app = Get.find();
   final RootController root = Get.find();
   final CartGeneralControllerX cartGeneral = Get.find();
   final DeliveryAddressControllerX deliveryAddressController = Get.find();
 
-  //============================================================================
-  // Variables
+  // ───────────────────────────────────────────────────
+  // ──────────────────>> Variables <<──────────────────
 
   /// Text Field
   GlobalKey<FormState> formKey = GlobalKey();
@@ -43,8 +43,8 @@ class CartController extends GetxController {
   Rx<ButtonStateEX> buttonStateDeleteAll = ButtonStateEX.normal.obs;
   RxBool isShowDeleteAll = false.obs;
 
-  //============================================================================
-  // Functions
+  // ───────────────────────────────────────────────────
+  // ───────────────────>> Methods <<───────────────────
 
   Future getData() async {
     try {

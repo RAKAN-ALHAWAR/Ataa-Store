@@ -20,7 +20,15 @@ class SettingsView extends GetView<SettingsController> {
           vertical: StyleX.vPaddingApp,
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            TextX(
+              'General',
+              style: TextStyleX.titleSmall,
+              color: Theme.of(context).colorScheme.secondary,
+            ).fadeAnimation100,
+            const SizedBox(height: 12),
+
             /// Card
             OptionsGroupCardX(
               options: [
@@ -45,9 +53,37 @@ class SettingsView extends GetView<SettingsController> {
                       onChange: (_) => controller.changeTheme(),
                     ),
                   ),
-                ).fadeAnimation300,
+                ).fadeAnimation250,
               ],
             ).fadeAnimation100,
+
+            const SizedBox(height: 30),
+            TextX(
+              'Account',
+              style: TextStyleX.titleSmall,
+              color: Theme.of(context).colorScheme.secondary,
+            ).fadeAnimation300,
+            const SizedBox(height: 12),
+
+            /// Delete Account
+            OptionsGroupCardX(
+              options: [
+                OptionCardX(
+                  title: 'Delete Account',
+                  icon: Iconsax.trash,
+                  onTap: () => bottomSheetDangerousX(
+                    title: "Delete Account",
+                    message: "Are you sure you want to delete your account?",
+                    okText: "Delete",
+                    cancelText: "Stay",
+                    icon: Icons.warning_rounded,
+                    onOk: controller.app.deleteAccount,
+                  ),
+                  isBottomLine: false,
+                  isDanger: true,
+                ).fadeAnimation350,
+              ],
+            ).fadeAnimation300,
           ],
         ),
       ),

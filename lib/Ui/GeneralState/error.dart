@@ -8,33 +8,35 @@ import '../Widget/widget.dart';
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class ErrorView extends StatelessWidget {
-  const ErrorView({required this.error,this.onTapButton,this.buttonText = "Try again", super.key});
+  const ErrorView(
+      {required this.error,
+      this.onTapButton,
+      this.buttonText = "Try again",
+      super.key});
   final Object? error;
   final Function? onTapButton;
   final String buttonText;
 
   @override
   Widget build(BuildContext context) {
-    ErrorX errorX = (error??"").toErrorX;
+    ErrorX errorX = (error ?? "").toErrorX;
     errorX.log();
-    IconData getIcon(){
+    IconData getIcon() {
       switch (errorX.errorType) {
         case ErrorTypeStatusX.network:
           return Icons.network_wifi_sharp;
 
         case ErrorTypeStatusX.input:
-      return  Icons.keyboard_hide;
+          return Icons.keyboard_hide;
 
         case ErrorTypeStatusX.server:
           return Icons.dns_rounded;
 
         case ErrorTypeStatusX.unknown:
           return Icons.report_problem_rounded;
-
-        default:
-          return Icons.report_problem_rounded;
       }
     }
+
     return Center(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: StyleX.hPaddingApp),
@@ -77,7 +79,7 @@ class ErrorView extends StatelessWidget {
 
             /// Action Button
             ButtonX(
-              onTap: onTapButton??(){},
+              onTap: onTapButton ?? () {},
               text: buttonText,
             )
           ],

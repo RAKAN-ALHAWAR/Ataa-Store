@@ -45,7 +45,8 @@ class PhoneConfig {
       TextStyle? hintStyle})
       : hintStyle = hintStyle ??
             TextStyle(
-                color: Colors.black.withOpacity(0.5),
-                fontSize: 16,
-                fontWeight: FontWeight.w400);
+              color: Colors.black.withValues(alpha: 0.5),
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+            );
 }

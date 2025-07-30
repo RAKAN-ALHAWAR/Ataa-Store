@@ -2,12 +2,17 @@
   "provider": "apple_pay",
   "data": {
     "merchantIdentifier": "merchant.store.edialoguec.org.sa",
-    "displayName": "Ataa",
+    "displayName": "Ataa Store",
     "merchantCapabilities": ["3DS", "debit", "credit"],
     "supportedNetworks": ["amex", "visa", "discover", "masterCard"],
     "countryCode": "SA",
     "currencyCode": "SAR",
-    "requiredBillingContactFields": ["emailAddress", "name", "phoneNumber", "postalAddress"],
+    "requiredBillingContactFields": [
+      "emailAddress",
+      "name",
+      "phoneNumber",
+      "postalAddress"
+    ],
     "requiredShippingContactFields": []
   }
 }

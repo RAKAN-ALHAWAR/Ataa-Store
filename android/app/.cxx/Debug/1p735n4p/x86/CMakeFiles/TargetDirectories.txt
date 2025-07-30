@@ -1,0 +1,2 @@
+/Users/saker/Desktop/Flutter/Ataa/Ataa/android/app/.cxx/Debug/1p735n4p/x86/CMakeFiles/edit_cache.dir
+/Users/saker/Desktop/Flutter/Ataa/Ataa/android/app/.cxx/Debug/1p735n4p/x86/CMakeFiles/rebuild_cache.dir

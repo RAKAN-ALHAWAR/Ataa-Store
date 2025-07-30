@@ -1,0 +1,2 @@
+/Users/saker/Desktop/Flutter/Ataa/Ataa/android/app/.cxx/RelWithDebInfo/524r4j5f/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/saker/Desktop/Flutter/Ataa/Ataa/android/app/.cxx/RelWithDebInfo/524r4j5f/armeabi-v7a/CMakeFiles/rebuild_cache.dir

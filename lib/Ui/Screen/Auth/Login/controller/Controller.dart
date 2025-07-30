@@ -11,7 +11,6 @@ import '../../OTP/view/View.dart';
 import '../../SignUp/view/View.dart';
 
 class LoginController extends GetxController {
-
   //============================================================================
   // Injection of required controls
 
@@ -26,13 +25,17 @@ class LoginController extends GetxController {
   Rx<ButtonStateEX> buttonState = ButtonStateEX.normal.obs;
 
   RxBool isPhone = true.obs;
-  RxInt countryCode = ((Get.arguments is Map?(Get.arguments?[NameX.countryCode] ?? 966):966) as int).obs;
+  RxInt countryCode = ((Get.arguments is Map
+          ? (Get.arguments?[NameX.countryCode] ?? 966)
+          : 966) as int)
+      .obs;
   final loginVia = ValueNotifier(1);
 
   GlobalKey<FormState> formKey = GlobalKey();
   AutovalidateMode autoValidate = AutovalidateMode.disabled;
 
-  TextEditingController phone = TextEditingController(text: Get.arguments is Map?Get.arguments[NameX.phone]:'');
+  TextEditingController phone = TextEditingController(
+      text: Get.arguments is Map ? Get.arguments[NameX.phone] : '');
   TextEditingController email = TextEditingController();
 
   //============================================================================
@@ -40,14 +43,15 @@ class LoginController extends GetxController {
 
   onChangeCountryCode(String code) => countryCode.value = int.parse(code);
 
-  onSignUp() async{
+  onSignUp() async {
     if (isLoading.isFalse) {
       error.value = null;
       if (isSheet) {
         Get.back();
 
         /// to close login sheet
-        await bottomSheetX(child: SignUpView(isSheet: true).paddingOnly(top: 14));
+        await bottomSheetX(
+            child: SignUpView(isSheet: true).paddingOnly(top: 14));
       } else if (Get.previousRoute == RouteNameX.signUp) {
         Get.back();
 
@@ -70,6 +74,7 @@ class LoginController extends GetxController {
       Get.toNamed(RouteNameX.contactUs);
     }
   }
+
   Future<void> onLogin() async {
     if (isLoading.isFalse) {
       if (formKey.currentState!.validate()) {
@@ -83,7 +88,7 @@ class LoginController extends GetxController {
           } else {
             massage = await loginByEmail() ?? '';
           }
-          if(massage.isNotEmpty){
+          if (massage.isNotEmpty) {
             ToastX.success(message: massage);
           }
         } catch (e) {
@@ -92,7 +97,6 @@ class LoginController extends GetxController {
           buttonState.value = ButtonStateEX.failed;
         }
         isLoading.value = false;
-
 
         /// Reset the button state
         Timer(
@@ -109,7 +113,8 @@ class LoginController extends GetxController {
 
   Future<String?> loginByPhone() async {
     String? massage = await DatabaseX.loginByPhone(
-        phone: phone.text.toIntX, countryCode: countryCode.value,
+      phone: phone.text.toIntX,
+      countryCode: countryCode.value,
     );
 
     /// The time delay here is aesthetically beneficial
@@ -129,10 +134,11 @@ class LoginController extends GetxController {
     /// go to otp screen
     if (isSheet) {
       Get.back();
-      await bottomSheetX(child: OTPView(isSheet: true, otp: otp).paddingOnly(top: 14));
+      await bottomSheetX(
+          child: OTPView(isSheet: true, otp: otp).paddingOnly(top: 14));
       return null;
     } else {
-      Get.toNamed(RouteNameX.otp, arguments: {NameX.otp:otp});
+      Get.toNamed(RouteNameX.otp, arguments: {NameX.otp: otp});
       return massage;
     }
   }
@@ -149,7 +155,7 @@ class LoginController extends GetxController {
     Get.toNamed(
       RouteNameX.otp,
       arguments: {
-        NameX.otp:OtpX(
+        NameX.otp: OtpX(
           email: email.text.trim(),
           isLogin: true,
           isPhone: false,
@@ -165,7 +171,6 @@ class LoginController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
 
     /// listener if change tap for login by phone or email
     loginVia.addListener(() {

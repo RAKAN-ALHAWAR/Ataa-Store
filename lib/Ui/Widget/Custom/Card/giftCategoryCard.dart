@@ -32,7 +32,7 @@ class GiftCategoryCardX extends StatelessWidget {
         borderWidth: 1,
         color: isSelected
             ? context.isDarkMode
-                ? ColorX.primary.shade900.withOpacity(0.3)
+                ? ColorX.primary.shade900.withValues(alpha: 0.3)
                 : Theme.of(context).colorScheme.onPrimary
             : null,
         isBorder: true,
@@ -52,8 +52,12 @@ class GiftCategoryCardX extends StatelessWidget {
               child: AutoSizeText(
                 giftCategory.name,
                 style: TextStyleX.supTitleLarge.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: isSelected?Theme.of(context).primaryColor:context.isDarkMode?null:ColorX.grey.shade900,
+                  fontWeight: FontWeight.w600,
+                  color: isSelected
+                      ? Theme.of(context).primaryColor
+                      : context.isDarkMode
+                          ? null
+                          : ColorX.grey.shade900,
                 ),
                 overflow: TextOverflow.ellipsis,
                 minFontSize: 10,

@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_protected_member
+
 import 'package:ataa/UI/Animation/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -32,16 +34,15 @@ class OrganizationDetailsView extends GetView<OrganizationDetailsController> {
                 /// Title & Subtitle
                 const HeaderSectionX(isMargin: false),
 
-
                 /// Search Bar
-                if(controller.app.generalSettings.isActiveDonationSearch)
-                SearchBarX(
-                  search: controller.search,
-                  onTapFilter: controller.onFilter,
-                  isMargin: false,
-                  disabledSearch:
-                      !controller.app.generalSettings.isActiveDonationSearch,
-                ).marginOnly(top: 10).fadeAnimation200,
+                if (controller.app.generalSettings.isActiveDonationSearch)
+                  SearchBarX(
+                    search: controller.search,
+                    onTapFilter: controller.onFilter,
+                    isMargin: false,
+                    disabledSearch:
+                        !controller.app.generalSettings.isActiveDonationSearch,
+                  ).marginOnly(top: 10).fadeAnimation200,
 
                 const SizedBox(height: 10),
 

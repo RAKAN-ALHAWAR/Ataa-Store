@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_protected_member
+
 import 'package:ataa/UI/Animation/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,14 +20,14 @@ class ZakatDisbursementsView extends GetView<ZakatDisbursementsController> {
       ),
       body: SafeArea(
         child: Obx(
-              () {
+          () {
             return Column(
               children: [
-                if(controller.app.generalSettings.isActiveDonationSearch)
-                SearchBarX(
-                  search: controller.search,
-                  onTapFilter: controller.onFilter,
-                ).fadeAnimation200,
+                if (controller.app.generalSettings.isActiveDonationSearch)
+                  SearchBarX(
+                    search: controller.search,
+                    onTapFilter: controller.onFilter,
+                  ).fadeAnimation200,
                 ScrollRefreshLoadMoreX<DonationX>(
                   fetchData: controller.getData,
                   filters: controller.filterController.filters.value,
@@ -36,7 +38,9 @@ class ZakatDisbursementsView extends GetView<ZakatDisbursementsController> {
                     right: StyleX.hPaddingApp,
                     left: StyleX.hPaddingApp,
                     bottom: StyleX.vPaddingApp,
-                    top: controller.app.generalSettings.isActiveDonationSearch?6:StyleX.vPaddingApp,
+                    top: controller.app.generalSettings.isActiveDonationSearch
+                        ? 6
+                        : StyleX.vPaddingApp,
                   ),
                   initLoading: Column(
                     children: [
@@ -48,7 +52,8 @@ class ZakatDisbursementsView extends GetView<ZakatDisbursementsController> {
                   itemBuilder: (data, index) {
                     return DonationCardX(
                       donation: data,
-                      doneImageUrl: controller.app.generalSettings.projectCompletionImageUrl,
+                      doneImageUrl: controller
+                          .app.generalSettings.projectCompletionImageUrl,
                       onDonation: controller.onDonationDonation,
                       onAddToCart: controller.onDonationAddToCart,
                     ).fadeAnimation300;

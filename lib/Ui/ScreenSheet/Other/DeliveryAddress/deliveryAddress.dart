@@ -25,7 +25,9 @@ deliveryAddressSheetX({required DeliveryAddressControllerX controller}) {
             if (controller.latitude.value != 0 &&
                 controller.longitude.value != 0) {
               return ContainerX(
-                color: Get.isDarkMode? ColorX.primary.shade900.withOpacity(0.3): Get.theme.colorScheme.onPrimary,
+                color: Get.isDarkMode
+                    ? ColorX.primary.shade900.withValues(alpha: 0.3)
+                    : Get.theme.colorScheme.onPrimary,
                 margin: const EdgeInsets.only(bottom: 6),
                 child: Row(
                   children: [

@@ -24,7 +24,7 @@ class GiftOrgCardX extends StatelessWidget {
         margin: const EdgeInsetsDirectional.only(end: 8),
         width: 150,
         height: 130,
-        padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
         borderColor: isSelected
             ? context.isDarkMode
                 ? Theme.of(context).primaryColor
@@ -33,7 +33,7 @@ class GiftOrgCardX extends StatelessWidget {
         borderWidth: 1,
         color: isSelected
             ? context.isDarkMode
-                ? ColorX.primary.shade900.withOpacity(0.3)
+                ? ColorX.primary.shade900.withValues(alpha: 0.3)
                 : Theme.of(context).colorScheme.onPrimary
             : null,
         isBorder: true,
@@ -57,8 +57,12 @@ class GiftOrgCardX extends StatelessWidget {
               child: AutoSizeText(
                 org.name,
                 style: TextStyleX.titleSmall.copyWith(
-                    fontWeight: FontWeight.w500,
-                    color: isSelected?Theme.of(context).primaryColor:context.isDarkMode?null:ColorX.grey.shade900,
+                  fontWeight: FontWeight.w500,
+                  color: isSelected
+                      ? Theme.of(context).primaryColor
+                      : context.isDarkMode
+                          ? null
+                          : ColorX.grey.shade900,
                 ),
                 overflow: TextOverflow.ellipsis,
                 minFontSize: 10,

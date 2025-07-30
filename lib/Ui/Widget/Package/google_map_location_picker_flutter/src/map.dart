@@ -2,13 +2,14 @@ import 'package:ataa/Config/config.dart';
 import 'package:ataa/UI/Widget/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:maps_toolkit/maps_toolkit.dart'  as map_toolkit;
+import 'package:maps_toolkit/maps_toolkit.dart' as map_toolkit;
 
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
 import 'address_result.dart';
+
 class MapScreen extends StatefulWidget {
   final Widget pinWidget;
   final String apiKey;
@@ -25,17 +26,19 @@ class MapScreen extends StatefulWidget {
   final Color confirmButtonTextColor;
   const MapScreen(
       {super.key,
-        required this.apiKey,
-        required this.appBarTitle,
-        this.polygonPoints,
-        required this.addressTitle,
-        required this.confirmButtonText,
-        required this.language,
-        this.country="",
-        required this.confirmButtonColor,
-        required this.pinColor,
-        required this.confirmButtonTextColor,
-        required this.addressPlaceHolder, required this.pinWidget, required this.initialLocation});
+      required this.apiKey,
+      required this.appBarTitle,
+      this.polygonPoints,
+      required this.addressTitle,
+      required this.confirmButtonText,
+      required this.language,
+      this.country = "",
+      required this.confirmButtonColor,
+      required this.pinColor,
+      required this.confirmButtonTextColor,
+      required this.addressPlaceHolder,
+      required this.pinWidget,
+      required this.initialLocation});
   @override
   State<MapScreen> createState() => MapScreenState();
 }
@@ -43,12 +46,10 @@ class MapScreen extends StatefulWidget {
 class MapScreenState extends State<MapScreen> {
   final Completer<GoogleMapController> _controller = Completer();
   bool loading = false;
-  String _currentAddress ="";
+  String _currentAddress = "";
   LatLng? _latLng;
   String _shortName = "";
   CameraPosition? _kGooglePlex;
-
-
 
   CameraPosition cameraPosition(LatLng target) => CameraPosition(
       bearing: 192.8334901395799,
@@ -56,12 +57,12 @@ class MapScreenState extends State<MapScreen> {
       tilt: 59.440717697143555,
       zoom: 15);
 
-  isUserInArea(latitude,longitude){
+  isUserInArea(latitude, longitude) {
     map_toolkit.LatLng point = map_toolkit.LatLng(latitude, longitude);
     bool geodesic = true;
-    bool checkIfUserInArea = map_toolkit.PolygonUtil.containsLocation(point, widget.polygonPoints ?? [], geodesic);
+    bool checkIfUserInArea = map_toolkit.PolygonUtil.containsLocation(
+        point, widget.polygonPoints ?? [], geodesic);
     return checkIfUserInArea;
-
   }
 
   getAddress(LatLng? location) async {
@@ -77,24 +78,25 @@ class MapScreenState extends State<MapScreen> {
       setState(() {
         _currentAddress = response['results'][0]['formatted_address'];
         _shortName =
-        response['results'][0]['address_components'][1]['long_name'];
+            response['results'][0]['address_components'][1]['long_name'];
       });
-    } catch (_) {
-    }
+    } catch (_) {}
 
     setState(() {
       loading = false;
     });
   }
+
   @override
   void initState() {
     super.initState();
     _latLng = widget.initialLocation;
-    _kGooglePlex= CameraPosition(
-      target:widget.initialLocation,
+    _kGooglePlex = CameraPosition(
+      target: widget.initialLocation,
       zoom: 15,
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -135,16 +137,13 @@ class MapScreenState extends State<MapScreen> {
                 margin: const EdgeInsets.all(0),
                 borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20)
-                ),
+                    topRight: Radius.circular(20)),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 18.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(
-                        height: 6
-                      ),
+                      const SizedBox(height: 6),
                       Align(
                         alignment: Alignment.center,
                         child: Container(
@@ -152,7 +151,7 @@ class MapScreenState extends State<MapScreen> {
                           width: 40,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Colors.grey.withOpacity(0.6),
+                            color: Colors.grey.withValues(alpha: 0.6),
                           ),
                         ),
                       ),
@@ -163,32 +162,32 @@ class MapScreenState extends State<MapScreen> {
                         widget.addressTitle,
                         style: TextStyleX.supTitleLarge,
                       ),
-                      const SizedBox(
-                        height: 8
-                      ),
-                      TextX(
-                        _shortName,
+                      const SizedBox(height: 8),
+                      TextX(_shortName,
                           style: TextStyleX.titleLarge,
-                          fontWeight: FontWeight.bold
-                      ),
-                      const SizedBox(
-                        height: 8
-                      ),
+                          fontWeight: FontWeight.bold),
+                      const SizedBox(height: 8),
                       TextX(
-                        _currentAddress==""?widget.addressPlaceHolder:_currentAddress,
+                        _currentAddress == ""
+                            ? widget.addressPlaceHolder
+                            : _currentAddress,
                       ),
-                      const SizedBox(
-                        height: 12
-                      ),
-
-                    ( widget.polygonPoints==null||isUserInArea(_latLng?.latitude, _latLng?.longitude))&&loading == false?
-
-                    ButtonX(
-                      text: widget.confirmButtonText,
-                      onTap: (){
-                      AddressResult addressResult = AddressResult(latlng:_latLng!, address: _currentAddress);
-                      Navigator.pop(context,addressResult);
-                    },):const SizedBox(height: 1,),
+                      const SizedBox(height: 12),
+                      (widget.polygonPoints == null ||
+                                  isUserInArea(
+                                      _latLng?.latitude, _latLng?.longitude)) &&
+                              loading == false
+                          ? ButtonX(
+                              text: widget.confirmButtonText,
+                              onTap: () {
+                                AddressResult addressResult = AddressResult(
+                                    latlng: _latLng!, address: _currentAddress);
+                                Navigator.pop(context, addressResult);
+                              },
+                            )
+                          : const SizedBox(
+                              height: 1,
+                            ),
                       const SizedBox(
                         height: 10,
                       ),
@@ -204,7 +203,6 @@ class MapScreenState extends State<MapScreen> {
             right: 10,
             child: GestureDetector(
               onTap: () async {
-
                 // if (result != null) {
                 //   final location =await getPlace(result);
                 //   CameraPosition cPosition = CameraPosition(
@@ -223,7 +221,6 @@ class MapScreenState extends State<MapScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-
                   Card(
                     color: Colors.white,
                     child: IconButton(
@@ -233,13 +230,16 @@ class MapScreenState extends State<MapScreen> {
                           target: widget.initialLocation,
                         );
                         final GoogleMapController controller =
-                        await _controller.future;
+                            await _controller.future;
                         controller
                             .animateCamera(
-                            CameraUpdate.newCameraPosition(cPosition))
+                                CameraUpdate.newCameraPosition(cPosition))
                             .then((value) {});
                       },
-                      icon: const Icon(Icons.my_location,color: Colors.blue,),
+                      icon: const Icon(
+                        Icons.my_location,
+                        color: Colors.blue,
+                      ),
                       iconSize: 20,
                     ),
                   ),
@@ -247,8 +247,8 @@ class MapScreenState extends State<MapScreen> {
               ),
             ),
           ),
-
-          Center(child: Padding(
+          Center(
+              child: Padding(
             padding: const EdgeInsets.only(bottom: 40.0),
             child: widget.pinWidget,
           ))
@@ -256,8 +256,8 @@ class MapScreenState extends State<MapScreen> {
       ),
     );
   }
-  getPlace(placeId) async {
 
+  getPlace(placeId) async {
     String baseURL = 'https://maps.googleapis.com/maps/api/place/details/json';
     String request =
         '$baseURL?place_id=$placeId&key=${widget.apiKey}&language=${widget.language}';
@@ -273,29 +273,38 @@ class MapScreenState extends State<MapScreen> {
 }
 
 showGoogleMapLocationPicker(
-    {
-      required BuildContext context,
-      required Widget pinWidget,
-      required String apiKey,
-      List<map_toolkit.LatLng>? polygonPoints,
-      required String appBarTitle,
-      required String searchHint,
-      required String addressTitle,
-      required LatLng initialLocation,
-      required String confirmButtonText,
-      required String language,
-      required String country,
-      required String addressPlaceHolder,
-      required Color confirmButtonColor,
-      required Color pinColor,
-      required Color confirmButtonTextColor
-    }) async {
-
+    {required BuildContext context,
+    required Widget pinWidget,
+    required String apiKey,
+    List<map_toolkit.LatLng>? polygonPoints,
+    required String appBarTitle,
+    required String searchHint,
+    required String addressTitle,
+    required LatLng initialLocation,
+    required String confirmButtonText,
+    required String language,
+    required String country,
+    required String addressPlaceHolder,
+    required Color confirmButtonColor,
+    required Color pinColor,
+    required Color confirmButtonTextColor}) async {
   final pickedLocation = await Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) =>  MapScreen(apiKey: apiKey,pinWidget: pinWidget, appBarTitle: appBarTitle,polygonPoints:polygonPoints, addressTitle: addressTitle, confirmButtonText: confirmButtonText, language: language, confirmButtonColor: confirmButtonColor, pinColor: pinColor, confirmButtonTextColor: confirmButtonTextColor, addressPlaceHolder: addressPlaceHolder, initialLocation: initialLocation,)),
+    MaterialPageRoute(
+        builder: (context) => MapScreen(
+              apiKey: apiKey,
+              pinWidget: pinWidget,
+              appBarTitle: appBarTitle,
+              polygonPoints: polygonPoints,
+              addressTitle: addressTitle,
+              confirmButtonText: confirmButtonText,
+              language: language,
+              confirmButtonColor: confirmButtonColor,
+              pinColor: pinColor,
+              confirmButtonTextColor: confirmButtonTextColor,
+              addressPlaceHolder: addressPlaceHolder,
+              initialLocation: initialLocation,
+            )),
   );
   return pickedLocation;
-
 }
-

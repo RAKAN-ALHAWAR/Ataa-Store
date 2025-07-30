@@ -161,17 +161,18 @@ class CreateCampaignView extends GetView<CreateCampaignController> {
                       },
                       valueWidget: (val) => Row(
                         children: [
-                        TextX(
+                          TextX(
                             FunctionX.formatLargeNumber(val),
                             style: TextStyleX.titleSmall,
                           ),
                           const SizedBox(width: 6),
-                           Icon(
+                          Icon(
                             IconX.sar,
                             color: Theme.of(context).colorScheme.secondary,
                             size: 14,
                           ),
-                      ],),
+                        ],
+                      ),
                     ).fadeAnimation400,
 
                     const SizedBox(height: 10),
@@ -193,8 +194,8 @@ class CreateCampaignView extends GetView<CreateCampaignController> {
                     ButtonStateX(
                       disabled: !controller.isAgreed.value,
                       colorDisabledButton: context.isDarkMode
-                          ? ColorX.primary.shade300.withOpacity(0.2)
-                          : ColorX.primary.withOpacity(0.4),
+                          ? ColorX.primary.shade300.withValues(alpha: 0.2)
+                          : ColorX.primary.withValues(alpha: 0.4),
                       colorDisabledBorder: Colors.transparent,
                       colorDisabledText:
                           context.isDarkMode ? Colors.white38 : Colors.white,

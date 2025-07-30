@@ -25,7 +25,8 @@ class PreviewGiftController extends GetxController {
   // Functions
 
   Future<void> getData() async {
-    giftCategory = await DatabaseX.getGiftCategoryDetails(id: giftOrder.giftCategory.id);
+    giftCategory =
+        await DatabaseX.getGiftCategoryDetails(id: giftOrder.giftCategory.id);
     if (giftCategory.donationCategories
             .firstWhereOrNull((x) => x.id == giftOrder.organizationId) !=
         null) {
@@ -82,7 +83,8 @@ class PreviewGiftController extends GetxController {
         //   directory = "/storage/emulated/0/Downloads/";
         // }
 
-        String basePath ='${downloadDirectory.path}/${giftOrder.giftBasic.recipientName} - gift card';
+        String basePath =
+            '${downloadDirectory.path}/${giftOrder.giftBasic.recipientName} - gift card';
         String path = '$basePath.png';
 
         int counter = 1;

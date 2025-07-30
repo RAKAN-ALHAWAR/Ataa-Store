@@ -89,6 +89,16 @@ class DatabaseX {
     );
   }
 
+  static Future<String?> deleteAccount() async {
+    var data = await RemoteDataSourceX.delete(
+      DBEndPointX.deleteAccount,
+      param: DataSourceParamX(
+        authToken: LocalDataX.token,
+      ),
+    );
+    return data.$2;
+  }
+
   //============================================================================
   // OTP
 
@@ -1117,7 +1127,8 @@ class DatabaseX {
         filterParams: {NameX.campaignId: campaignId},
       ),
     );
-    return ModelUtilX.generateItems(data.$1[NameX.data], CampaignDonationX.fromJson);
+    return ModelUtilX.generateItems(
+        data.$1[NameX.data], CampaignDonationX.fromJson);
   }
 
   static Future<List<CampaignX>> getAllCampaigns({

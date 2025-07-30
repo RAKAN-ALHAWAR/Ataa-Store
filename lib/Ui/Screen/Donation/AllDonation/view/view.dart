@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_protected_member
+
 import 'package:ataa/Ui/Widget/Basic/Other/scrollRefreshLoadMore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,11 +19,11 @@ class AllDonationView extends GetView<AllDonationController> {
           return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              if(controller.app.generalSettings.isActiveDonationSearch)
-              SearchBarX(
-                search: controller.search,
-                onTapFilter: controller.onFilter,
-              ).fadeAnimation200,
+              if (controller.app.generalSettings.isActiveDonationSearch)
+                SearchBarX(
+                  search: controller.search,
+                  onTapFilter: controller.onFilter,
+                ).fadeAnimation200,
               ScrollRefreshLoadMoreX<DonationX>(
                 fetchData: controller.getData,
                 filters: controller.filterController.filters.value,
@@ -30,7 +32,9 @@ class AllDonationView extends GetView<AllDonationController> {
                 padding: EdgeInsets.only(
                   right: StyleX.hPaddingApp,
                   left: StyleX.hPaddingApp,
-                  top: controller.app.generalSettings.isActiveDonationSearch?6:StyleX.vPaddingApp,
+                  top: controller.app.generalSettings.isActiveDonationSearch
+                      ? 6
+                      : StyleX.vPaddingApp,
                   bottom: 160,
                 ),
                 initLoading: Column(
@@ -42,7 +46,8 @@ class AllDonationView extends GetView<AllDonationController> {
                 emptyMessage: "There are no current donation projects",
                 itemBuilder: (data, index) {
                   return DonationCardX(
-                    doneImageUrl: controller.app.generalSettings.projectCompletionImageUrl,
+                    doneImageUrl: controller
+                        .app.generalSettings.projectCompletionImageUrl,
                     onDonation: controller.onDonationDonation,
                     donation: data,
                     onAddToCart: controller.onDonationAddToCart,

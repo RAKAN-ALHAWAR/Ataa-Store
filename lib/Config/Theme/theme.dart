@@ -72,7 +72,7 @@ class ThemeX {
       backgroundColor: ColorX.primary,
       shadowColor: Colors.transparent,
     ),
-    cardTheme: CardTheme(color: ColorX.grey.shade50),
+    cardTheme: CardThemeData(color: ColorX.grey.shade50),
     bottomSheetTheme: const BottomSheetThemeData(
       backgroundColor: Colors.white,
       surfaceTintColor: Colors.white,
@@ -139,7 +139,7 @@ class ThemeX {
       error: ColorX.danger.shade500,
       onError: ColorX.danger.shade300,
     ),
-    cardTheme: CardTheme(color: ColorX.grey.shade700),
+    cardTheme: CardThemeData(color: ColorX.grey.shade700),
     appBarTheme: AppBarTheme(
       backgroundColor: ColorX.primary,
       shadowColor: Colors.transparent,

@@ -2,9 +2,10 @@ import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 import '../../../../../Config/config.dart';
 import '../../../../../Core/Controller/Other/donateOnBehalfOfFamilyController.dart';
+import '../../../../../Core/Extension/convert/convert.dart';
 import '../../../../../Core/core.dart';
 import '../../../../../Data/Enum/linkable_type_status.dart';
 import '../../../../../Data/data.dart';
@@ -14,30 +15,24 @@ import '../../../../ScreenSheet/Pay/PayDonation/payDonationSheet.dart';
 class CampaignDetailsController extends GetxController {
   //============================================================================
   // Injection of required controls
-
   AppControllerX app = Get.find();
-  DonateOnBehalfOfFamilyController donateOnBehalfOfFamilyController =
-      Get.put(DonateOnBehalfOfFamilyController(),
-      tag: Get.arguments.toString(),
-    );
-
+  DonateOnBehalfOfFamilyController donateOnBehalfOfFamilyController = Get.put(
+    DonateOnBehalfOfFamilyController(),
+    tag: Get.arguments.toString(),
+  );
   //============================================================================
   // Variables
-
-  final int code = Get.arguments; // The Code is sent from the previous page
-
+  final int code = Get.arguments
+      .toString()
+      .toIntX; // The Code is sent from the previous page
   late CampaignX campaign;
-
   Rx<ButtonStateEX> payDonationButtonState = ButtonStateEX.normal.obs;
   Rx<ButtonStateEX> addToCartButtonState = ButtonStateEX.normal.obs;
-
   PageController imagesController = PageController();
-
   late Rx<VideoPlayerController> videoPlayerController;
   late ChewieController chewieController;
   late YoutubePlayerController youtubeController;
   RxBool isInitChewieController = false.obs;
-  RxBool isInitYoutubeController = false.obs;
   RxBool hasErrorVideo = false.obs;
 
   //============================================================================
@@ -45,7 +40,7 @@ class CampaignDetailsController extends GetxController {
   getData() async {
     try {
       /// Get campaign details from database
-      campaign = await DatabaseX.getCampaignDetails(code: code);
+      campaign = await DatabaseX.getCampaignDetails(code: code.toString());
 
       /// Init Video Player
       if (campaign.donation.donationDetails.videoUrl != null &&
@@ -62,9 +57,24 @@ class CampaignDetailsController extends GetxController {
     }
   }
 
-  /// Check if the URL is a YouTube link
+  /// Extract YouTube ID from URL manually + check if it's YouTube
   bool isYoutubeUrl(String url) {
-    return YoutubePlayer.convertUrlToId(url) != null;
+    final videoId = getYoutubeIdFromUrl(url);
+    return videoId != null;
+  }
+
+  String? getYoutubeIdFromUrl(String url) {
+    final uri = Uri.tryParse(url);
+    if (uri == null) return null;
+
+    // Support common YouTube formats
+    if (uri.host.contains('youtube.com') || uri.host.contains('youtu.be')) {
+      if (uri.host.contains('youtu.be')) {
+        return uri.pathSegments.isNotEmpty ? uri.pathSegments.first : null;
+      }
+      return uri.queryParameters['v'];
+    }
+    return null;
   }
 
   openShare() async {
@@ -75,42 +85,55 @@ class CampaignDetailsController extends GetxController {
     );
   }
 
-  /// Initialize YouTube Player
+  /// Initialize YouTube Player (الإصدار الجديد 2025)
   initYoutubePlayer(String url) {
     try {
-      isInitYoutubeController.value = false;
+      final videoId = getYoutubeIdFromUrl(url)!;
+
+      // أولاً: إنشاء الـ Controller مع الـ params
       youtubeController = YoutubePlayerController(
-        initialVideoId: YoutubePlayer.convertUrlToId(url)!,
-        flags: const YoutubePlayerFlags(
-          autoPlay: false,
+        params: const YoutubePlayerParams(
           mute: false,
-          disableDragSeek: true,
           loop: true,
+          showFullscreenButton: true,
+          // disableDragSeek: true مش موجود مباشرة، بس تقدر تخفي الـ controls كلها لو عايز
+          // أو استخدم enableUserInteraction: false لو موجود في إصدارك
+          showControls: true, // غيره لـ false لو عايز تخفي الـ controls تماماً
         ),
       );
-      isInitYoutubeController.value = true;
+
+      // ثانياً: تحميل الفيديو (cue = يجهز بدون auto play، load = يشغل تلقائي)
+      youtubeController.cueVideoById(
+        videoId: videoId,
+      ); // أو loadVideoById لو عايز auto play
     } catch (_) {
       hasErrorVideo.value = true;
     }
   }
 
-  onPayDonation() async => await payDonationSheet(campaign.donation, campaign: campaign,);
-  onDonationAddToCart() async =>
-      await payDonationSheet(campaign.donation, campaign: campaign, onlyAddToCart: true);
+  onPayDonation() async =>
+      await payDonationSheet(campaign.donation, campaign: campaign);
+
+  onDonationAddToCart() async => await payDonationSheet(
+    campaign.donation,
+    campaign: campaign,
+    onlyAddToCart: true,
+  );
 
   int getNumCover() {
     return campaign.donation.donationDetails.imageUrl != null &&
-        campaign.donation.donationDetails.videoUrl != null
+            campaign.donation.donationDetails.videoUrl != null
         ? 2
         : 1;
   }
 
-  /// Initialize Video Player
+  /// Initialize Video Player (عادي، بدون تغيير)
   initVideoPlayer(String url) async {
     try {
       isInitChewieController.value = false;
-      videoPlayerController =
-          VideoPlayerController.networkUrl(Uri.parse(url)).obs;
+      videoPlayerController = VideoPlayerController.networkUrl(
+        Uri.parse(url),
+      ).obs;
       await videoPlayerController.value.initialize();
       chewieController = ChewieController(
         videoPlayerController: videoPlayerController.value,
@@ -136,7 +159,6 @@ class CampaignDetailsController extends GetxController {
 
   //============================================================================
   // Initialization
-
   @override
   void onClose() {
     try {
@@ -146,9 +168,8 @@ class CampaignDetailsController extends GetxController {
           chewieController.dispose();
           videoPlayerController.value.dispose();
         }
-        if (isInitYoutubeController.value) {
-          youtubeController.dispose();
-        }
+        // للـ YouTube الجديد
+        youtubeController.close();
       }
     } catch (_) {}
     super.onClose();

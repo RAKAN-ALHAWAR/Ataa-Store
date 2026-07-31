@@ -6,7 +6,7 @@ class BankCardX extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ContainerX(
-      padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       margin: const EdgeInsets.only(bottom: 14.0),
       width: double.infinity,
       child: Column(
@@ -34,10 +34,7 @@ class BankCardX extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 14),
-          TextX(
-            bank.name,
-            style: TextStyleX.headerSmall,
-          ),
+          TextX(bank.name, style: TextStyleX.headerSmall),
           const SizedBox(height: 12),
           TextX(
             "Bank Account Numbers (IBAN)",
@@ -46,44 +43,47 @@ class BankCardX extends StatelessWidget {
             color: Theme.of(context).colorScheme.secondary,
           ),
           const SizedBox(height: 12),
-          for(BankAccountX bankAccount in bank.bankAccounts)
-          InkWell(
-            onTap: () async => ClipboardX.copy(bankAccount.iban),
-            child: ContainerX(
-              margin: const EdgeInsets.only(bottom: 8),
-              padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 20),
-              isBorder: true,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        TextX(
-                          bankAccount.name,
-                          style: TextStyleX.titleSmall,
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
-                        const SizedBox(height: 6),
-                        TextX(
-                          bankAccount.iban,
-                          style: TextStyleX.titleSmall,
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
-                      ],
+          for (BankAccountX bankAccount in bank.bankAccounts)
+            InkWell(
+              onTap: () async => ClipboardX.copy(bankAccount.iban),
+              child: ContainerX(
+                margin: const EdgeInsets.only(bottom: 8),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 16,
+                  horizontal: 20,
+                ),
+                isBorder: true,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          TextX(
+                            bankAccount.name,
+                            style: TextStyleX.titleSmall,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                          const SizedBox(height: 6),
+                          TextX(
+                            bankAccount.iban,
+                            style: TextStyleX.titleSmall,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 20),
-                   Icon(
-                    IconX.copy,
-                    color: Theme.of(context).primaryColor,
-                    size: 18,
-                  ),
-                ],
+                    const SizedBox(width: 20),
+                    Icon(
+                      IconX.copy,
+                      color: Theme.of(context).primaryColor,
+                      size: 18,
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
         ],
       ),
     );

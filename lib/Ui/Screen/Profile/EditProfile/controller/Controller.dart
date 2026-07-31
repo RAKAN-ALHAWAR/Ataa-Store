@@ -31,12 +31,15 @@ class EditProfileController extends GetxController {
   /// Input Filed
   GlobalKey<FormState> formKey = GlobalKey();
   AutovalidateMode autoValidate = AutovalidateMode.disabled;
-  late TextEditingController name =
-      TextEditingController(text: app.user.value!.name);
-  late TextEditingController phone =
-      TextEditingController(text: app.user.value!.phone.toString());
-  late TextEditingController email =
-      TextEditingController(text: app.user.value!.email);
+  late TextEditingController name = TextEditingController(
+    text: app.user.value!.name,
+  );
+  late TextEditingController phone = TextEditingController(
+    text: app.user.value!.phone.toString(),
+  );
+  late TextEditingController email = TextEditingController(
+    text: app.user.value!.email,
+  );
 
   //============================================================================
   // Functions
@@ -64,7 +67,10 @@ class EditProfileController extends GetxController {
 
   changeImage() async {
     /// Open the user's photo gallery to select a photo
-    var x = await picker.pickImage(source: ImageSource.gallery);
+    var x = await picker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 10,
+    );
 
     /// If an image is selected, the data is updated
     if (x != null) {
@@ -75,23 +81,25 @@ class EditProfileController extends GetxController {
 
   onEdit() async {
     if (isLoading.isFalse) {
-      if(app.user.value?.email!=null && email.text.toLowerCase().trim()!=app.user.value?.email?.toLowerCase().trim() &&( phone.text.trim()!=app.user.value?.phone.toString() || countryCode!=app.user.value?.countryCode)){
-        isEditPhoneAndEmailError.value=true;
-      }else{
-        isEditPhoneAndEmailError.value=false;
+      if (app.user.value?.email != null &&
+          email.text.toLowerCase().trim() !=
+              app.user.value?.email?.toLowerCase().trim() &&
+          (phone.text.trim() != app.user.value?.phone.toString() ||
+              countryCode != app.user.value?.countryCode)) {
+        isEditPhoneAndEmailError.value = true;
+      } else {
+        isEditPhoneAndEmailError.value = false;
       }
-      if (isEditPhoneAndEmailError.isFalse && formKey.currentState!.validate()) {
+      if (isEditPhoneAndEmailError.isFalse &&
+          formKey.currentState!.validate()) {
         isLoading.value = true;
         buttonState.value = ButtonStateEX.loading;
         try {
-
-          if(image!=null){
-            await DatabaseX.uploadProfileImage(
-              image: File(image!.path),
-            );
+          if (image != null) {
+            await DatabaseX.uploadProfileImage(image: File(image!.path));
           }
 
-          (UserX?,String?) data = await DatabaseX.updateProfile(
+          (UserX?, String?) data = await DatabaseX.updateProfile(
             name: name.text,
             email: email.text,
             phone: phone.text.toIntX,
@@ -99,21 +107,25 @@ class EditProfileController extends GetxController {
             gender: gender.value,
           );
 
-
-          if(email.text.toLowerCase().trim()!=app.user.value?.email?.toLowerCase().trim() || phone.text.trim()!=app.user.value?.phone.toString() || countryCode!=app.user.value?.countryCode){
+          if (email.text.toLowerCase().trim() !=
+                  app.user.value?.email?.toLowerCase().trim() ||
+              phone.text.trim() != app.user.value?.phone.toString() ||
+              countryCode != app.user.value?.countryCode) {
             if (data.$2 != null && data.$2!.isNotEmpty) {
               ToastX.success(message: data.$2);
             }
             var resultOTP = await Get.toNamed(
               RouteNameX.otp,
               arguments: {
-                NameX.otp:OtpX(
+                NameX.otp: OtpX(
                   phone: phone.text.toIntX,
                   countryCode: countryCode,
                   isEdit: true,
                   isLogin: false,
-                  isPhone: phone.text.trim()!=app.user.value?.phone.toString() || countryCode!=app.user.value?.countryCode,
-                )
+                  isPhone:
+                      phone.text.trim() != app.user.value?.phone.toString() ||
+                      countryCode != app.user.value?.countryCode,
+                ),
               },
             );
             if (resultOTP != true) {
@@ -122,8 +134,8 @@ class EditProfileController extends GetxController {
               return;
             }
           }
-          if (data.$1!=null) {
-            app.user.value=data.$1;
+          if (data.$1 != null) {
+            app.user.value = data.$1;
           }
 
           /// The time delay here is aesthetically beneficial

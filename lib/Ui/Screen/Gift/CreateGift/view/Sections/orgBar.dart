@@ -32,7 +32,7 @@ class OrgBarSectionX extends GetView<CreateGiftController> {
               height: 110,
               child: Center(
                 child:  TextX(
-                  'There are currently no available donation options for this type of gift. Please change the type of gift.',
+                  'Please select a gift type above to view the available donation fields',
                 textAlign: TextAlign.center,
                   color: Theme.of(context).colorScheme.error,
                 ),

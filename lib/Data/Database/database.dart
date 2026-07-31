@@ -9,7 +9,9 @@ class DatabaseX {
     try {
       /// Here codes are added to configure anything within this section when the application starts
       DBEndPointX.mainAPI = FirebaseRemoteConfigServiceX.getString(
-          'base_url', 'https://api-store.edialoguec.org.sa/api/v1/');
+        'base_url',
+        'https://api-store.edialoguec.org.sa/api/v1/',
+      );
       // DBEndPointX.mainAPI= 'https://ataa-store-backend-staging.edialoguecenter.com/api/v1/';
     } catch (e) {
       return Future.error(e);
@@ -29,7 +31,7 @@ class DatabaseX {
       body: {
         NameX.name: name,
         NameX.phone: phone,
-        NameX.countryCode: countryCode
+        NameX.countryCode: countryCode,
       },
     );
     return data.$2;
@@ -41,10 +43,7 @@ class DatabaseX {
   }) async {
     var data = await RemoteDataSourceX.post(
       DBEndPointX.postLoginByPhone,
-      body: {
-        NameX.phone: phone,
-        NameX.countryCode: countryCode,
-      },
+      body: {NameX.phone: phone, NameX.countryCode: countryCode},
     );
     return data.$2;
   }
@@ -67,7 +66,7 @@ class DatabaseX {
         authToken: LocalDataX.token,
         requestBody: {
           NameX.email: email.toLowerCase().trim(),
-          NameX.gender: gender.toLowerCase().trim()
+          NameX.gender: gender.toLowerCase().trim(),
         },
       ),
     );
@@ -92,9 +91,7 @@ class DatabaseX {
   static Future<String?> deleteAccount() async {
     var data = await RemoteDataSourceX.delete(
       DBEndPointX.deleteAccount,
-      param: DataSourceParamX(
-        authToken: LocalDataX.token,
-      ),
+      param: DataSourceParamX(authToken: LocalDataX.token),
     );
     return data.$2;
   }
@@ -112,7 +109,7 @@ class DatabaseX {
       body: {
         NameX.phone: phone,
         NameX.countryCode: countryCode,
-        NameX.otp: otp
+        NameX.otp: otp,
       },
     );
     return UserX.fromJson(data.$1[NameX.data], data.$1[NameX.token]);
@@ -124,10 +121,7 @@ class DatabaseX {
   }) async {
     var data = await RemoteDataSourceX.post(
       DBEndPointX.postVerifyOtpEmail,
-      body: {
-        NameX.email: email,
-        NameX.otp: otp.toString(),
-      },
+      body: {NameX.email: email, NameX.otp: otp.toString()},
     );
     return UserX.fromJson(data.$1[NameX.data], data.$1[NameX.token]);
   }
@@ -137,9 +131,7 @@ class DatabaseX {
       DBEndPointX.postOtpVerifyUpdateProfile,
       param: DataSourceParamX(
         authToken: LocalDataX.token,
-        requestBody: {
-          NameX.otp: otp,
-        },
+        requestBody: {NameX.otp: otp},
       ),
     );
     try {
@@ -163,10 +155,7 @@ class DatabaseX {
   }) async {
     var data = await RemoteDataSourceX.post(
       DBEndPointX.postResendOtp,
-      body: {
-        NameX.phone: phone,
-        NameX.countryCode: countryCode,
-      },
+      body: {NameX.phone: phone, NameX.countryCode: countryCode},
     );
     return data.$2;
   }
@@ -227,9 +216,7 @@ class DatabaseX {
     }
   }
 
-  static Future<String?> uploadProfileImage({
-    required File image,
-  }) async {
+  static Future<String?> uploadProfileImage({required File image}) async {
     var data = await RemoteDataSourceX.postFiles(
       DBEndPointX.postUploadProfileImage,
       {NameX.imageFile: image},
@@ -304,7 +291,7 @@ class DatabaseX {
   // General Payment Methods Settings
 
   static Future<GeneralPaymentMethodsSettingsX>
-      getGeneralPaymentMethodsSettings() async {
+  getGeneralPaymentMethodsSettings() async {
     var data = await RemoteDataSourceX.get(
       DBEndPointX.getGeneralPaymentMethodsSettings,
       param: DataSourceParamX(
@@ -341,9 +328,10 @@ class DatabaseX {
         authToken: LocalDataX.token,
       ),
     );
-    return ModelUtilX.generateItems<PageX>(data.$1[NameX.data], PageX.fromJson)
-        .where((page) => !exclude.contains(page.tag))
-        .toList();
+    return ModelUtilX.generateItems<PageX>(
+      data.$1[NameX.data],
+      PageX.fromJson,
+    ).where((page) => !exclude.contains(page.tag)).toList();
   }
 
   //============================================================================
@@ -390,11 +378,11 @@ class DatabaseX {
         authToken: LocalDataX.token,
       ),
     );
-    var termsAndConditionsData =
-        List.from(data.$1[NameX.data] ?? []).firstWhere(
-      (page) => page[NameX.tag] == NameX.termsAndConditionsPage,
-      orElse: () => {},
-    );
+    var termsAndConditionsData = List.from(data.$1[NameX.data] ?? [])
+        .firstWhere(
+          (page) => page[NameX.tag] == NameX.termsAndConditionsPage,
+          orElse: () => {},
+        );
     return PageX.fromJson(Map<String, dynamic>.from(termsAndConditionsData));
   }
 
@@ -411,9 +399,7 @@ class DatabaseX {
       ),
     );
     return ContactUsX.fromJson(
-      Map<String, dynamic>.from(
-        data.$1?[NameX.data] ?? {},
-      ),
+      Map<String, dynamic>.from(data.$1?[NameX.data] ?? {}),
     );
   }
 
@@ -427,9 +413,7 @@ class DatabaseX {
       ),
     );
     return ContactUsSocialMediaX.fromJson(
-      Map<String, dynamic>.from(
-        data.$1?[NameX.data] ?? {},
-      ),
+      Map<String, dynamic>.from(data.$1?[NameX.data] ?? {}),
     );
   }
 
@@ -467,10 +451,7 @@ class DatabaseX {
         limit: perPage,
       ),
     );
-    return ModelUtilX.generateItems<BankX>(
-      data.$1[NameX.data],
-      BankX.fromJson,
-    );
+    return ModelUtilX.generateItems<BankX>(data.$1[NameX.data], BankX.fromJson);
   }
 
   static Future<BankAccountX> getBankAccountDetails({
@@ -525,9 +506,7 @@ class DatabaseX {
       ),
     );
     return GiftCategoryX.fromJson(
-      Map<String, dynamic>.from(
-        data.$1[NameX.data],
-      ),
+      Map<String, dynamic>.from(data.$1[NameX.data]),
     );
   }
 
@@ -541,15 +520,11 @@ class DatabaseX {
       ),
     );
     return GiftMessageX.fromJson(
-      Map<String, dynamic>.from(
-        data.$1[NameX.data],
-      ),
+      Map<String, dynamic>.from(data.$1[NameX.data]),
     );
   }
 
-  static Future<GiftOrderX> createGiftOrder({
-    required GiftX gift,
-  }) async {
+  static Future<GiftOrderX> createGiftOrder({required GiftX gift}) async {
     var data = await RemoteDataSourceX.post(
       DBEndPointX.postCreateGiftOrder,
       param: DataSourceParamX(
@@ -557,11 +532,7 @@ class DatabaseX {
         requestBody: gift.toJson(),
       ),
     );
-    return GiftOrderX.fromJson(
-      Map<String, dynamic>.from(
-        data.$1[NameX.data],
-      ),
-    );
+    return GiftOrderX.fromJson(Map<String, dynamic>.from(data.$1[NameX.data]));
   }
 
   static Future<List<GiftOrderX>> getAllMyGiftOrders({
@@ -578,15 +549,10 @@ class DatabaseX {
         limit: perPage,
       ),
     );
-    return ModelUtilX.generateItems(
-      data.$1[NameX.data],
-      GiftOrderX.fromJson,
-    );
+    return ModelUtilX.generateItems(data.$1[NameX.data], GiftOrderX.fromJson);
   }
 
-  static Future<GiftOrderX> getMyGiftOrderDetails({
-    required String id,
-  }) async {
+  static Future<GiftOrderX> getMyGiftOrderDetails({required String id}) async {
     var data = await RemoteDataSourceX.get(
       DBEndPointX.getMyGiftOrderDetails,
       param: DataSourceParamX(
@@ -594,11 +560,7 @@ class DatabaseX {
         pathParams: {NameX.id: id},
       ),
     );
-    return GiftOrderX.fromJson(
-      Map<String, dynamic>.from(
-        data.$1[NameX.data],
-      ),
-    );
+    return GiftOrderX.fromJson(Map<String, dynamic>.from(data.$1[NameX.data]));
   }
 
   //============================================================================
@@ -802,9 +764,7 @@ class DatabaseX {
       ),
     );
     return OrganizationX.fromJson(
-      Map<String, dynamic>.from(
-        data.$1[NameX.data],
-      ),
+      Map<String, dynamic>.from(data.$1[NameX.data]),
     );
   }
 
@@ -867,11 +827,7 @@ class DatabaseX {
         pathParams: {NameX.code: code},
       ),
     );
-    return DeductionX.fromJson(
-      Map<String, dynamic>.from(
-        data.$1[NameX.data],
-      ),
-    );
+    return DeductionX.fromJson(Map<String, dynamic>.from(data.$1[NameX.data]));
   }
 
   //============================================================================
@@ -884,14 +840,13 @@ class DatabaseX {
     var data = await RemoteDataSourceX.put(
       DBEndPointX.putUpdateMyDeductionSubscriptionStatus,
       param: DataSourceParamX(
-          authToken: LocalDataX.token,
-          pathParams: {NameX.donationSubscriptionId: id},
-          requestBody: {NameX.status: status.toIntX}),
+        authToken: LocalDataX.token,
+        pathParams: {NameX.donationSubscriptionId: id},
+        requestBody: {NameX.status: status.toIntX},
+      ),
     );
     return DeductionOrderX.fromJson(
-      Map<String, dynamic>.from(
-        data.$1[NameX.data],
-      ),
+      Map<String, dynamic>.from(data.$1[NameX.data]),
     );
   }
 
@@ -936,8 +891,10 @@ class DatabaseX {
         filterParams: filterParams,
       ),
     );
-    List<DonationX> result =
-        ModelUtilX.generateItems(data.$1[NameX.data], DonationX.fromJson);
+    List<DonationX> result = ModelUtilX.generateItems(
+      data.$1[NameX.data],
+      DonationX.fromJson,
+    );
     if (result.isEmpty && isZakat == true) {
       result = [await getDefaultZakat()];
     }
@@ -955,10 +912,11 @@ class DatabaseX {
     if ((searchQuery == null || searchQuery.isEmpty) &&
         (sortType == null || sortType.isEmpty)) {
       return await getAllDonations(
-          isZakat: isZakat,
-          categoryID: categoryID,
-          page: page,
-          perPage: perPage);
+        isZakat: isZakat,
+        categoryID: categoryID,
+        page: page,
+        perPage: perPage,
+      );
     } else {
       Map<String, dynamic>? filterParams = {
         if (isZakat != null) NameX.isZakat: isZakat.toIntNullableX,
@@ -978,8 +936,10 @@ class DatabaseX {
           searchKey: NameX.search,
         ),
       );
-      List<DonationX> result =
-          ModelUtilX.generateItems(data.$1[NameX.data], DonationX.fromJson);
+      List<DonationX> result = ModelUtilX.generateItems(
+        data.$1[NameX.data],
+        DonationX.fromJson,
+      );
       if (result.isEmpty &&
           isZakat == true &&
           (searchQuery == null || searchQuery.isEmpty)) {
@@ -999,11 +959,7 @@ class DatabaseX {
         pathParams: {NameX.code: code},
       ),
     );
-    return DonationX.fromJson(
-      Map<String, dynamic>.from(
-        data.$1[NameX.data],
-      ),
-    );
+    return DonationX.fromJson(Map<String, dynamic>.from(data.$1[NameX.data]));
   }
 
   static Future<List<DonationX>> getAllDonationInQuickDonation() async {
@@ -1018,8 +974,9 @@ class DatabaseX {
     return ModelUtilX.generateItems(data.$1[NameX.data], DonationX.fromJson);
   }
 
-  static Future<DonationOrderX> createDonationOrder(
-      {required DonationOrderFormX form}) async {
+  static Future<DonationOrderX> createDonationOrder({
+    required DonationOrderFormX form,
+  }) async {
     var data = await RemoteDataSourceX.post(
       DBEndPointX.postCreateDonationOrder,
       param: DataSourceParamX(
@@ -1028,9 +985,7 @@ class DatabaseX {
       ),
     );
     return DonationOrderX.fromJson(
-      Map<String, dynamic>.from(
-        data.$1[NameX.data],
-      ),
+      Map<String, dynamic>.from(data.$1[NameX.data]),
     );
   }
 
@@ -1070,10 +1025,10 @@ class DatabaseX {
   }) async {
     var data = await RemoteDataSourceX.post(
       DBEndPointX.postMetalPrice,
-      param: DataSourceParamX(authToken: LocalDataX.token, requestBody: {
-        NameX.metal: metal.name,
-        NameX.karat: karat?.toString(),
-      }),
+      param: DataSourceParamX(
+        authToken: LocalDataX.token,
+        requestBody: {NameX.metal: metal.name, NameX.karat: karat?.toString()},
+      ),
     );
     return MetalPriceX.fromJson(Map<String, dynamic>.from(data.$1[NameX.data]));
   }
@@ -1098,7 +1053,7 @@ class DatabaseX {
   //============================================================================
   // Campaigns
 
-  static Future<CampaignX> getCampaignDetails({required int code}) async {
+  static Future<CampaignX> getCampaignDetails({required String code}) async {
     var data = await RemoteDataSourceX.get(
       DBEndPointX.getCampaignDetails,
       param: DataSourceParamX(
@@ -1106,11 +1061,18 @@ class DatabaseX {
         pathParams: {NameX.code: code},
       ),
     );
-    return CampaignX.fromJson(
-      Map<String, dynamic>.from(
-        data.$1[NameX.data],
+    return CampaignX.fromJson(Map<String, dynamic>.from(data.$1[NameX.data]));
+  }
+
+  static Future<CampaignX> getCampaignDetailsById({required String id}) async {
+    var data = await RemoteDataSourceX.get(
+      DBEndPointX.getCampaignDetailsById,
+      param: DataSourceParamX(
+        authToken: LocalDataX.token,
+        pathParams: {NameX.id: id},
       ),
     );
+    return CampaignX.fromJson(Map<String, dynamic>.from(data.$1[NameX.data]));
   }
 
   static Future<List<CampaignDonationX>> getAllCampaignDonations({
@@ -1128,7 +1090,9 @@ class DatabaseX {
       ),
     );
     return ModelUtilX.generateItems(
-        data.$1[NameX.data], CampaignDonationX.fromJson);
+      data.$1[NameX.data],
+      CampaignDonationX.fromJson,
+    );
   }
 
   static Future<List<CampaignX>> getAllCampaigns({
@@ -1156,9 +1120,7 @@ class DatabaseX {
         (sortType == null || sortType.isEmpty)) {
       return await getAllCampaigns(page: page, perPage: perPage);
     } else {
-      Map<String, dynamic>? filterParams = {
-        NameX.sortType: sortType,
-      };
+      Map<String, dynamic>? filterParams = {NameX.sortType: sortType};
       var data = await RemoteDataSourceX.get(
         DBEndPointX.getCampaignsBySearch,
         param: DataSourceParamX(
@@ -1199,11 +1161,7 @@ class DatabaseX {
         requestBody: form.toJson(),
       ),
     );
-    return CampaignX.fromJson(
-      Map<String, dynamic>.from(
-        data.$1[NameX.data],
-      ),
-    );
+    return CampaignX.fromJson(Map<String, dynamic>.from(data.$1[NameX.data]));
   }
 
   static Future<CampaignX> updateMyCampaign({
@@ -1218,11 +1176,7 @@ class DatabaseX {
         requestBody: form.toJson(),
       ),
     );
-    return CampaignX.fromJson(
-      Map<String, dynamic>.from(
-        data.$1[NameX.data],
-      ),
-    );
+    return CampaignX.fromJson(Map<String, dynamic>.from(data.$1[NameX.data]));
   }
 
   //============================================================================
@@ -1326,14 +1280,12 @@ class DatabaseX {
   }) async {
     var data = await RemoteDataSourceX.get(
       DBEndPointX.getCheckStatusPaymentTransaction,
-      param: DataSourceParamX(
-        pathParams: {NameX.id: id},
-        maxRetries: 3,
-      ),
+      param: DataSourceParamX(pathParams: {NameX.id: id}, maxRetries: 3),
     );
     String status = (data.$1 ?? '').toString();
-    return PaymentStatusStatusX.values
-        .firstWhereOrNull((x) => x.name == status);
+    return PaymentStatusStatusX.values.firstWhereOrNull(
+      (x) => x.name == status,
+    );
   }
 
   //============================================================================
@@ -1362,13 +1314,9 @@ class DatabaseX {
   static Future<CartX> createCart() async {
     var data = await RemoteDataSourceX.get(
       DBEndPointX.getCreateCartID,
-      param: DataSourceParamX(
-        authToken: LocalDataX.token,
-      ),
+      param: DataSourceParamX(authToken: LocalDataX.token),
     );
-    return CartX.fromJson(
-      Map<String, dynamic>.from(data.$1[NameX.data]),
-    );
+    return CartX.fromJson(Map<String, dynamic>.from(data.$1[NameX.data]));
   }
 
   static Future<CartX> getAllCartItems({String? cartId}) async {
@@ -1381,9 +1329,7 @@ class DatabaseX {
         pathParams: {NameX.cartId: cartId ?? ''},
       ),
     );
-    return CartX.fromJson(
-      Map<String, dynamic>.from(data.$1[NameX.data]),
-    );
+    return CartX.fromJson(Map<String, dynamic>.from(data.$1[NameX.data]));
   }
 
   static Future<MiniCartX> createCartItem(
@@ -1406,9 +1352,7 @@ class DatabaseX {
           },
         ),
       );
-      return MiniCartX.fromJson(
-        Map<String, dynamic>.from(data.$1),
-      );
+      return MiniCartX.fromJson(Map<String, dynamic>.from(data.$1));
     } catch (error) {
       return Future.error(error);
     }
@@ -1427,19 +1371,15 @@ class DatabaseX {
         ),
       );
       return (
-        CartX.fromJson(
-          Map<String, dynamic>.from(data.$1[NameX.data]),
-        ),
-        data.$2
+        CartX.fromJson(Map<String, dynamic>.from(data.$1[NameX.data])),
+        data.$2,
       );
     } catch (error) {
       return Future.error(error);
     }
   }
 
-  static Future<MiniCartX> deleteCartItem({
-    required String itemId,
-  }) async {
+  static Future<MiniCartX> deleteCartItem({required String itemId}) async {
     var data = await RemoteDataSourceX.delete(
       DBEndPointX.deleteCartItem,
       param: DataSourceParamX(
@@ -1447,14 +1387,10 @@ class DatabaseX {
         pathParams: {NameX.itemId: itemId},
       ),
     );
-    return MiniCartX.fromJson(
-      Map<String, dynamic>.from(data.$1),
-    );
+    return MiniCartX.fromJson(Map<String, dynamic>.from(data.$1));
   }
 
-  static Future<MiniCartX> deleteAllCartItems({
-    required String cartId,
-  }) async {
+  static Future<MiniCartX> deleteAllCartItems({required String cartId}) async {
     var data = await RemoteDataSourceX.delete(
       DBEndPointX.deleteAllCartItems,
       param: DataSourceParamX(
@@ -1462,8 +1398,9 @@ class DatabaseX {
         pathParams: {NameX.cartId: cartId},
       ),
     );
-    Map<String, dynamic> dataJson =
-        data.$1 is Map ? Map<String, dynamic>.from(data.$1) : {};
+    Map<String, dynamic> dataJson = data.$1 is Map
+        ? Map<String, dynamic>.from(data.$1)
+        : {};
     return MiniCartX.fromJson(dataJson);
   }
 
@@ -1479,10 +1416,7 @@ class DatabaseX {
         authToken: LocalDataX.token,
       ),
     );
-    return ModelUtilX.generateItems(
-      data.$1[NameX.data],
-      PaymentCardX.fromJson,
-    );
+    return ModelUtilX.generateItems(data.$1[NameX.data], PaymentCardX.fromJson);
   }
 
   static Future<PaymentCardX> getPaymentCardDetails({
@@ -1512,9 +1446,7 @@ class DatabaseX {
         ),
       );
       return PaymentCardX.fromJson(
-        Map<String, dynamic>.from(
-          data.$1[NameX.data],
-        ),
+        Map<String, dynamic>.from(data.$1[NameX.data]),
       );
     } catch (e) {
       ErrorX error = e.toErrorX;
@@ -1536,15 +1468,11 @@ class DatabaseX {
       ),
     );
     return PaymentCardX.fromJson(
-      Map<String, dynamic>.from(
-        data.$1[NameX.data],
-      ),
+      Map<String, dynamic>.from(data.$1[NameX.data]),
     );
   }
 
-  static Future<String?> deletePaymentCard({
-    required String cardId,
-  }) async {
+  static Future<String?> deletePaymentCard({required String cardId}) async {
     var data = await RemoteDataSourceX.delete(
       DBEndPointX.deletePaymentCard,
       param: DataSourceParamX(
@@ -1607,8 +1535,9 @@ class DatabaseX {
     List<Map<String, dynamic>> allNotifications = [];
     for (var item in data.$1[NameX.data]) {
       if (item[NameX.notifications] != null) {
-        allNotifications
-            .addAll(List<Map<String, dynamic>>.from(item[NameX.notifications]));
+        allNotifications.addAll(
+          List<Map<String, dynamic>>.from(item[NameX.notifications]),
+        );
       }
     }
     return ModelUtilX.generateItems(allNotifications, NotificationX.fromJson);
@@ -1634,9 +1563,10 @@ class DatabaseX {
     return ModelUtilX.generateItems(data.$1[NameX.data], ShareLinkX.fromJson);
   }
 
-  static Future<MiniShareLinkX> createShareLink(
-      {required LinkableTypeStatusX linkableType,
-      required String modelId}) async {
+  static Future<MiniShareLinkX> createShareLink({
+    required LinkableTypeStatusX linkableType,
+    required String modelId,
+  }) async {
     var data = await RemoteDataSourceX.post(
       DBEndPointX.postCreateShareLink,
       param: DataSourceParamX(
@@ -1649,9 +1579,7 @@ class DatabaseX {
     );
 
     return MiniShareLinkX.fromJson(
-      Map<String, dynamic>.from(
-        data.$1[NameX.data],
-      ),
+      Map<String, dynamic>.from(data.$1[NameX.data]),
     );
   }
 
@@ -1659,7 +1587,7 @@ class DatabaseX {
   // My Records
 
   static Future<List<PaymentTransactionItemX<T>>>
-      getAllMyRecords<T extends OrderX>({
+  getAllMyRecords<T extends OrderX>({
     ModelTypeStatusX? type,
     T Function(Map<String, dynamic>)? orderModelFromJson,
     bool isAllWithoutPaginated = false,
@@ -1691,11 +1619,9 @@ class DatabaseX {
     );
   }
 
-  static Future<List<PaymentTransactionX>>
-      getAllPaymentTransactions<T extends OrderX>({
-    int page = 1,
-    int perPage = 20,
-  }) async {
+  static Future<List<PaymentTransactionX>> getAllPaymentTransactions<
+    T extends OrderX
+  >({int page = 1, int perPage = 20}) async {
     var data = await RemoteDataSourceX.get(
       DBEndPointX.getAllPaymentTransactions,
       param: DataSourceParamX(
@@ -1717,9 +1643,7 @@ class DatabaseX {
       DBEndPointX.getPaymentTransactionDetails,
       param: DataSourceParamX(
         authToken: LocalDataX.token,
-        pathParams: {
-          NameX.id: paymentTransactionId,
-        },
+        pathParams: {NameX.id: paymentTransactionId},
       ),
     );
     return PaymentTransactionX.fromJson(data.$1[NameX.data]);

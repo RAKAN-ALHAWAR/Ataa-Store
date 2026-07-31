@@ -23,6 +23,8 @@ class SignUpController extends GetxController {
   RxBool isLoading = false.obs;
   Rx<ErrorX?> error = Rx<ErrorX?>(null);
   bool isSheet = false;
+  bool isFromQuickDonation = Get.arguments?[NameX.isFromQuickDonation] ?? false;
+
   Rx<ButtonStateEX> buttonState = ButtonStateEX.normal.obs;
 
   GlobalKey<FormState> formKey = GlobalKey();
@@ -54,10 +56,14 @@ class SignUpController extends GetxController {
           ..phone.text = phone.text
           ..countryCode.value = countryCode;
       } else {
-        Get.toNamed(RouteNameX.login, arguments: {
-          NameX.phone: phone.text,
-          NameX.countryCode: countryCode
-        });
+        Get.toNamed(
+          RouteNameX.login,
+          arguments: {
+            NameX.phone: phone.text,
+            NameX.countryCode: countryCode,
+            NameX.isFromQuickDonation: isFromQuickDonation,
+          },
+        );
       }
     }
   }
@@ -70,7 +76,8 @@ class SignUpController extends GetxController {
   }
 
   onTapError() {
-    if (error.value?.details[NameX.errors]?[NameX.isAccountAlreadyExists] ?? false) {
+    if (error.value?.details[NameX.errors]?[NameX.isAccountAlreadyExists] ??
+        false) {
       onLogin();
     }
   }
@@ -95,7 +102,7 @@ class SignUpController extends GetxController {
             const Duration(seconds: StyleX.successButtonSecond),
           );
 
-          if(massage!=null && massage.isNotEmpty){
+          if (massage != null && massage.isNotEmpty) {
             ToastX.success(message: massage);
           }
 
@@ -105,14 +112,17 @@ class SignUpController extends GetxController {
             countryCode: countryCode,
             isLogin: false,
             isPhone: true,
+            isFromQuickDonation: isFromQuickDonation,
           );
 
           /// go to otp screen
           if (isSheet) {
             Get.back(); // close sign up sheet
-            bottomSheetX(child: OTPView(isSheet: true, otp: otp).paddingOnly(top: 14));
+            bottomSheetX(
+              child: OTPView(isSheet: true, otp: otp).paddingOnly(top: 14),
+            );
           } else {
-            Get.toNamed(RouteNameX.otp, arguments: {NameX.otp:otp});
+            Get.toNamed(RouteNameX.otp, arguments: {NameX.otp: otp});
           }
         } catch (e) {
           error.value = e.toErrorX;

@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.ataa.rakanalhawar",
+      "sha256_cert_fingerprints": [
+        "97:E4:10:28:4E:E0:04:3C:41:6F:64:B1:C2:4F:5D:93:D2:0D:28:FB:40:62:1C:8B:EE:ED:D2:79:6D:A3:40"
+      ]
+    }
+  }
+]

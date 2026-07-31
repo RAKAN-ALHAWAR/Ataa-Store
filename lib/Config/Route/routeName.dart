@@ -25,6 +25,7 @@ class RouteNameX {
 
   /// Auth
   static const String login = '/login';
+  static const String continueToAccount = '/continueToAccount';
   static const String signUp = '/signUp';
   static const String otp = '/otp';
   static const String completeAccountData = '/completeAccountData';
@@ -94,5 +95,4 @@ class RouteNameX {
   static const String ourBank = '/OurBank';
   static const String termsConditions = '/termsConditions';
   static const String privacyPolicy = '/privacyPolicy';
-
 }

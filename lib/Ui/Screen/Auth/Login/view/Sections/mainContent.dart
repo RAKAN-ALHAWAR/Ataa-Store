@@ -30,7 +30,7 @@ class MainContentLoginX extends GetView<LoginController> {
             ).marginOnly(bottom: 32).fadeAnimation200,
 
             /// Error Message
-            if (controller.error.value!=null)
+            if (controller.error.value != null)
               GestureDetector(
                 onTap: controller.onTapError,
                 child: MessageCardX(
@@ -43,10 +43,7 @@ class MainContentLoginX extends GetView<LoginController> {
             if (controller.app.generalSettings.isShowRegisterEmail)
               TabSegmentX(
                 controller: controller.loginVia,
-                tabs: {
-                  1: 'Via Mobile'.tr,
-                  2: 'Via Email'.tr,
-                },
+                tabs: {1: 'Via Mobile'.tr, 2: 'Via Email'.tr},
               ).fadeAnimation400.marginOnly(bottom: 20),
 
             /// Input Fields
@@ -62,7 +59,8 @@ class MainContentLoginX extends GetView<LoginController> {
                       controller: controller.phone,
                       onChangeCountryCode: controller.onChangeCountryCode,
                       countryCode: controller.countryCode.value,
-                      isDisableChangeCountryCode:!controller.app.generalSettings.isShowCountryCodeList,
+                      isDisableChangeCountryCode:
+                          !controller.app.generalSettings.isShowCountryCodeList,
                     ).fadeAnimation400,
                   if (!controller.isPhone.value)
                     TextFieldX(

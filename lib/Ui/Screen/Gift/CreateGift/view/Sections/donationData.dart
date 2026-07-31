@@ -38,18 +38,19 @@ class DonationDataSectionX extends GetView<CreateGiftController> {
                     autovalidateMode: controller.autoValidateDonationAmount,
                     child: TextFieldX(
                       controller: controller.donationAmount,
-                      onChanged: controller.onChangeAmountForFreeDonationSelected,
+                      onChanged:
+                          controller.onChangeAmountForFreeDonationSelected,
                       textInputType: TextInputType.number,
                       textInputAction: TextInputAction.done,
                       hint: "0",
-                      validate: ValidateX.giftMoney,
+                      validate: controller.validateAmount,
                       suffixWidget: Icon(
                         IconX.sar,
                         size: 16,
                         color: Theme.of(context).colorScheme.secondary,
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ).fadeAnimation700,
@@ -76,10 +77,14 @@ class DonationDataSectionX extends GetView<CreateGiftController> {
                 autovalidateMode: controller.autoValidatePhoneSendToMe,
                 child: PhoneFieldX(
                   label: 'Mobile Number',
-                  color: context.isDarkMode ? null : Theme.of(context).cardColor,
+                  color: context.isDarkMode
+                      ? null
+                      : Theme.of(context).cardColor,
                   controller: controller.phoneSendToMe,
-                  onChangeCountryCode: controller.onChangeCountryCodeForSendToMe,
-                  isDisableChangeCountryCode:!controller.app.generalSettings.isShowCountryCodeList,
+                  onChangeCountryCode:
+                      controller.onChangeCountryCodeForSendToMe,
+                  isDisableChangeCountryCode:
+                      !controller.app.generalSettings.isShowCountryCodeList,
                 ).fadeAnimation100,
               ).paddingOnly(top: 4),
 
@@ -95,7 +100,7 @@ class DonationDataSectionX extends GetView<CreateGiftController> {
             if (controller.isSendLater.value)
               TextFieldDateX(
                 key: const Key('Date'),
-                titleBottomSheet:"Date and time of submission",
+                titleBottomSheet: "Date and time of submission",
                 label: "Date and time of dispatch",
                 controller: controller.date,
                 icon: IconX.date,

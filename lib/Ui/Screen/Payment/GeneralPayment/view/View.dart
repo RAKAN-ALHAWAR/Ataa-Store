@@ -21,44 +21,68 @@ class GeneralPaymentView extends GetView<GeneralPaymentController> {
       body: SafeArea(
         child: FutureBuilderX(
           future: controller.getData,
-          child: (data) => Obx(
-            () {
-              return AbsorbPointer(
-                absorbing: controller.isLoading.value ||
-                    controller.appleAndGooglePayController.isLoading.value,
-                child: Stack(
-                  children: [
-                    Positioned.fill(
-                      child: SingleChildScrollView(
-                        controller: controller.scrollController,
-                        padding: const EdgeInsets.symmetric(
-                          vertical: StyleX.vPaddingApp,
-                          horizontal: StyleX.hPaddingApp,
-                        ),
-                        child: Column(
-                          children: [
-                            if (controller.error.value != null || controller.appleAndGooglePayController.error.value != null)
-                              MessageCardX(
-                                isError: true,
-                                maxLine: 4,
-                                message: controller.error.value?.message??controller.appleAndGooglePayController.error.value?.message,
-                                description: controller.error.value?.details[NameX.errors]?[NameX.description]?.toString()??controller.appleAndGooglePayController.error.value?.details[NameX.errors]?[NameX.description]?.toString(),
-                              ).fadeAnimation200.marginOnly(bottom: 14),
-                            ContainerX(
-                              child: Column(
-                                children: [
-                                  if(controller.isShowAppleAndGooglePay && controller.appleAndGooglePayController.initError.isFalse)
-                                    AppleAndGooglePaySectionX(
-                                    controller: controller.appleAndGooglePayController,
+          child: (data) => Obx(() {
+            return AbsorbPointer(
+              absorbing: controller.isLoading.value ||
+                  controller.appleAndGooglePayController.isLoading.value,
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: SingleChildScrollView(
+                      controller: controller.scrollController,
+                      padding: const EdgeInsets.symmetric(
+                        vertical: StyleX.vPaddingApp,
+                        horizontal: StyleX.hPaddingApp,
+                      ),
+                      child: Column(
+                        children: [
+                          if (controller.error.value != null ||
+                              controller.appleAndGooglePayController.error
+                                      .value !=
+                                  null)
+                            MessageCardX(
+                              isError: true,
+                              maxLine: 4,
+                              message: controller.error.value?.message ??
+                                  controller.appleAndGooglePayController.error
+                                      .value?.message,
+                              description: controller
+                                      .error
+                                      .value
+                                      ?.details[NameX.errors]
+                                          ?[NameX.description]
+                                      ?.toString() ??
+                                  controller
+                                      .appleAndGooglePayController
+                                      .error
+                                      .value
+                                      ?.details[NameX.errors]
+                                          ?[NameX.description]
+                                      ?.toString(),
+                            ).fadeAnimation200.marginOnly(bottom: 14),
+                          ContainerX(
+                            child: Column(
+                              children: [
+                                if (controller.isShowAppleAndGooglePay &&
+                                    controller.appleAndGooglePayController
+                                        .initError.isFalse)
+                                  AppleAndGooglePaySectionX(
+                                    controller:
+                                        controller.appleAndGooglePayController,
                                   ).marginOnly(bottom: 20).fadeAnimation200,
-                                  if((controller.isShowBank || controller.isShowPaymentCard) && controller.isShowAppleAndGooglePay && controller.appleAndGooglePayController.initError.isFalse)
+                                if ((controller.isShowBank ||
+                                        controller.isShowPaymentCard) &&
+                                    controller.isShowAppleAndGooglePay &&
+                                    controller.appleAndGooglePayController
+                                        .initError.isFalse)
+
                                   /// The word "OR" is an element
                                   Row(
                                     children: [
                                       const Flexible(child: Divider()),
                                       Padding(
-                                        padding:
-                                        const EdgeInsets.symmetric(horizontal: 25),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 25),
                                         child: TextX(
                                           "OR",
                                           fontWeight: FontWeight.w700,
@@ -68,7 +92,8 @@ class GeneralPaymentView extends GetView<GeneralPaymentController> {
                                       const Flexible(child: Divider()),
                                     ],
                                   ).marginOnly(bottom: 20).fadeAnimation200,
-                                  if(controller.isShowBank && controller.isShowPaymentCard)
+                                if (controller.isShowBank &&
+                                    controller.isShowPaymentCard)
                                   TabSegmentX(
                                     controller: controller.payVia,
                                     tabs: {
@@ -76,41 +101,52 @@ class GeneralPaymentView extends GetView<GeneralPaymentController> {
                                       2: 'Pay by bank transfer'.tr,
                                     },
                                   ).marginOnly(bottom: 16).fadeAnimation300,
-                                  if (controller.isViaCard.value && controller.isShowPaymentCard)
-                                    PreSavedPaymentCardsSectionX(
-                                      controller:
-                                      controller.preSavedPaymentCardsController,
-                                    ),
-                                  if (!controller.isViaCard.value && controller.isShowBank)
-                                    PayByBankTransferSectionX(
-                                      controller: controller.payByBankTransferController,
-                                    ),
-                                  if(controller.isShowBank || controller.isShowPaymentCard)
+                                if (controller.isViaCard.value &&
+                                    controller.isShowPaymentCard)
+                                  PreSavedPaymentCardsSectionX(
+                                    controller: controller
+                                        .preSavedPaymentCardsController,
+                                  ),
+                                if (!controller.isViaCard.value &&
+                                    controller.isShowBank)
+                                  PayByBankTransferSectionX(
+                                    controller:
+                                        controller.payByBankTransferController,
+                                  ),
+                                if (controller.isShowBank ||
+                                    controller.isShowPaymentCard)
                                   ButtonStateX(
-                                    disabled: controller.isViaCard.value?!controller.preSavedPaymentCardsController.isValidate.value:!controller.payByBankTransferController.isValidate.value,
+                                    disabled: controller.isViaCard.value
+                                        ? !controller
+                                            .preSavedPaymentCardsController
+                                            .isValidate
+                                            .value
+                                        : !controller
+                                            .payByBankTransferController
+                                            .isValidate
+                                            .value,
                                     onTap: controller.onPay,
                                     state: controller.buttonState.value,
                                     text: 'Completing the payment process',
                                   ).fadeAnimation400
-                                ],
-                              ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                    if(controller.appleAndGooglePayController.isLoading.value)
-                      const Positioned.fill(
-                        child: BlurX(
-                          blur: 2,
-                          child: Center(child: CircularProgressIndicator()),
-                        ),
+                  ),
+                  if (controller.appleAndGooglePayController.isLoading.value)
+                    const Positioned.fill(
+                      child: BlurX(
+                        blur: 2,
+                        child: Center(child: CircularProgressIndicator()),
                       ),
-                  ],
-                ),
-              );
-            }
-          ),
+                    ),
+                ],
+              ),
+            );
+          }),
         ),
       ),
     );

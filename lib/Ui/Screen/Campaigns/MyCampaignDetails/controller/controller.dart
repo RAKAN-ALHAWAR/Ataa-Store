@@ -14,10 +14,16 @@ class MyCampaignDetailsController extends GetxController {
   //============================================================================
   // Variables
 
-  final CampaignX campaign = Get.arguments;
-
+  late CampaignX campaign;
+  final String codeOrId = Get.arguments.toString();
   //============================================================================
   // Functions
+
+  Future<void> getData() async {
+    campaign = num.tryParse(codeOrId) == null
+        ? await DatabaseX.getCampaignDetailsById(id: codeOrId)
+        : await DatabaseX.getCampaignDetails(code: codeOrId);
+  }
 
   openShare() async {
     await shareSheet(
@@ -27,14 +33,16 @@ class MyCampaignDetailsController extends GetxController {
     );
   }
 
-  Future<List<CampaignDonationX>> getCampaignDonations(ScrollRefreshLoadMoreParametersX data) async {
-      return await DatabaseX.getAllCampaignDonations(
-        page: data.page,
-        perPage: data.perPage,
-        campaignId: campaign.id,
-      );
+  Future<List<CampaignDonationX>> getCampaignDonations(
+    ScrollRefreshLoadMoreParametersX data,
+  ) async {
+    return await DatabaseX.getAllCampaignDonations(
+      page: data.page,
+      perPage: data.perPage,
+      campaignId: campaign.id,
+    );
   }
-  
+
   //============================================================================
   // Initialization
 

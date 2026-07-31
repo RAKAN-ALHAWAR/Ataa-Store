@@ -13,15 +13,18 @@ class RootController extends GetxController {
   // Injection of required controls
 
   AppControllerX app = Get.find();
-  QuickDonationController quickDonationController =
-      Get.put(QuickDonationController());
+  QuickDonationController quickDonationController = Get.put(
+    QuickDonationController(),
+  );
   AllDonationController allDonationController = Get.find();
 
   //============================================================================
   // Variables
 
   RxInt indexPageSelected = 0.obs;
-  late List<RootPageX> pages = app.generalSettings.isActiveQuickDonation?navBarItems:[navBarItems[0],navBarItems[1],navBarItems[3],navBarItems[4]];
+  late List<RootPageX> pages = app.generalSettings.isActiveQuickDonation
+      ? navBarItems
+      : [navBarItems[0], navBarItems[1], navBarItems[3], navBarItems[4]];
   RxBool isMoreDynamicPage = false.obs;
 
   //============================================================================
@@ -37,7 +40,7 @@ class RootController extends GetxController {
       return "Donation opportunities";
     } else if (isMoreDynamicPage.isTrue && indexPageSelected.value == 3) {
       return 'More Pages';
-    }  else if (indexPageSelected.value != 0) {
+    } else if (indexPageSelected.value != 0) {
       return pages[indexPageSelected.value].label;
     } else {
       /// So that a title does not appear when the home page is open
@@ -49,8 +52,8 @@ class RootController extends GetxController {
     /// To disable the hidden button below the quick donate button
     if (app.generalSettings.isActiveQuickDonation && index == 2) {
       openQuickDonation();
-    }else{
-      if(indexPageSelected.value==1){
+    } else {
+      if (indexPageSelected.value == 1) {
         allDonationController.clearData();
       }
       indexPageSelected.value = index;
@@ -67,6 +70,13 @@ class RootController extends GetxController {
     /// Fix init screen on Quick Action
     if (isFromAction) {
       await Future.delayed(const Duration(milliseconds: 50));
+    }
+
+    if (app.isLogin.isFalse) {
+      String route = app.generalSettings.accountCreationMethodIsTraditionalForm
+          ? RouteNameX.login
+          : RouteNameX.continueToAccount;
+      return Get.toNamed(route, arguments: {NameX.isFromQuickDonation: true});
     }
 
     /// Check if it is already open
@@ -88,7 +98,7 @@ class RootController extends GetxController {
     init();
   }
 
-  init()async{
+  init() async {
     /// Initialize quick actions
     await QuickActionX.init();
   }

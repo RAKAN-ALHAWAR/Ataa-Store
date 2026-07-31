@@ -82,6 +82,7 @@ class CartGeneralControllerX extends GetxController {
           await Future.delayed(const Duration(
               milliseconds: 100)); // إضافة تأخير بسيط للتحقق بشكل دوري
         }
+        if (LocalDataX.token.isEmpty) return data.message;
       }
       if (cart.value.countItem == 1 && LocalDataX.token.isNotEmpty) {
         Get.toNamed(

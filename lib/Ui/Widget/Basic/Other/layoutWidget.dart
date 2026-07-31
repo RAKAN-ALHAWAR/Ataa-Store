@@ -28,10 +28,3 @@ class LayoutWidgetX extends StatelessWidget {
     );
   }
 }
-
-// case SizeType.medium:
-// return mediumScreen ?? smallScreen;
-// case SizeType.large:
-// return largeScreen ?? xLargeScreen?? mediumScreen ?? smallScreen;
-// case SizeType.xLarge:
-// return xLargeScreen ?? largeScreen?? mediumScreen ??smallScreen;

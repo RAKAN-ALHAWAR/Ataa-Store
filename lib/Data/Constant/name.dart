@@ -167,12 +167,14 @@ class NameX {
   static const String sharesQuantity = 'shares_quantity';
   static const String donationOpenPackageId = 'donation_open_package_id';
   static const String donationSharesPackageId = 'donation_shares_package_id';
-  static const String donationDeductionPackageId = 'donation_deduction_attribute_id';
+  static const String donationDeductionPackageId =
+      'donation_deduction_attribute_id';
   static const String donationOpenPackage = 'open_package';
   static const String openPackage = 'open_package';
   static const String donationSharePackageId = 'donation_shares_package_id';
   static const String donationSharePackage = 'shares_package';
-  static const String isDonateOnBehalfOfFamily = 'donation_on_behalf_of_family_and_friends';
+  static const String isDonateOnBehalfOfFamily =
+      'donation_on_behalf_of_family_and_friends';
   static const String familyAndFriends = 'family_and_friends';
   static const String state = 'state';
   static const String paymentMethod = 'payment_method';
@@ -261,9 +263,11 @@ class NameX {
       'is_show_browser_applepay_message';
   static const String isShowCountryCodeList = 'is_show_country_code_list';
   static const String isActiveProjectSearch = 'is_active_project_search';
-  static const String isActiveDeductionSearch = 'is_active_recurring_donation_search';
+  static const String isActiveDeductionSearch =
+      'is_active_recurring_donation_search';
   static const String isActiveCampaignSearch = 'is_active_campaign_search';
   static const String isActiveComments = 'is_active_comments';
+  static const String accountCreationMethod = 'account_creation_method';
   static const String minimumDonationAmount = 'minimum_donation_amount';
   static const String minimumDeductionAmount = 'minimum_deduction_amount';
   static const String productShippingAmount = 'product_shipping_amount';
@@ -280,7 +284,8 @@ class NameX {
   static const String totalPayment = 'total_payment';
   static const String countProjectPayment = 'count_project_payment';
   static const String typeValue = 'count_project_payment';
-  static const String nextSubscriptionDiscountDate = 'next_subscription_discount_date';
+  static const String nextSubscriptionDiscountDate =
+      'next_subscription_discount_date';
   static const String recurringDonationId = 'recurring_donation_id';
 
   static const String title = 'title';
@@ -347,7 +352,8 @@ class NameX {
 
   static const String countLinks = 'total_affiliate_links';
   static const String countLinkVisits = 'total_visit_activities';
-  static const String countNewRegistrationsViaLinks = 'total_registration_activities';
+  static const String countNewRegistrationsViaLinks =
+      'total_registration_activities';
   static const String countDonationsViaLinks = 'total_donation_activities';
   static const String totalAmountDonationsViaLinks = 'total_donations_sum';
 
@@ -404,10 +410,10 @@ class NameX {
   static const String modelData = 'model_data';
   static const String projectId = 'project_id';
   static const String campaignId = 'campaign_id';
-  static const String donationOnBehalfOfFamilyAndFriends = 'donation_on_behalf_of_family_and_friends';
+  static const String donationOnBehalfOfFamilyAndFriends =
+      'donation_on_behalf_of_family_and_friends';
   static const String transferImageUrl = 'transfer_image';
   static const String bankAccount = 'bank_account';
-
 
   static const String siteUrl = 'portal_site_url';
   static const String donationsSiteUrl = 'donations_site_url';
@@ -440,4 +446,6 @@ class NameX {
   static const String donorsCount = 'donors_count';
   static const String donationsSum = 'donations_sum';
   static const String affiliateLink = 'affiliate_link';
+
+  static const String isFromQuickDonation = 'isFromQuickDonation';
 }

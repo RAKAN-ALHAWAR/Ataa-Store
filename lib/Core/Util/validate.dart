@@ -4,8 +4,7 @@ part of '../core.dart';
 /// Entry field validations
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class ValidateX{
-
+class ValidateX {
   /// Verify names
   static String? name(String? value) {
     String pattern = r'^[\u0621-\u064A\u0660\ a-zA-Z]+$';
@@ -13,13 +12,14 @@ class ValidateX{
       return 'Name Required'.tr;
     } else if (value.trim().length < 2) {
       return 'It must be at least two characters'.tr;
-    }else if (value.trim().length > 20) {
+    } else if (value.trim().length > 20) {
       return 'It must be no more than 20 characters'.tr;
     } else if (!RegExp(pattern).hasMatch(value.trim())) {
-        return 'The name must consist of letters only'.tr;
+      return 'The name must consist of letters only'.tr;
     }
     return null;
   }
+
   static String? fullName(String? value) {
     String pattern = r'^[\u0621-\u064A\u0660-\u0669a-zA-Z\s]+$';
     if (value!.trim().isEmpty) {
@@ -35,6 +35,7 @@ class ValidateX{
     }
     return null;
   }
+
   /// Verify names
   static String? nameNoRequired(String? value) {
     String pattern = r'^[\u0621-\u064A\u0660\ a-zA-Z]+$';
@@ -42,10 +43,10 @@ class ValidateX{
       return null;
     } else if (value.trim().length < 2) {
       return 'It must be at least two characters'.tr;
-    }else if (value.trim().length > 20) {
+    } else if (value.trim().length > 20) {
       return 'It must be no more than 20 characters'.tr;
     } else if (!RegExp(pattern).hasMatch(value.trim())) {
-        return 'The name must consist of letters only'.tr;
+      return 'The name must consist of letters only'.tr;
     }
     return null;
   }
@@ -57,13 +58,14 @@ class ValidateX{
       return 'Title Required'.tr;
     } else if (value.trim().length < 5) {
       return 'It must be at least 5 characters'.tr;
-    }else if (value.trim().length > 50) {
+    } else if (value.trim().length > 50) {
       return 'It must be no more than 50 characters'.tr;
     } else if (!RegExp(pattern).hasMatch(value.trim())) {
       return 'It must consist of letters and numbers only'.tr;
     }
     return null;
   }
+
   /// Verify long titles
   static String? title(String? value) {
     String pattern = r'^[\u0621-\u064A\u0660\ a-zA-Z0-9 -.]+$';
@@ -71,7 +73,7 @@ class ValidateX{
       return 'Title Required'.tr;
     } else if (value.trim().length < 10) {
       return 'It must be at least 10 characters'.tr;
-    }else if (value.trim().length > 100) {
+    } else if (value.trim().length > 100) {
       return 'It must be no more than 100 characters'.tr;
     } else if (!RegExp(pattern).hasMatch(value.trim())) {
       return 'It must consist of letters and numbers only'.tr;
@@ -94,7 +96,7 @@ class ValidateX{
       return 'Street Required'.tr;
     } else if (value.trim().length < 2) {
       return 'It must be at least two characters'.tr;
-    }else if (value.trim().length > 30) {
+    } else if (value.trim().length > 30) {
       return 'It must be no more than 30 characters'.tr;
     } else if (!RegExp(pattern).hasMatch(value.trim())) {
       return 'Enter a valid street name'.tr;
@@ -109,7 +111,7 @@ class ValidateX{
       return 'District Required'.tr;
     } else if (value.trim().length < 2) {
       return 'It must be at least two characters'.tr;
-    }else if (value.trim().length > 30) {
+    } else if (value.trim().length > 30) {
       return 'It must be no more than 30 characters'.tr;
     } else if (!RegExp(pattern).hasMatch(value.trim())) {
       return 'Enter a valid district address'.tr;
@@ -134,22 +136,23 @@ class ValidateX{
     RegExp regExp = RegExp(pattern);
     if (value!.trim().isEmpty) {
       return "Gram Required".tr;
-    }else if (!regExp.hasMatch(value.trim())) {
+    } else if (!regExp.hasMatch(value.trim())) {
       return 'It should contain gram only'.tr;
-    }else if (double.parse(value)==0) {
+    } else if (double.parse(value) == 0) {
       return 'The gram should not be 0'.tr;
     }
     return null;
   }
+
   /// Verify the gram weight
   static String? gramOptional(String? value) {
     String pattern = r'^[0-9]+$';
     RegExp regExp = RegExp(pattern);
     if (value!.trim().isEmpty) {
       return null;
-    }else if (!regExp.hasMatch(value.trim())) {
+    } else if (!regExp.hasMatch(value.trim())) {
       return 'It should contain gram only'.tr;
-    }else if (double.parse(value)==0) {
+    } else if (double.parse(value) == 0) {
       return 'The gram should not be 0'.tr;
     }
     return null;
@@ -170,6 +173,7 @@ class ValidateX{
 
     return null;
   }
+
   /// Verify funds
   static String? giftMoney(String? value) {
     String pattern = r'^\d+$';
@@ -185,6 +189,7 @@ class ValidateX{
 
     return null;
   }
+
   /// Verify optional funds
   static String? moneyOptional(String? value) {
     String pattern = r'^\d+$';
@@ -201,7 +206,8 @@ class ValidateX{
   }
 
   /// Verify the phone number
-  static String? phone(String? value) {
+  static String? phone(String? value,
+      {int? countryCode, bool isCountryCodeLocked = false}) {
     String pattern = r'^(?:0[1-9][0-9]{7,11}|[1-9][0-9]{7,11})$';
 
     if (value!.trim().isEmpty) {
@@ -209,12 +215,33 @@ class ValidateX{
     }
 
     final phoneNumber = value.trim().arabicToEnglishNumbers;
+
+    // فحص أن الرقم لا يحتوي على رمز دولة عند تقييد تغيير الدولة
+    if (isCountryCodeLocked && countryCode != null) {
+      if (phoneNumber.startsWith('+')) {
+        return 'Enter the number without the country code'.tr;
+      }
+      if (phoneNumber.startsWith('00') && phoneNumber.length > 10) {
+        return 'Enter the number without the country code'.tr;
+      }
+      if (phoneNumber.startsWith(countryCode.toString()) &&
+          phoneNumber.length > 10) {
+        return 'Enter the number without the country code'.tr;
+      }
+    }
+
     if (!RegExp(pattern).hasMatch(phoneNumber)) {
       return 'Enter a valid phone number'.tr;
     }
 
     if (RegExp(r'^(?:(\d)\1{7,})$').hasMatch(phoneNumber)) {
       return 'Enter a valid phone number'.tr;
+    }
+    // للرقم السعودي: يجب أن يبدأ بـ 05 أو 5
+    if (countryCode != null &&
+        countryCode == 966 &&
+        !(phoneNumber.startsWith('05') || phoneNumber.startsWith('5'))) {
+      return 'Enter a Saudi Arabian phone number'.tr;
     }
     return null;
   }
@@ -226,8 +253,7 @@ class ValidateX{
       return 'Code Required'.tr;
     } else if (value.trim().length != 4) {
       return 'It must consist of 4 numbers'.tr;
-    }
-    else if (!RegExp(pattern).hasMatch(value.trim())) {
+    } else if (!RegExp(pattern).hasMatch(value.trim())) {
       return 'Enter a valid code'.tr;
     }
     return null;
@@ -235,24 +261,25 @@ class ValidateX{
 
   /// Verify Email
   static String? email(String? value) {
-    String pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    String pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     if (value!.trim().isEmpty) {
       return 'Email Required'.tr;
-    }
-    else if (!RegExp(pattern).hasMatch(value.trim())) {
+    } else if (!RegExp(pattern).hasMatch(value.trim())) {
       return 'Enter Valid Email'.tr;
     }
-      return null;
+    return null;
   }
+
   static String? emailNoRequired(String? value) {
     if (value!.trim().isEmpty) {
       return null;
     }
-    String pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    String pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     if (value.trim().isEmpty) {
       return 'Email Required'.tr;
-    }
-    else if (!RegExp(pattern).hasMatch(value.trim())) {
+    } else if (!RegExp(pattern).hasMatch(value.trim())) {
       return 'Enter Valid Email'.tr;
     }
     return null;
@@ -307,5 +334,4 @@ class ValidateX{
     }
     return null;
   }
-
 }

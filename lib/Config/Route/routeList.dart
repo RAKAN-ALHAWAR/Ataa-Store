@@ -1,6 +1,8 @@
+import 'package:ataa/Ui/Screen/Auth/ContinueToAccount/view/view.dart';
 import 'package:get/get.dart';
 import '../../Core/Controller/Cart/deliveryAddressController.dart';
 import '../../Core/Controller/Pay/directZakatPaymentController.dart';
+import '../../Ui/Screen/Auth/ContinueToAccount/controller/Controller.dart';
 import '../../Ui/Screen/Basic/About/About/controller/Controller.dart';
 import '../../Ui/Screen/Basic/About/About/view/View.dart';
 import '../../Ui/Screen/Basic/Loading/View/View.dart';
@@ -116,388 +118,406 @@ class RouteListX {
   static final List<GetPage<dynamic>> routes = [
     /// Loading
     GetPage(
-        name: RouteNameX.loading,
-        page: () => const LoadingView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => LoadingController());
-        })),
+      name: RouteNameX.loading,
+      page: () => const LoadingView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => LoadingController());
+      }),
+    ),
 
     /// Root
     GetPage(
       name: RouteNameX.root,
       page: () => const RootView(),
-      binding: BindingsBuilder(
-        () {
-          Get.lazyPut(
-            () => RootController(),
-            fenix: true,
-          );
-          Get.lazyPut(
-            () => HomeController(),
-            fenix: true,
-          );
-          Get.lazyPut(
-            () => AllDonationController(),
-          );
-          Get.lazyPut(
-            () => MoreSectionsController(),
-          );
-          Get.lazyPut(
-            () => ProfileDetailsController(),
-          );
-        },
-      ),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => RootController(), fenix: true);
+        Get.lazyPut(() => HomeController(), fenix: true);
+        Get.lazyPut(() => AllDonationController(), fenix: true);
+        Get.lazyPut(() => MoreSectionsController(), fenix: true);
+        Get.lazyPut(() => ProfileDetailsController(), fenix: true);
+      }),
     ),
     //========================================================
     ///Auth
     GetPage(
-        name: RouteNameX.login,
-        page: () => LoginView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => LoginController());
-        })),
+      name: RouteNameX.login,
+      page: () => LoginView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => LoginController());
+      }),
+    ),
     GetPage(
-        name: RouteNameX.signUp,
-        page: () => SignUpView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => SignUpController());
-        })),
+      name: RouteNameX.continueToAccount,
+      page: () => ContinueToAccountView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => ContinueToAccountController());
+      }),
+    ),
     GetPage(
-        name: RouteNameX.otp,
-        page: () => OTPView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => OTPController());
-        })),
+      name: RouteNameX.signUp,
+      page: () => SignUpView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => SignUpController());
+      }),
+    ),
     GetPage(
-        name: RouteNameX.completeAccountData,
-        page: () => const CompleteAccountDataView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => CompleteAccountDataController());
-        })),
+      name: RouteNameX.otp,
+      page: () => OTPView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => OTPController());
+      }),
+    ),
+    GetPage(
+      name: RouteNameX.completeAccountData,
+      page: () => const CompleteAccountDataView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => CompleteAccountDataController());
+      }),
+    ),
     //========================================================
     /// Onboarding
     GetPage(
-        name: RouteNameX.onboarding,
-        page: () => const OnboardingView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(
-            () => OnboardingController(),
-          );
-        })),
+      name: RouteNameX.onboarding,
+      page: () => const OnboardingView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => OnboardingController());
+      }),
+    ),
     //========================================================
     /// Dynamic Page
     GetPage(
-        name: RouteNameX.dynamicPage,
-        page: () => const DynamicPageView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(
-            () => DynamicPageController(),
-          );
-        })),
+      name: RouteNameX.dynamicPage,
+      page: () => const DynamicPageView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => DynamicPageController());
+      }),
+    ),
     //========================================================
     /// Receipt Preview
     GetPage(
-        name: RouteNameX.receiptPreview,
-        page: () => const ReceiptPreviewView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(
-            () => ReceiptPreviewController(),
-          );
-        })),
+      name: RouteNameX.receiptPreview,
+      page: () => const ReceiptPreviewView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => ReceiptPreviewController());
+      }),
+    ),
     //========================================================
     /// Verification Url
     GetPage(
-        name: RouteNameX.verificationUrl,
-        page: () => const VerificationUrlView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(
-            () => VerificationUrlController(),
-          );
-        })),
+      name: RouteNameX.verificationUrl,
+      page: () => const VerificationUrlView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => VerificationUrlController());
+      }),
+    ),
     //========================================================
     /// Payment
     GetPage(
-        name: RouteNameX.generalPayment,
-        page: () => const GeneralPaymentView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => GeneralPaymentController());
-        })),
+      name: RouteNameX.generalPayment,
+      page: () => const GeneralPaymentView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => GeneralPaymentController());
+      }),
+    ),
     GetPage(
-        name: RouteNameX.deductionPayment,
-        page: () => const DeductionPaymentView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => DeductionPaymentController());
-        })),
+      name: RouteNameX.deductionPayment,
+      page: () => const DeductionPaymentView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => DeductionPaymentController());
+      }),
+    ),
     GetPage(
-        name: RouteNameX.paymentSuccessful,
-        page: () => const PaymentSuccessfulView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => PaymentSuccessfulController());
-        })),
+      name: RouteNameX.paymentSuccessful,
+      page: () => const PaymentSuccessfulView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => PaymentSuccessfulController());
+      }),
+    ),
     //========================================================
     /// Profile
     GetPage(
-        name: RouteNameX.editProfile,
-        page: () => const EditProfileView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => EditProfileController());
-        })),
+      name: RouteNameX.editProfile,
+      page: () => const EditProfileView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => EditProfileController());
+      }),
+    ),
     GetPage(
-        name: RouteNameX.notifications,
-        page: () => const NotificationsView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(
-            () => NotificationsController(),
-          );
-        })),
+      name: RouteNameX.notifications,
+      page: () => const NotificationsView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => NotificationsController());
+      }),
+    ),
     GetPage(
-        name: RouteNameX.statistics,
-        page: () => const StatisticsView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => StatisticsController());
-        })),
+      name: RouteNameX.statistics,
+      page: () => const StatisticsView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => StatisticsController());
+      }),
+    ),
     //========================================================
     /// Activity
     GetPage(
-        name: RouteNameX.activity,
-        page: () => const ActivityView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => ActivityController());
-        })),
+      name: RouteNameX.activity,
+      page: () => const ActivityView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => ActivityController());
+      }),
+    ),
     GetPage(
-        name: RouteNameX.myDonations,
-        page: () => const MyDonationsView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => MyDonationsController());
-        })),
+      name: RouteNameX.myDonations,
+      page: () => const MyDonationsView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => MyDonationsController());
+      }),
+    ),
     GetPage(
-        name: RouteNameX.myOrders,
-        page: () => const MyOrdersView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => MyOrdersController());
-        })),
+      name: RouteNameX.myOrders,
+      page: () => const MyOrdersView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => MyOrdersController());
+      }),
+    ),
     GetPage(
-        name: RouteNameX.myGifts,
-        page: () => const MyGiftingView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => MyGiftingController());
-        })),
+      name: RouteNameX.myGifts,
+      page: () => const MyGiftingView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => MyGiftingController());
+      }),
+    ),
     GetPage(
-        name: RouteNameX.myCampaigns,
-        page: () => const MyCampaignsView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => MyCampaignsController());
-        })),
+      name: RouteNameX.myCampaigns,
+      page: () => const MyCampaignsView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => MyCampaignsController());
+      }),
+    ),
     GetPage(
-        name: RouteNameX.myDeductions,
-        page: () => const MyDeductionsView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => MyDeductionsController());
-        })),
+      name: RouteNameX.myDeductions,
+      page: () => const MyDeductionsView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => MyDeductionsController());
+      }),
+    ),
     GetPage(
-        name: RouteNameX.mySponsorships,
-        page: () => const MySponsorshipsView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => MySponsorshipsController());
-        })),
+      name: RouteNameX.mySponsorships,
+      page: () => const MySponsorshipsView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => MySponsorshipsController());
+      }),
+    ),
     GetPage(
-        name: RouteNameX.myShareLinks,
-        page: () => const MyShariLinksView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => MyShareLinksController());
-        })),
+      name: RouteNameX.myShareLinks,
+      page: () => const MyShariLinksView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => MyShareLinksController());
+      }),
+    ),
     GetPage(
-        name: RouteNameX.paymentCards,
-        page: () => const PaymentCardsView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => PaymentCardsController());
-        })),
+      name: RouteNameX.paymentCards,
+      page: () => const PaymentCardsView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => PaymentCardsController());
+      }),
+    ),
     //========================================================
     /// Info
     GetPage(
-        name: RouteNameX.settings,
-        page: () => const SettingsView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(
-            () => SettingsController(),
-            fenix: true,
-          );
-        })),
+      name: RouteNameX.settings,
+      page: () => const SettingsView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => SettingsController(), fenix: true);
+      }),
+    ),
     GetPage(
-        name: RouteNameX.contactUs,
-        page: () => const ContactUsView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(
-            () => ContactUsController(),
-          );
-        })),
+      name: RouteNameX.contactUs,
+      page: () => const ContactUsView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => ContactUsController());
+      }),
+    ),
     GetPage(
-        name: RouteNameX.about,
-        page: () => const AboutView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(
-            () => AboutController(),
-          );
-        })),
+      name: RouteNameX.about,
+      page: () => const AboutView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => AboutController());
+      }),
+    ),
     GetPage(
-        name: RouteNameX.ourBank,
-        page: () => const OurBankView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => OurBankController());
-        })),
+      name: RouteNameX.ourBank,
+      page: () => const OurBankView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => OurBankController());
+      }),
+    ),
     GetPage(
-        name: RouteNameX.privacyPolicy,
-        page: () => const PrivacyPolicyView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(
-            () => PrivacyPolicyController(),
-          );
-        })),
+      name: RouteNameX.privacyPolicy,
+      page: () => const PrivacyPolicyView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => PrivacyPolicyController());
+      }),
+    ),
     GetPage(
-        name: RouteNameX.termsConditions,
-        page: () => const TermsConditionsView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(
-            () => TermsConditionsController(),
-          );
-        })),
+      name: RouteNameX.termsConditions,
+      page: () => const TermsConditionsView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => TermsConditionsController());
+      }),
+    ),
     //========================================================
     /// Store
     GetPage(
-        name: RouteNameX.store,
-        page: () => const StoreView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => StoreController());
-        })),
+      name: RouteNameX.store,
+      page: () => const StoreView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => StoreController());
+      }),
+    ),
     GetPage(
-        name: RouteNameX.productDetails,
-        page: () => const ProductDetailsView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => ProductDetailsController());
-        })),
+      name: RouteNameX.productDetails,
+      page: () => const ProductDetailsView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => ProductDetailsController());
+      }),
+    ),
     //========================================================
     /// Organization
     GetPage(
-        name: RouteNameX.allOrganizations,
-        page: () => const AllOrganizationsView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => AllOrganizationsController());
-        })),
+      name: RouteNameX.allOrganizations,
+      page: () => const AllOrganizationsView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => AllOrganizationsController());
+      }),
+    ),
     GetPage(
-        name: RouteNameX.organizationDetails,
-        page: () => const OrganizationDetailsView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => OrganizationDetailsController());
-        })),
+      name: RouteNameX.organizationDetails,
+      page: () => const OrganizationDetailsView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => OrganizationDetailsController());
+      }),
+    ),
     //========================================================
     /// Deduction
     GetPage(
-        name: RouteNameX.allDeductions,
-        page: () => const AllDeductionsView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => AllDeductionsController());
-        })),
+      name: RouteNameX.allDeductions,
+      page: () => const AllDeductionsView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => AllDeductionsController());
+      }),
+    ),
     GetPage(
-        name: RouteNameX.deductionDetails,
-        page: () => const DeductionDetailsView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => DeductionDetailsController());
-        })),
+      name: RouteNameX.deductionDetails,
+      page: () => const DeductionDetailsView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => DeductionDetailsController());
+      }),
+    ),
     //========================================================
     /// Gifting
     GetPage(
-        name: RouteNameX.gift,
-        page: () => const CreateGiftView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => CreateGiftController());
-        })),
+      name: RouteNameX.gift,
+      page: () => const CreateGiftView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => CreateGiftController());
+      }),
+    ),
     GetPage(
-        name: RouteNameX.previewGift,
-        page: () => const PreviewGiftView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => PreviewGiftController());
-        })),
+      name: RouteNameX.previewGift,
+      page: () => const PreviewGiftView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => PreviewGiftController());
+      }),
+    ),
     //========================================================
     /// Cart
     GetPage(
       name: RouteNameX.cart,
       page: () => const CartView(),
-      binding: BindingsBuilder(
-        () {
-          Get.lazyPut(() => CartController());
-          Get.lazyPut(() => DeliveryAddressControllerX());
-        },
-      ),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => CartController());
+        Get.lazyPut(() => DeliveryAddressControllerX());
+      }),
     ),
     //========================================================
     /// Sponsorships
     GetPage(
-        name: RouteNameX.typesSponsorships,
-        page: () => const TypesSponsorshipsView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => TypesSponsorshipsController());
-        })),
+      name: RouteNameX.typesSponsorships,
+      page: () => const TypesSponsorshipsView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => TypesSponsorshipsController());
+      }),
+    ),
     GetPage(
-        name: RouteNameX.allSponsorships,
-        page: () => const AllSponsorshipsView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => AllSponsorshipsController());
-        })),
+      name: RouteNameX.allSponsorships,
+      page: () => const AllSponsorshipsView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => AllSponsorshipsController());
+      }),
+    ),
     //========================================================
     /// Zakat
     GetPage(
-        name: RouteNameX.zakat,
-        page: () => const ZakatView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => ZakatController());
-          Get.lazyPut(() => DirectZakatPaymentControllerX());
-        })),
+      name: RouteNameX.zakat,
+      page: () => const ZakatView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => ZakatController());
+        Get.lazyPut(() => DirectZakatPaymentControllerX());
+      }),
+    ),
     GetPage(
-        name: RouteNameX.zakatDisbursements,
-        page: () => const ZakatDisbursementsView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => ZakatDisbursementsController());
-        })),
+      name: RouteNameX.zakatDisbursements,
+      page: () => const ZakatDisbursementsView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => ZakatDisbursementsController());
+      }),
+    ),
     GetPage(
-        name: RouteNameX.zakatCalculator,
-        page: () => const ZakatCalculatorView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => ZakatCalculatorController());
-        })),
+      name: RouteNameX.zakatCalculator,
+      page: () => const ZakatCalculatorView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => ZakatCalculatorController());
+      }),
+    ),
     //========================================================
     /// Donation
     GetPage(
-        name: RouteNameX.donationDetails,
-        page: () => const DonationDetailsView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => DonationDetailsController());
-        })),
+      name: RouteNameX.donationDetails,
+      page: () => const DonationDetailsView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => DonationDetailsController());
+      }),
+    ),
     //========================================================
     /// Campaign
     GetPage(
-        name: RouteNameX.allCampaigns,
-        page: () => const AllCampaignsView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => AllCampaignsController());
-        })),
+      name: RouteNameX.allCampaigns,
+      page: () => const AllCampaignsView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => AllCampaignsController());
+      }),
+    ),
     GetPage(
-        name: RouteNameX.createCampaign,
-        page: () => const CreateCampaignView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => CreateCampaignController());
-        })),
+      name: RouteNameX.createCampaign,
+      page: () => const CreateCampaignView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => CreateCampaignController());
+      }),
+    ),
     GetPage(
-        name: RouteNameX.campaignDetails,
-        page: () => const CampaignDetailsView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => CampaignDetailsController());
-        })),
+      name: RouteNameX.campaignDetails,
+      page: () => const CampaignDetailsView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => CampaignDetailsController());
+      }),
+    ),
     GetPage(
-        name: RouteNameX.myCampaignDetails,
-        page: () => const MyCampaignDetailsView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => MyCampaignDetailsController());
-        })),
+      name: RouteNameX.myCampaignDetails,
+      page: () => const MyCampaignDetailsView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => MyCampaignDetailsController());
+      }),
+    ),
     //========================================================
     /// Template
     // GetPage(

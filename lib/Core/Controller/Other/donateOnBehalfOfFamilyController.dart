@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:ataa/Core/core.dart';
+import 'package:ataa/Ui/Widget/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_native_contact_picker/flutter_native_contact_picker.dart';
@@ -44,7 +45,14 @@ class DonateOnBehalfOfFamilyController extends GetxController {
   onEnable(bool val) => isEnable.value = val;
 
   onChangeCountryCode(String countryCode) {
-    this.countryCode.value = int.parse(countryCode);
+    final newCode = int.parse(countryCode);
+    if (!app.generalSettings.isShowCountryCodeList &&
+        newCode != app.generalSettings.defaultCountryCode) {
+      ToastX.error(message: "Changing the country code is not allowed".tr);
+      this.countryCode.value = app.generalSettings.defaultCountryCode;
+      return;
+    }
+    this.countryCode.value = newCode;
   }
 
   /// Get the Mahdi's information from his contacts
@@ -61,13 +69,28 @@ class DonateOnBehalfOfFamilyController extends GetxController {
           var result = FunctionX.extractCountryCodeAndPhoneNumber(
             contact.phoneNumbers![0],
           );
-          /// Assign a value to the phone number because it cannot be empty
-          giftedPhone.text = result.$1;
 
-          /// If name is empty, it returns the previous value
-          if(!app.generalSettings.isShowCountryCodeList) {
-            countryCode.value = result.$2 ?? countryCode.value;
+          final phoneNumber = result.$1;
+          final extractedCode = result.$2;
+
+          if (!app.generalSettings.isShowCountryCodeList) {
+            if (extractedCode != null &&
+                extractedCode != app.generalSettings.defaultCountryCode) {
+              ToastX.error(
+                  message: "Changing the country code is not allowed".tr);
+              return;
+            }
+            if (app.generalSettings.defaultCountryCode == 966 &&
+                !(phoneNumber.startsWith('05') ||
+                    phoneNumber.startsWith('5'))) {
+              ToastX.error(
+                  message: "Enter a Saudi Arabian phone number".tr);
+              return;
+            }
           }
+
+          giftedPhone.text = phoneNumber;
+          countryCode.value = extractedCode ?? countryCode.value;
         }
       }
     } catch (e) {

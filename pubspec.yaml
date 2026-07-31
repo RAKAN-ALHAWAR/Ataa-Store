@@ -3,13 +3,13 @@
 
 name: ataa
 description: "description_project_x"
-version: 1.0.1+2
+version: 1.0.3+1
 
 #====================================================================
 # Flutter Version
 
 environment:
-  sdk: ^3.5.4
+  sdk: ^3.9.2
 
 #====================================================================
 # Dependencies
@@ -54,7 +54,7 @@ dependencies:
   ## Video
   video_player: ^2.9.2
   chewie: ^1.8.5
-  youtube_player_flutter: ^9.1.1
+  youtube_player_iframe: any
 
   ##-------------------------------------
   ## Image
@@ -62,6 +62,12 @@ dependencies:
   image_network: ^2.5.1
   flutter_svg: ^2.0.9 # To support SVG images
   image_gallery_saver_plus: 4.0.1
+  webview_flutter: any
+
+  ##-------------------------------------
+  ## Deeplink
+  uni_links:
+    path: ./packages/uni_links
 
   ##-------------------------------------
   ## Features
@@ -92,12 +98,11 @@ dependencies:
 
   #-------------------------------------
   ## Other
-  flutter_native_contact_picker: ^0.0.9 # To fetch data from contacts
+  flutter_native_contact_picker: ^0.0.11 # To fetch data from contacts
   sms_autofill: ^2.4.1 # OTP sms auto fill
-  webview_flutter: ^4.9.0
   permission_handler: any
   downloadsfolder: ^1.2.0
-  onesignal_flutter: ^5.3.0
+  onesignal_flutter: ^5.3.5
   share_plus: any
 
   #-------------------------------------

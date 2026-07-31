@@ -2,9 +2,10 @@ import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart'; // الإمبورت الجديد
 import '../../../../../Config/config.dart';
 import '../../../../../Core/Controller/Other/donateOnBehalfOfFamilyController.dart';
+import '../../../../../Core/Extension/convert/convert.dart';
 import '../../../../../Data/Enum/linkable_type_status.dart';
 import '../../../../../Data/Model/Deduction/deduction.dart';
 import '../../../../../Data/data.dart';
@@ -15,14 +16,17 @@ class DeductionDetailsController extends GetxController {
   //============================================================================
   // Injection of required controls
 
-  DonateOnBehalfOfFamilyController donateOnBehalfOfFamilyController =
-      Get.put(DonateOnBehalfOfFamilyController(), tag: Get.arguments.toString(),
-      );
+  DonateOnBehalfOfFamilyController donateOnBehalfOfFamilyController = Get.put(
+    DonateOnBehalfOfFamilyController(),
+    tag: Get.arguments.toString(),
+  );
 
   //============================================================================
   // Variables
 
-  final code = Get.arguments; // The code is sent from the previous page
+  final int code = Get.arguments
+      .toString()
+      .toIntX; // The code is sent from the previous page
   late DeductionX deduction;
   late RxBool isSubscribed;
 
@@ -33,7 +37,6 @@ class DeductionDetailsController extends GetxController {
   late ChewieController chewieController;
   late YoutubePlayerController youtubeController;
   RxBool isInitChewieController = false.obs;
-  RxBool isInitYoutubeController = false.obs;
   RxBool hasErrorVideo = false.obs;
 
   //============================================================================
@@ -41,7 +44,6 @@ class DeductionDetailsController extends GetxController {
 
   getData() async {
     try {
-
       deduction = await DatabaseX.getDeductionDetails(code: code);
       isSubscribed = deduction.isSubscribed.obs;
 
@@ -61,22 +63,21 @@ class DeductionDetailsController extends GetxController {
 
   Future<void> onSubscriptionDonation() async {
     (dynamic isOpenPayment, dynamic deductionAmount)? subscription =
-    await subscriptionDeductionSheetX(deduction);
+        await subscriptionDeductionSheetX(deduction);
     if (subscription != null && subscription.$1 == true) {
       var isDone = await Get.toNamed(
         RouteNameX.deductionPayment,
         arguments: [
           deduction,
-          deduction.isOpenPrice
-              ? subscription.$2
-              : deduction.initialPrice
+          deduction.isOpenPrice ? subscription.$2 : deduction.initialPrice,
         ],
       );
-      if(isDone == true){
+      if (isDone == true) {
         isSubscribed.value = true;
       }
     }
   }
+
   openShare() async {
     await shareSheet(
       id: deduction.id,
@@ -84,37 +85,63 @@ class DeductionDetailsController extends GetxController {
       type: LinkableTypeStatusX.deduction,
     );
   }
+
   int getNumCover() {
-    return deduction.imageUrl.isNotEmpty && deduction.videoUrl.isNotEmpty? 2 : 1;
-  }
-  /// Check if the URL is a YouTube link
-  bool isYoutubeUrl(String url) {
-    return YoutubePlayer.convertUrlToId(url) != null;
+    return deduction.imageUrl.isNotEmpty && deduction.videoUrl.isNotEmpty
+        ? 2
+        : 1;
   }
 
-  /// Initialize YouTube Player
+  /// Extract YouTube ID + check if it's YouTube URL
+  bool isYoutubeUrl(String url) {
+    return getYoutubeIdFromUrl(url) != null;
+  }
+
+  String? getYoutubeIdFromUrl(String url) {
+    final uri = Uri.tryParse(url);
+    if (uri == null) return null;
+
+    // دعم الروابط الشائعة: youtube.com/watch?v=ID و youtu.be/ID
+    if (uri.host.contains('youtube.com') || uri.host.contains('youtu.be')) {
+      if (uri.host.contains('youtu.be')) {
+        return uri.pathSegments.isNotEmpty ? uri.pathSegments.first : null;
+      }
+      return uri.queryParameters['v'];
+    }
+    return null;
+  }
+
+  /// Initialize YouTube Player (النسخة الجديدة youtube_player_iframe)
   initYoutubePlayer(String url) {
     try {
-      isInitYoutubeController.value = false;
+      final videoId = getYoutubeIdFromUrl(url)!;
+
       youtubeController = YoutubePlayerController(
-        initialVideoId: YoutubePlayer.convertUrlToId(url)!,
-        flags: const YoutubePlayerFlags(
-          autoPlay: false,
+        params: const YoutubePlayerParams(
           mute: false,
-          disableDragSeek: true,
           loop: true,
+          showFullscreenButton: true,
+          showControls:
+              false, // يخفي الـ progress bar والسحب (بديل disableDragSeek)
+          // لو عايز تشغل تلقائي: استخدم loadVideoById بدل cue
         ),
       );
-      isInitYoutubeController.value = true;
+
+      // يجهز الفيديو بدون تشغيل تلقائي
+      youtubeController.cueVideoById(videoId: videoId);
+      // لو عايز auto play: youtubeController.loadVideoById(videoId: videoId);
     } catch (_) {
       hasErrorVideo.value = true;
     }
   }
-  /// Initialize Video Player
+
+  /// Initialize Video Player (عادي - Chewie)
   initVideoPlayer(String url) async {
     try {
       isInitChewieController.value = false;
-      videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(url)).obs;
+      videoPlayerController = VideoPlayerController.networkUrl(
+        Uri.parse(url),
+      ).obs;
       await videoPlayerController.value.initialize();
       chewieController = ChewieController(
         videoPlayerController: videoPlayerController.value,
@@ -130,35 +157,37 @@ class DeductionDetailsController extends GetxController {
     }
   }
 
-  closePage(){
-    try{
+  closePage() {
+    try {
       Get.back(result: isSubscribed.value);
-    }catch(_){}
+    } catch (_) {}
   }
 
-  closePageResult(){
-    try{
-      // check if isSubscribed not initialization
+  closePageResult() {
+    try {
+      // check if isSubscribed initialized
       bool x = isSubscribed.value;
       return x;
-    }catch(_){}
+    } catch (_) {
+      return null;
+    }
   }
+
   //============================================================================
   // Initialization
 
   @override
   void onClose() {
-    try{
+    try {
       if (deduction.videoUrl.isNotEmpty && deduction.videoUrl.isURL) {
         if (isInitChewieController.value) {
           chewieController.dispose();
           videoPlayerController.value.dispose();
         }
-        if (isInitYoutubeController.value) {
-          youtubeController.dispose();
-        }
+        // للـ YouTube الجديد
+        youtubeController.close();
       }
-    }catch(_){}
+    } catch (_) {}
     super.onClose();
   }
 }

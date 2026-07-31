@@ -13,6 +13,9 @@ const Map<String, String> enGeneral = {
   'Enter Valid Email': 'Enter Valid Email',
   'Enter a valid code': 'Enter a valid code',
   'Enter a valid phone number': 'Enter a valid phone number',
+  'Enter a Saudi Arabian phone number': 'Enter a Saudi Arabian phone number',
+  'Changing the country code is not allowed': 'Changing the country code is not allowed',
+  'Enter the number without the country code': 'Enter the number without the country code',
   'Expiry month is invalid': 'Expiry month is invalid',
   'Expiry year is invalid': 'Expiry year is invalid',
   'It must be at least 5 characters': 'It must be at least 5 characters',
@@ -207,6 +210,7 @@ const Map<String, String> enGeneral = {
   'Theme': 'Theme',
   'Terms and Conditions': 'Terms and Conditions',
   'terms & Conditions': 'terms & Conditions',
+  'terms and conditions': 'terms and conditions',
   'Created by Saker Al Dakak': 'Created by Saker Al Dakak',
   'Version': 'Version',
   'Our Bank Accounts': 'Our Bank Accounts',
@@ -617,6 +621,8 @@ const Map<String, String> enGeneral = {
   "Dedication Data": "Dedication Data",
   "There are currently no available donation options for this type of gift. Please change the type of gift.":
       "There are currently no available donation options for this type of gift. Please change the type of gift.",
+  "Please select a gift type above to view the available donation fields":
+      "Please select a gift type above to view the available donation fields",
   "You must enter a phone number in the designated phone field to send a copy to your mobile.":
       "You must enter a phone number in the designated phone field to send a copy to your mobile.",
   "Date and time of submission": "Date and time of submission",
@@ -813,7 +819,11 @@ const Map<String, String> enGeneral = {
       "Are you sure you want to delete your account?",
   "General": "General",
   "Account": "Account",
-  // "":"",
+  "Continue to the account": "Continue to the account",
+  "Welcome! Enter your mobile number to continue to your account":
+      "Welcome! Enter your mobile number to continue to your account",
+  "By using the app, you agree to the": "By using the app, you agree to the",
+  "Continue": "Continue",
   // "":"",
   // "":"",
   // "":"",

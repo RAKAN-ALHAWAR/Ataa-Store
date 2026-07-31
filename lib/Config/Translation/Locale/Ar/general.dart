@@ -13,6 +13,9 @@ const Map<String, String> arGeneral = {
   'Enter Valid Email': 'أدخل بريدًا إلكترونيًا صالحًا',
   'Enter a valid code': 'أدخل رمزًا صالحًا',
   'Enter a valid phone number': 'أدخل رقم هاتف صالح',
+  'Enter a Saudi Arabian phone number': 'الرقم السعودي يجب أن يبدأ بـ 05',
+  'Changing the country code is not allowed': 'لا يمكن تغيير رمز الدولة',
+  'Enter the number without the country code': 'أدخل الرقم بدون رمز الدولة',
   'Expiry month is invalid': 'شهر الانتهاء غير صالح',
   'Expiry year is invalid': 'سنة الانتهاء غير صالحة',
   'It must be at least 5 characters': 'يجب أن يتكون من على الأقل 5 أحرف',
@@ -197,6 +200,7 @@ const Map<String, String> arGeneral = {
   'Theme': 'الوضع الليلي',
   'Terms and Conditions': 'الشروط والأحكام',
   'terms & Conditions': 'الشروط',
+  'terms and conditions': 'الشروط والأحكام',
   'Created by Saker Al Dakak': 'تم إنشاؤه بواسطة صقر الدكاك',
   'Version': 'الإصدار',
   'Our Bank Accounts': 'حساباتنا البنكية',
@@ -591,7 +595,9 @@ const Map<String, String> arGeneral = {
   "No more data": "لا يوجد المزيد من البيانات",
   "Dedication Data": "بيانات الإهداء",
   "There are currently no available donation options for this type of gift. Please change the type of gift.":
-      "لا يوجد مجالات تبرع متاحة حاليا لهذه النوع من الهداية، يرجى تغيير نوع الهدية",
+      "لا يوجد مجالات تبرع متاحة حاليا لهذا النوع من الهدية، يرجى تغيير نوع الهدية",
+  "Please select a gift type above to view the available donation fields":
+      "يرجى اختيار نوع الهدية أعلاه لعرض مجالات التبرع المتاحة",
   "You must enter a phone number in the designated phone field to send a copy to your mobile.":
       "يجب إضافة رقم هاتف في حقل الهاتف المخصص لأرسال نسخة إلى جوالك.",
   "Date and time of submission": "تاريخ ووقت الإرسال",
@@ -777,9 +783,10 @@ const Map<String, String> arGeneral = {
       "هل أنت متأكد أنك تريد حذف حسابك؟",
   "General": "عام",
   "Account": "الحساب",
-  "": "",
-  // "": "",
-  // "": "",
-  // "": "",
+  "Continue to the account": "المتابعة للحساب",
+  "Welcome! Enter your mobile number to continue to your account":
+      "مرحباً بك! أدخل رقم جوالك للمتابعة إلى حسابك",
+  "By using the app, you agree to the": "باستخدامك للتطبيق، فإنك توافق على",
+  "Continue": "متابعة",
   // "": "",
 };

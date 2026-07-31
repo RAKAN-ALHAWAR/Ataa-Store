@@ -9,13 +9,9 @@ class VerificationUrlView extends GetView<VerificationUrlController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarX(
-        title: 'Verification process',
-      ),
+      appBar: const AppBarX(title: 'Verification process'),
       body: SafeArea(
-        child: WebViewWidget(
-          controller: controller.webViewController,
-        ),
+        child: WebViewWidget(controller: controller.webViewController),
       ),
     );
   }

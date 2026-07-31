@@ -15,8 +15,9 @@ class CreateCampaignController extends GetxController {
   // Injection of required controls
 
   AppControllerX app = Get.find();
-  DonationSelectionControllerX donationSelectionController =
-      Get.put(DonationSelectionControllerX());
+  DonationSelectionControllerX donationSelectionController = Get.put(
+    DonationSelectionControllerX(),
+  );
 
   //============================================================================
   // Variables
@@ -41,9 +42,9 @@ class CreateCampaignController extends GetxController {
     if (!formKey.currentState!.validate()) {
       autoValidate = AutovalidateMode.always;
       return false;
-    }else if (donationSelectionController.donationSelected.value == null) {
+    } else if (donationSelectionController.donationSelected.value == null) {
       return throw "You must select one of the donation projects";
-    }else if (targetAmount.value == null) {
+    } else if (targetAmount.value == null) {
       return throw "You must specify the target amount";
     }
     return true;
@@ -54,7 +55,7 @@ class CreateCampaignController extends GetxController {
     donationSelectionController.clearData();
     title.text = "";
     targetAmount.value = null;
-    isAgreed.value=false;
+    isAgreed.value = false;
     autoValidate = AutovalidateMode.disabled;
   }
 
@@ -69,7 +70,10 @@ class CreateCampaignController extends GetxController {
             title: title.text,
             targetAmount: targetAmount.value!,
             donationName: donationSelectionController
-                .donationSelected.value!.donationBasic.name,
+                .donationSelected
+                .value!
+                .donationBasic
+                .name,
           );
 
           if (isConfirmCreate == true) {
@@ -77,7 +81,8 @@ class CreateCampaignController extends GetxController {
               form: CampaignFormX(
                 title: title.text,
                 targetAmount: targetAmount.value!,
-                donationId:donationSelectionController.donationSelected.value!.id,
+                donationId:
+                    donationSelectionController.donationSelected.value!.id,
               ),
             );
 
@@ -97,7 +102,7 @@ class CreateCampaignController extends GetxController {
               cancelText: 'Close',
               onOk: () async => await Get.toNamed(
                 RouteNameX.myCampaignDetails,
-                arguments: campaign,
+                arguments: campaign.id,
               ),
             );
 

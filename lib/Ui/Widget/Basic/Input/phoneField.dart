@@ -1,6 +1,6 @@
 part of '../../widget.dart';
 
-class PhoneFieldX extends StatelessWidget {
+class PhoneFieldX extends StatefulWidget {
   final TextEditingController controller;
   final String? label;
   final String hint;
@@ -26,27 +26,53 @@ class PhoneFieldX extends StatelessWidget {
   });
 
   @override
+  State<PhoneFieldX> createState() => _PhoneFieldXState();
+}
+
+class _PhoneFieldXState extends State<PhoneFieldX> {
+  late int _countryCode;
+
+  @override
+  void initState() {
+    super.initState();
+    _countryCode = widget.countryCode;
+  }
+
+  @override
+  void didUpdateWidget(covariant PhoneFieldX oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.countryCode != widget.countryCode) {
+      _countryCode = widget.countryCode;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    int countryCode=this.countryCode;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (label != null) LabelInputX(label!,isRequired:isRequired),
+        if (widget.label != null)
+          LabelInputX(widget.label!, isRequired: widget.isRequired),
         Directionality(
           textDirection: TextDirection.ltr,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 7),
-            child:  InternationalPhoneNumberInput(
+            child: InternationalPhoneNumberInput(
               height: StyleX.inputHeight,
-              isActiveError:isActiveError,
-              controller: controller,
-              initCountry: countryCode,
+              isActiveError: widget.isActiveError,
+              controller: widget.controller,
+              initCountry: _countryCode,
               betweenPadding: 5,
-              isShowCountryCode:isShowCountryCode,
-              isDisableChangeCountryCode:isDisableChangeCountryCode,
+              isShowCountryCode: widget.isShowCountryCode,
+              isDisableChangeCountryCode: widget.isDisableChangeCountryCode,
               onInputChanged: (phone) {
-                onChangeCountryCode(phone.dial_code);
-                countryCode=int.parse(phone.dial_code);
+                widget.onChangeCountryCode(phone.dial_code);
+                final nextCountryCode = int.tryParse(phone.dial_code);
+                if (nextCountryCode != null && nextCountryCode != _countryCode) {
+                  setState(() {
+                    _countryCode = nextCountryCode;
+                  });
+                }
               },
               dialogConfig: DialogConfig(
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -54,7 +80,9 @@ class PhoneFieldX extends StatelessWidget {
                 countryItemHeight: 46,
                 topBarColor: ColorX.grey.shade800,
                 selectedItemColor: Theme.of(context).cardTheme.color!,
-                textStyle: TextStyleX.titleMedium.copyWith(color: Theme.of(context).primaryColor),
+                textStyle: TextStyleX.titleMedium.copyWith(
+                  color: Theme.of(context).primaryColor,
+                ),
                 searchBoxTextStyle: TextStyleX.titleSmall,
                 titleStyle: TextStyleX.titleLarge,
                 title: "Select the country code".tr,
@@ -63,19 +91,25 @@ class PhoneFieldX extends StatelessWidget {
                 searchBoxIconColor: Theme.of(context).colorScheme.secondary,
                 searchBoxRadius: StyleX.radius,
                 searchHintText: "Search by name...".tr,
-                searchBoxHintStyle:
-                TextStyleX.titleSmall.copyWith(color: Theme.of(context).hintColor),
+                searchBoxHintStyle: TextStyleX.titleSmall.copyWith(
+                  color: Theme.of(context).hintColor,
+                ),
               ),
               countryConfig: CountryConfig(
                 noFlag: false,
                 flatFlag: true,
                 flagSize: 22,
-                textStyle: TextStyleX.titleMedium
-                    .copyWith(color: Theme.of(context).iconTheme.color),
+                textStyle: TextStyleX.titleMedium.copyWith(
+                  color: Theme.of(context).iconTheme.color,
+                ),
               ),
-              validate: ValidateX.phone,
+              validate: (value) => ValidateX.phone(
+                    value,
+                    countryCode: _countryCode,
+                    isCountryCodeLocked: widget.isDisableChangeCountryCode,
+                  ),
               phoneConfig: PhoneConfig(
-                color:color,
+                color: widget.color,
                 focusedColor: Colors.transparent,
                 enabledColor: Colors.transparent,
                 labelStyle: null,
@@ -84,26 +118,26 @@ class PhoneFieldX extends StatelessWidget {
                 focusNode: null,
                 radius: 0,
                 borderWidth: 0,
-                hintText: hint,
+                hintText: widget.hint,
                 decoration: BoxDecoration(
                   color: Colors.transparent,
-                  border: Border.all(
-                    color: Colors.transparent,
-                    width: 0,
-                  ),
+                  border: Border.all(color: Colors.transparent, width: 0),
                 ),
                 autoFocus: false,
                 showCursor: false,
-                errorStyle: TextStyleX.supTitleMedium.copyWith(color: ColorX.danger.shade500),
+                errorStyle: TextStyleX.supTitleMedium.copyWith(
+                  color: ColorX.danger.shade500,
+                ),
                 textInputAction: TextInputAction.done,
                 autoValidateMode: AutovalidateMode.onUserInteraction,
                 textStyle: TextStyleX.titleSmall,
-                hintStyle:
-                TextStyleX.titleSmall.copyWith(color: Theme.of(context).hintColor),
+                hintStyle: TextStyleX.titleSmall.copyWith(
+                  color: Theme.of(context).hintColor,
+                ),
               ),
             ),
           ),
-        )
+        ),
       ],
     );
   }

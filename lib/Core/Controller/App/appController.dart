@@ -29,7 +29,13 @@ class AppControllerX extends GetxController {
   }
 
   onLoginSheet() async {
-    await bottomSheetX(child: LoginView(isSheet: true).paddingOnly(top: 14));
+    if (generalSettings.accountCreationMethodIsTraditionalForm) {
+      await bottomSheetX(child: LoginView(isSheet: true).paddingOnly(top: 14));
+    } else {
+      await bottomSheetX(
+        child: ContinueToAccountView(isSheet: true).paddingOnly(top: 14),
+      );
+    }
   }
 
   onSignUpSheet() async {
@@ -37,18 +43,22 @@ class AppControllerX extends GetxController {
   }
 
   logOut() async {
+    String route = generalSettings.accountCreationMethodIsTraditionalForm
+        ? RouteNameX.login
+        : RouteNameX.continueToAccount;
     try {
       isLogin.value = false;
       user.value = null;
       LocalDataX.remove(LocalKeyX.token);
-      LocalDataX.put(LocalKeyX.route, RouteNameX.login);
+
+      LocalDataX.put(LocalKeyX.route, route);
       Get.find<CartGeneralControllerX>().delete();
       Get.delete<AllDonationController>();
       Get.lazyPut(() => AllDonationController());
-      if (Get.currentRoute != RouteNameX.login) {
+      if (Get.currentRoute != route) {
         await Future.wait([
           DatabaseX.logout(),
-          Future.microtask(() => Get.offAllNamed(RouteNameX.login)),
+          Future.microtask(() => Get.offAllNamed(route)),
         ]);
       } else {
         await DatabaseX.logout();

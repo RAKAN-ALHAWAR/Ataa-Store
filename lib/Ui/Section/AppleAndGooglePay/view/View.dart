@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'package:ataa/Data/data.dart';
 import 'package:ataa/UI/Widget/widget.dart';
+import 'package:ataa/Ui/Section/AppleAndGooglePay/controller/Controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay/pay.dart';
 
 import '../../../../Config/config.dart';
-import '../controller/Controller.dart';
 
 class AppleAndGooglePaySectionX extends StatelessWidget {
   AppleAndGooglePaySectionX({
@@ -34,8 +34,7 @@ class AppleAndGooglePaySectionX extends StatelessWidget {
                     onTap: () => controller.onTapDisabledCallback?.call(),
                     child: AbsorbPointer(
                       absorbing: controller.isDisabled.value,
-                      child:
-                      ApplePayButton(
+                      child: ApplePayButton(
                         paymentConfiguration: controller.applePayConfig!,
                         paymentItems: controller.paymentItems.value,
                         style: ApplePayButtonStyle.black,

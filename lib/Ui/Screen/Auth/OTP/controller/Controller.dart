@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:ataa/Core/Controller/Cart/cartGeneralController.dart';
+import 'package:ataa/Ui/Screen/Basic/Root/controller/Controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:sms_autofill/sms_autofill.dart';
@@ -29,8 +30,9 @@ class OTPController extends GetxController with CodeAutoFill {
   Rx<ButtonStateEX> buttonState = ButtonStateEX.normal.obs;
 
   /// if open OTP from sheet then get OTP object from view screen parameters
-  late OtpX otp =
-      Get.arguments is Map ? Get.arguments[NameX.otp] : OtpX.empty();
+  late OtpX otp = Get.arguments is Map
+      ? Get.arguments[NameX.otp]
+      : OtpX.empty();
 
   AutovalidateMode autoValidate = AutovalidateMode.disabled;
   TextEditingController otpCode = TextEditingController();
@@ -38,7 +40,7 @@ class OTPController extends GetxController with CodeAutoFill {
   final GlobalKey<OtpPinFieldState> otpKey = GlobalKey<OtpPinFieldState>();
 
   late Timer timer;
-  RxInt start = 60.obs;
+  RxInt start = 240.obs;
 
   Rx<String> appSignature = "".obs;
 
@@ -148,6 +150,13 @@ class OTPController extends GetxController with CodeAutoFill {
                 await Future.delayed(const Duration(seconds: 2));
                 accountCreatedSheet();
               }
+
+              if (otp.isFromQuickDonation) {
+                /// Time delay for aesthetics
+                await Future.delayed(const Duration(seconds: 2));
+                RootController root = Get.find();
+                root.openQuickDonation();
+              }
             }
           }
         } catch (e) {
@@ -225,7 +234,7 @@ class OTPController extends GetxController with CodeAutoFill {
         if (start.value != 0) {
           start--;
         } else {
-          start.value = 60;
+          start.value = 240;
           isResendAgain.value = true;
           timer.cancel();
         }

@@ -27,8 +27,9 @@ class CreateGiftController extends GetxController {
   final AppControllerX app = Get.find();
   final CartGeneralControllerX basketController = Get.find();
   final CartGeneralControllerX cart = Get.find();
-  PreviewGiftCardControllerX previewGiftCardController =
-      Get.put(PreviewGiftCardControllerX());
+  PreviewGiftCardControllerX previewGiftCardController = Get.put(
+    PreviewGiftCardControllerX(),
+  );
 
   //============================================================================
   // Variables
@@ -41,8 +42,9 @@ class CreateGiftController extends GetxController {
   Rx<ButtonStateEX> previewButtonState = ButtonStateEX.normal.obs;
 
   /// Data
-  final List<String> colors =
-      GiftColorStatusX.values.map((e) => e.code.substring(1)).toList();
+  final List<String> colors = GiftColorStatusX.values
+      .map((e) => e.code.substring(1))
+      .toList();
   RxList<GiftCategoryX> giftCategories = <GiftCategoryX>[].obs;
   RxList<OrganizationX> organizations = <OrganizationX>[].obs;
 
@@ -60,8 +62,11 @@ class CreateGiftController extends GetxController {
   RxBool isShowAmount = false.obs;
 
   RxBool isSendToMe = false.obs;
-  late TextEditingController phoneSendToMe = TextEditingController(text: (app.user.value?.phone??'').toString());
-  late int countryCodeForSendToMe = app.user.value?.countryCode??app.generalSettings.defaultCountryCode;
+  late TextEditingController phoneSendToMe = TextEditingController(
+    text: (app.user.value?.phone ?? '').toString(),
+  );
+  late int countryCodeForSendToMe =
+      app.user.value?.countryCode ?? app.generalSettings.defaultCountryCode;
 
   RxBool isSendLater = false.obs;
   Rx<DateTime?> sendLaterDate = Rx<DateTime?>(null);
@@ -73,7 +78,8 @@ class CreateGiftController extends GetxController {
   Rx<OrganizationX?> orgSelected = Rx(null);
   RxInt freeDonationSelected = 0.obs;
   Rx<String> gender = "male".obs;
-  late RxInt recipientCountryCode = (app.generalSettings.defaultCountryCode).obs;
+  late RxInt recipientCountryCode =
+      (app.generalSettings.defaultCountryCode).obs;
 
   /// For Card
   RxString donorNameForCard = ''.obs;
@@ -94,19 +100,32 @@ class CreateGiftController extends GetxController {
   Future<void> getData() async {
     try {
       giftCategories.value = await DatabaseX.getAllGiftCategories();
-      // if (giftCategories.isEmpty) {
-      //   throw ErrorX.createErrorByCode(ErrorCodesX.notFound);
-      // } else {
-      //   giftCategorySelected = giftCategories.first.obs;
-      //   await getGiftCategoryDetails(giftCategories.first.id);
-      // }
+      if (giftCategories.isNotEmpty) {
+        giftCategorySelected.value = giftCategories.first;
+        await getGiftCategoryDetails(giftCategories.first.id);
+      }
     } catch (e) {
       rethrow;
     }
   }
 
+  String? validateAmount(String? val) {
+    String? message;
+    message = ValidateX.money(val);
+
+    /// Verify the lowest possible donation value in Free Donation
+    if (message == null &&
+        num.parse(donationAmount.text) <
+            app.generalSettings.minimumDonationAmount) {
+      message =
+          "${"The minimum donation amount is".tr} ${app.generalSettings.minimumDonationAmount} ${"SAR".tr}";
+    }
+    return message;
+  }
+
   Future<List<GiftCategoryX>> getGiftCategories(
-      ScrollRefreshLoadMoreParametersX data) async {
+    ScrollRefreshLoadMoreParametersX data,
+  ) async {
     return await DatabaseX.getAllGiftCategories(
       page: data.page,
       perPage: data.perPage,
@@ -116,7 +135,7 @@ class CreateGiftController extends GetxController {
   getGiftCategoryDetails(String id) async {
     isLoadingForGetGiftCategoryDetails.value = true;
     giftCategorySelected.value = await DatabaseX.getGiftCategoryDetails(id: id);
-    organizations.value = giftCategorySelected.value?.donationCategories??[];
+    organizations.value = giftCategorySelected.value?.donationCategories ?? [];
     orgSelected.value = null;
     isLoadingForGetGiftCategoryDetails.value = false;
     onChangeGiftCardFormByGender();
@@ -133,7 +152,7 @@ class CreateGiftController extends GetxController {
 
   onChangeCategory(index) {
     giftCategorySelected.value = giftCategories[index];
-    getGiftCategoryDetails(giftCategorySelected.value?.id??'');
+    getGiftCategoryDetails(giftCategorySelected.value?.id ?? '');
   }
 
   onChangeColor(index) => colorSelectedIndex.value = index;
@@ -161,10 +180,27 @@ class CreateGiftController extends GetxController {
     onChangeGiftCardFormByGender();
   }
 
-  onChangeCountryCode(String val) =>
-      recipientCountryCode.value = int.parse(val);
-  onChangeCountryCodeForSendToMe(String val) =>
-      countryCodeForSendToMe = int.parse(val);
+  onChangeCountryCode(String val) {
+    final newCode = int.parse(val);
+    if (!app.generalSettings.isShowCountryCodeList &&
+        newCode != app.generalSettings.defaultCountryCode) {
+      ToastX.error(message: "Changing the country code is not allowed".tr);
+      recipientCountryCode.value = app.generalSettings.defaultCountryCode;
+      return;
+    }
+    recipientCountryCode.value = newCode;
+  }
+
+  onChangeCountryCodeForSendToMe(String val) {
+    final newCode = int.parse(val);
+    if (!app.generalSettings.isShowCountryCodeList &&
+        newCode != app.generalSettings.defaultCountryCode) {
+      ToastX.error(message: "Changing the country code is not allowed".tr);
+      countryCodeForSendToMe = app.generalSettings.defaultCountryCode;
+      return;
+    }
+    countryCodeForSendToMe = newCode;
+  }
 
   //----------------------------------------------------------------------------
   // Phone From Contacts
@@ -184,11 +220,32 @@ class CreateGiftController extends GetxController {
             contact.phoneNumbers![0],
           );
 
-          /// Assign a value to the phone number because it cannot be empty
-          recipientPhone.text = result.$1;
+          final phoneNumber = result.$1;
+          final extractedCode = result.$2;
 
-          /// If name is empty, it returns the previous value
-          recipientCountryCode.value = result.$2 ?? recipientCountryCode.value;
+          if (!app.generalSettings.isShowCountryCodeList) {
+            /// Country code is locked
+            if (extractedCode != null &&
+                extractedCode != app.generalSettings.defaultCountryCode) {
+              /// Extracted country code differs from default
+              ToastX.error(
+                  message: "Changing the country code is not allowed".tr);
+              return;
+            }
+
+            /// Validate number format for Saudi (default 966)
+            if (app.generalSettings.defaultCountryCode == 966 &&
+                !(phoneNumber.startsWith('05') ||
+                    phoneNumber.startsWith('5'))) {
+              ToastX.error(
+                  message: "Enter a Saudi Arabian phone number".tr);
+              return;
+            }
+          }
+
+          recipientPhone.text = phoneNumber;
+          recipientCountryCode.value =
+              extractedCode ?? recipientCountryCode.value;
         }
       }
     } catch (e) {
@@ -208,7 +265,7 @@ class CreateGiftController extends GetxController {
     isSendToMe.value = false;
     isSendLater.value = false;
     sendLaterDate.value = null;
-    freeDonationSelected.value=0;
+    freeDonationSelected.value = 0;
 
     giftCategorySelected.value = giftCategories.first;
     colorSelectedIndex.value = 0;
@@ -234,7 +291,7 @@ class CreateGiftController extends GetxController {
       return throw "You must enter a phone number in the designated phone field to send a copy to your mobile.";
     } else if (!isPreview && isSendLater.value && sendLaterDate.value == null) {
       return throw "You must enter the date the gift was sent";
-    }else if(giftCategorySelected.value==null){
+    } else if (giftCategorySelected.value == null) {
       return throw "You must choose the type of gift.";
     } else {
       return true;
@@ -246,7 +303,7 @@ class CreateGiftController extends GetxController {
 
   onAddToCart({bool isPay = false}) async {
     if (isLoading.isFalse) {
-      try{
+      try {
         if (dataVerification()) {
           isLoading.value = true;
           isPay
@@ -265,17 +322,20 @@ class CreateGiftController extends GetxController {
                 donorName: donorName.text,
                 donorMobile: isSendToMe.value
                     ? int.parse(
-                    countryCodeForSendToMe.toString() + phoneSendToMe.text)
+                        countryCodeForSendToMe.toString() + phoneSendToMe.text,
+                      )
                     : null,
                 recipientName: recipientName.text,
                 recipientMobile: int.parse(
-                    recipientCountryCode.value.toString() + recipientPhone.text),
+                  recipientCountryCode.value.toString() + recipientPhone.text,
+                ),
                 recipientGender: GenderStatusX.values.firstWhere(
-                      (x) => x.name == gender.value,
+                  (x) => x.name == gender.value,
                 ),
                 price: donationAmount.text.toIntX,
                 color: GiftColorStatusX.values.firstWhere(
-                        (x) => x.code == '#${colors[colorSelectedIndex.value]}'),
+                  (x) => x.code == '#${colors[colorSelectedIndex.value]}',
+                ),
               ),
             );
 
@@ -316,13 +376,13 @@ class CreateGiftController extends GetxController {
           /// Reset the button state
           Timer(
             const Duration(seconds: StyleX.returnButtonToNormalStateSecond),
-                () {
+            () {
               addToCartButtonState.value = ButtonStateEX.normal;
               payButtonState.value = ButtonStateEX.normal;
             },
           );
         }
-      }catch(e){
+      } catch (e) {
         ToastX.error(message: e.toString());
       }
     }
@@ -338,8 +398,9 @@ class CreateGiftController extends GetxController {
           previewGiftCardController.amount = donationAmountForCard.value;
           previewGiftCardController.isShowAmount = isShowAmount.value;
           previewGiftCardController.orgName = orgSelected.value!.name;
-          previewGiftCardController.color =
-              Color(int.parse("0xff${colors[colorSelectedIndex.value]}"));
+          previewGiftCardController.color = Color(
+            int.parse("0xff${colors[colorSelectedIndex.value]}"),
+          );
           previewGiftCardController.giftCardFormByGender =
               giftCardFormByGenderSelected.value!;
           await previewGiftCardSheetX(controller: previewGiftCardController);
@@ -365,13 +426,15 @@ class CreateGiftController extends GetxController {
 
   @override
   void onInit() {
-    donorName.text= app.isLogin.value ? app.user.value!.name : "";
+    donorName.text = app.isLogin.value ? app.user.value!.name : "";
     donorNameForCard.value = donorName.text;
     donorName.addListener(() => donorNameForCard.value = donorName.text);
-    recipientName
-        .addListener(() => recipientNameForCard.value = recipientName.text);
-    donationAmount
-        .addListener(() => donationAmountForCard.value = donationAmount.text);
+    recipientName.addListener(
+      () => recipientNameForCard.value = recipientName.text,
+    );
+    donationAmount.addListener(
+      () => donationAmountForCard.value = donationAmount.text,
+    );
     super.onInit();
   }
 

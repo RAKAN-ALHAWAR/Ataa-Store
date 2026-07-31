@@ -3,6 +3,7 @@ library core;
 import 'dart:async';
 import 'dart:io';
 import 'package:ataa/Core/Extension/convert/convert.dart';
+import 'package:ataa/Ui/Screen/Auth/ContinueToAccount/view/view.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,6 +21,7 @@ import '../UI/Widget/widget.dart';
 import '../Ui/Screen/Donation/AllDonation/controller/Controller.dart';
 import 'Controller/Cart/cartGeneralController.dart';
 import 'Helper/http/http.dart';
+import 'Service/deep_link_service.dart';
 import 'Service/onesignalService.dart';
 import 'Util/info.dart';
 import 'package:share_plus/share_plus.dart';
@@ -41,12 +43,13 @@ part 'Helper/httpOverrides.dart';
 /// containing all internal processors and general functions
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class CoreX{
-  /// TODO: Features >>> Add receiving notifications in this section
-  static init() async{
+class CoreX {
+  static init() async {
     await InfoUtilX.init();
     await HttpX.init();
     await OnesignalServiceX.init();
+    await DeepLinkServiceX.init();
+
     /// Here codes are added to configure anything within this section when the application starts
   }
 }

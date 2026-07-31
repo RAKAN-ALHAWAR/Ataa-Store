@@ -31,7 +31,7 @@ void main() async {
 
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
     PlatformDispatcher.instance.onError = (error, stack) {
-      FirebaseCrashlytics.instance.recordError(error, stack,fatal: true);
+      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
       return true;
     };
 
@@ -48,8 +48,9 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  static FirebaseAnalyticsObserver observer =
-  FirebaseAnalyticsObserver(analytics: analytics);
+  static FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(
+    analytics: analytics,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -59,20 +60,15 @@ class MyApp extends StatelessWidget {
 
       /// Initialization of the main controllers
       initialBinding: BindingsBuilder(() {
-        Get.put(
-          AppControllerX(),
-          permanent: true,
-        );
-        Get.put<CartGeneralControllerX>(
-          CartGeneralControllerX(),
-          permanent: true,
-        );
+        Get.put(AppControllerX(), permanent: true);
+        Get.put(CartGeneralControllerX(), permanent: true);
       }),
 
       /// Routes
       getPages: RouteListX.routes,
       initialRoute: RouteNameX.loading,
-      // ربط Firebase Analytics مع Navigation Observer
+
+      /// ربط Firebase Analytics مع Navigation Observer
       navigatorObservers: <NavigatorObserver>[observer],
 
       /// Settings GetX

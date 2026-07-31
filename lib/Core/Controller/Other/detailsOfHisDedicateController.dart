@@ -46,7 +46,16 @@ class DetailsOfHisDedicateController extends GetxController {
 
   onChangeGender(String? value) => gender.value = value!;
 
-  onChangeCountryCode(String val) => countryCode.value = int.parse(val);
+  onChangeCountryCode(String val) {
+    final newCode = int.parse(val);
+    if (!app.generalSettings.isShowCountryCodeList &&
+        newCode != app.generalSettings.defaultCountryCode) {
+      ToastX.error(message: "Changing the country code is not allowed".tr);
+      countryCode.value = app.generalSettings.defaultCountryCode;
+      return;
+    }
+    countryCode.value = newCode;
+  }
 
   /// Get the Mahdi's information from his contacts
   onPhoneFromContacts() async {
@@ -62,11 +71,28 @@ class DetailsOfHisDedicateController extends GetxController {
           var result = FunctionX.extractCountryCodeAndPhoneNumber(
             contact.phoneNumbers![0],
           );
-          /// Assign a value to the phone number because it cannot be empty
-          giftedPhone.text = result.$1;
 
-          /// If name is empty, it returns the previous value
-          countryCode.value = result.$2 ?? countryCode.value;
+          final phoneNumber = result.$1;
+          final extractedCode = result.$2;
+
+          if (!app.generalSettings.isShowCountryCodeList) {
+            if (extractedCode != null &&
+                extractedCode != app.generalSettings.defaultCountryCode) {
+              ToastX.error(
+                  message: "Changing the country code is not allowed".tr);
+              return;
+            }
+            if (app.generalSettings.defaultCountryCode == 966 &&
+                !(phoneNumber.startsWith('05') ||
+                    phoneNumber.startsWith('5'))) {
+              ToastX.error(
+                  message: "Enter a Saudi Arabian phone number".tr);
+              return;
+            }
+          }
+
+          giftedPhone.text = phoneNumber;
+          countryCode.value = extractedCode ?? countryCode.value;
         }
       }
     } catch (e) {

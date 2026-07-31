@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart'; // الإمبورت الجديد
 import '../../../../../../Config/config.dart';
 import '../../../../../../UI/Widget/widget.dart';
 import '../../controller/Controller.dart';
@@ -24,8 +24,8 @@ class AppBarWithCoverSectionX extends GetView<DonationDetailsController> {
             itemCount: controller.getNumCover(),
             itemBuilder: (_, index) {
               if ((controller.getNumCover() == 1 &&
-                  index == 0 &&
-                  controller.donation.donationDetails.imageUrl != null) ||
+                      index == 0 &&
+                      controller.donation.donationDetails.imageUrl != null) ||
                   (controller.getNumCover() == 2 && index == 0)) {
                 return Container(
                   color: Theme.of(context).cardColor,
@@ -41,51 +41,75 @@ class AppBarWithCoverSectionX extends GetView<DonationDetailsController> {
                       index == 0 &&
                       controller.donation.donationDetails.videoUrl != null) ||
                   (controller.getNumCover() == 2 && index == 1)) {
-                return Obx(
-                      () {
-                    if (controller.isInitYoutubeController.isTrue) {
-                      return GestureDetector(
-                        onHorizontalDragEnd: (details) {
-                          if (details.velocity.pixelsPerSecond.dx > 0) {
-                            if (controller.imagesController.page?.round() != 0) {
-                              controller.imagesController.previousPage(
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.easeInOut,
-                              );
-                            }
-                          } else if (details.velocity.pixelsPerSecond.dx < 0) {
-                            if (controller.imagesController.page?.round() !=
-                                controller.getNumCover() - 1) {
-                              controller.imagesController.nextPage(
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.easeInOut,
-                              );
-                            }
+                return Obx(() {
+                  // إذا حصل خطأ في تحميل الفيديو
+                  if (controller.hasErrorVideo.value) {
+                    return SizedBox(
+                      height: 300,
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.all(50),
+                        child: SvgPicture.asset(
+                          context.isDarkMode ? ImageX.logoWhite : ImageX.logo,
+                        ),
+                      ),
+                    );
+                  }
+
+                  // Loading للفيديو العادي (Chewie)
+                  if (controller.isInitChewieController.isFalse ||
+                      !controller
+                          .videoPlayerController
+                          .value
+                          .value
+                          .isInitialized) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  // تحديد نوع الفيديو: يوتيوب أو عادي
+                  final bool isYoutube =
+                      controller.donation.donationDetails.videoUrl != null &&
+                      controller.isYoutubeUrl(
+                        controller.donation.donationDetails.videoUrl!,
+                      );
+
+                  if (isYoutube) {
+                    // YouTube Player الجديد (youtube_player_iframe)
+                    return GestureDetector(
+                      onHorizontalDragEnd: (details) {
+                        if (details.velocity.pixelsPerSecond.dx > 0) {
+                          if (controller.imagesController.page?.round() != 0) {
+                            controller.imagesController.previousPage(
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeInOut,
+                            );
                           }
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 12),
-                          child: YoutubePlayer(
-                            controller: controller.youtubeController,
-                            showVideoProgressIndicator: true,
-                            progressIndicatorColor: Colors.red,
-                          ),
+                        } else if (details.velocity.pixelsPerSecond.dx < 0) {
+                          if (controller.imagesController.page?.round() !=
+                              controller.getNumCover() - 1) {
+                            controller.imagesController.nextPage(
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeInOut,
+                            );
+                          }
+                        }
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 12),
+                        child: YoutubePlayer(
+                          controller: controller.youtubeController,
+                          aspectRatio: 16 / 9, // مهم للحفاظ على النسبة الصحيحة
                         ),
-                      );
-                    } else if (controller.isInitChewieController.isFalse ||
-                        !controller
-                            .videoPlayerController.value.value.isInitialized) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else {
-                      return Container(
-                        color: Colors.black,
-                        child: Chewie(
-                          controller: controller.chewieController,
-                        ),
-                      );
-                    }
-                  },
-                );
+                      ),
+                    );
+                  } else {
+                    // فيديو عادي (Chewie)
+                    return Container(
+                      color: Colors.black,
+                      child: Chewie(controller: controller.chewieController),
+                    );
+                  }
+                });
               } else {
                 return SizedBox(
                   height: 300,
@@ -101,13 +125,18 @@ class AppBarWithCoverSectionX extends GetView<DonationDetailsController> {
             },
           ),
         ).fadeAnimation200,
-        if(controller.donation.donationBasic.isDone)
+
+        if (controller.donation.donationBasic.isDone)
           Positioned.fill(
             child: ImageNetworkX(
               height: 300,
               width: double.maxFinite,
-              imageUrl: controller.app.generalSettings.projectCompletionImageUrl ?? ImageX.doneDonation,
-              isFile: controller.app.generalSettings.projectCompletionImageUrl == null,
+              imageUrl:
+                  controller.app.generalSettings.projectCompletionImageUrl ??
+                  ImageX.doneDonation,
+              isFile:
+                  controller.app.generalSettings.projectCompletionImageUrl ==
+                  null,
               empty: const SizedBox(),
               fit: BoxFit.contain,
             ).paddingAll(5),
@@ -120,11 +149,7 @@ class AppBarWithCoverSectionX extends GetView<DonationDetailsController> {
           right: 0,
           child: AppBarTransparent(
             title: "Donation Details",
-            actions: [
-              CartIconButtonsX(
-                isAnimation: false,
-              )
-            ],
+            actions: [CartIconButtonsX(isAnimation: false)],
           ),
         ),
 
@@ -170,9 +195,7 @@ class AppBarWithCoverSectionX extends GetView<DonationDetailsController> {
             decoration: BoxDecoration(
               color: Theme.of(context).scaffoldBackgroundColor,
               borderRadius: const BorderRadiusDirectional.vertical(
-                top: Radius.circular(
-                  StyleX.radiusMd,
-                ),
+                top: Radius.circular(StyleX.radiusMd),
               ),
             ),
           ),

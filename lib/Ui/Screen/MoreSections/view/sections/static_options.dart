@@ -26,7 +26,11 @@ class StaticOptionsSectionX extends GetView<MoreSectionsController> {
           ).fadeAnimation200,
 
           /// TODO: Show >>> Sponsorships
-          // MoreCardX(title: "Sponsorships", icon: Icons.thumb_up_rounded,onTap: controller.onSponsorships,).fadeAnimation200,
+          // MoreCardX(
+          //   title: "Sponsorships",
+          //   icon: Icons.thumb_up_rounded,
+          //   onTap: controller.onSponsorships,
+          // ).fadeAnimation200,
           MoreCardX(
             title: "Gifting",
             icon: IconX.gift,

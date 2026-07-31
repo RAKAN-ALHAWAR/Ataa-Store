@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../Config/Translation/translation.dart';
 import '../../../../Config/config.dart';
+import '../../../../Core/core.dart';
 import '../../../../Data/data.dart';
 import '../../../../UI/Widget/widget.dart';
 
 class OnboardingController extends GetxController {
+  //============================================================================
+  // Injection of required controls
+
+  AppControllerX app = Get.find();
+
   //============================================================================
   // Variables
 
@@ -16,7 +22,6 @@ class OnboardingController extends GetxController {
 
   //============================================================================
   // Functions
-
 
   onNext() {
     /// If the cards run out, the skip is triggered
@@ -29,6 +34,7 @@ class OnboardingController extends GetxController {
       );
     }
   }
+
   changeLanguage(String val) async {
     try {
       /// Switch language
@@ -42,9 +48,14 @@ class OnboardingController extends GetxController {
       ToastX.error(message: e.toString());
     }
   }
+
   onSkip() {
+    String route = app.generalSettings.accountCreationMethodIsTraditionalForm
+        ? RouteNameX.login
+        : RouteNameX.continueToAccount;
+
     /// Save the path when you log in, so it doesn't appear again
-    LocalDataX.put(LocalKeyX.route, RouteNameX.login);
-    Get.offAllNamed(RouteNameX.login);
+    LocalDataX.put(LocalKeyX.route, route);
+    Get.offAllNamed(route);
   }
 }

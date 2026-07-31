@@ -27,7 +27,7 @@ class VerificationUrlController extends GetxController {
     // Check if the domain is the same as the original verification domain
     if (request.url.contains(callbackUrl)) {
       Uri uri = Uri.parse(request.url);
-      String result = uri.queryParameters['status']??'';
+      String result = uri.queryParameters['status'] ?? '';
       Get.back(result: result);
       return NavigationDecision.prevent;
     }

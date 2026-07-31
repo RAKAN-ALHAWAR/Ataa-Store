@@ -24,23 +24,24 @@ class CartX {
   List<CartItemX> items;
   DeliveryLocationX? location;
 
-
   factory CartX.fromJson(Map<String, dynamic> json) {
     return ModelUtilX.checkFromJson(
       json,
-          (json) => CartX(
+      (json) => CartX(
         id: json[NameX.id].toStrX,
-        totalPrice: json[NameX.totalPrice].toDoubleX,
+        totalPrice: json[NameX.totalPrice].toDoubleDefaultX(0),
         countItem: json[NameX.countItem].toIntX,
         currency: json[NameX.currency].toStrX,
         isProduct: json[NameX.isProduct].toBoolX,
         createdAt: json[NameX.createdAt].toDateTimeNullableX,
-        items: ModelUtilX.generateItems(json[NameX.cartItems] as List, CartItemX.fromJson),
-        location: json[NameX.location].toFromJsonNullableX(DeliveryLocationX.fromJson),
+        items: ModelUtilX.generateItems(
+            json[NameX.cartItems] as List, CartItemX.fromJson),
+        location: json[NameX.location]
+            .toFromJsonNullableX(DeliveryLocationX.fromJson),
       ),
       requiredDataKeys: [
         NameX.id,
-        NameX.totalPrice,
+        // NameX.totalPrice,
         NameX.countItem,
         NameX.currency,
         NameX.isProduct,
@@ -56,9 +57,12 @@ class CartX {
       NameX.countItem: countItem,
       NameX.currency: currency,
       NameX.isProduct: isProduct,
-      NameX.cartItems: items.map((e) => e.toJson(),).toList(),
+      NameX.cartItems: items
+          .map(
+            (e) => e.toJson(),
+          )
+          .toList(),
       NameX.location: location?.toJson(),
     };
   }
-
 }

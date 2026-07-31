@@ -15,9 +15,9 @@ import '../../../../../Data/Model/PaymentCard/paymentCardForm.dart';
 import '../../../../../Data/Model/PaymentTransaction/paymentTransaction.dart';
 import '../../../../../Data/Model/PaymentTransaction/paymentTransactionForm.dart';
 import '../../../../../Data/data.dart';
-import '../../../../Section/AppleAndGooglePay/controller/Controller.dart';
 import '../../../../Section/PayByBankTransfer/controller/Controller.dart';
 import '../../../../Section/PreSavedPaymentCards/controller/Controller.dart';
+import 'package:ataa/Ui/Section/AppleAndGooglePay/controller/Controller.dart';
 
 class GeneralPaymentController extends GetxController {
   //============================================================================
@@ -122,6 +122,30 @@ class GeneralPaymentController extends GetxController {
         projectId: quickDonationOrgId!,
       );
     }
+
+    debugPrint(
+      '[PaymentPrice] server=${paymentTransaction.price} form=${form.price} method=${paymentTransaction.paymentMethod.name}',
+    );
+    paymentTransaction = PaymentTransactionX(
+      id: paymentTransaction.id,
+      code: paymentTransaction.code,
+      price: form.price,
+      paymentDataCreditCard: paymentTransaction.paymentDataCreditCard,
+      paymentDataBankTransfer: paymentTransaction.paymentDataBankTransfer,
+      paymentTransactionCard: paymentTransaction.paymentTransactionCard,
+      paymentMethod: paymentTransaction.paymentMethod,
+      paymentMethodLocalized: paymentTransaction.paymentMethodLocalized,
+      currency: paymentTransaction.currency,
+      receiptUrl: paymentTransaction.receiptUrl,
+      receiptUrlShort: paymentTransaction.receiptUrlShort,
+      applePayToken: paymentTransaction.applePayToken,
+      status: paymentTransaction.status,
+      statusLocalized: paymentTransaction.statusLocalized,
+      callbackUrl: paymentTransaction.callbackUrl,
+      verificationUrl: paymentTransaction.verificationUrl,
+      createdAt: paymentTransaction.createdAt,
+      updatedAt: paymentTransaction.updatedAt,
+    );
 
     if (paymentTransaction.verificationUrl != null) {
       var result = await Get.toNamed(

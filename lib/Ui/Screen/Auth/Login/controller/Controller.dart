@@ -23,19 +23,21 @@ class LoginController extends GetxController {
   Rx<ErrorX?> error = Rx<ErrorX?>(null);
   bool isSheet = false;
   Rx<ButtonStateEX> buttonState = ButtonStateEX.normal.obs;
+  bool isFromQuickDonation = Get.arguments?[NameX.isFromQuickDonation] ?? false;
 
   RxBool isPhone = true.obs;
-  RxInt countryCode = ((Get.arguments is Map
-          ? (Get.arguments?[NameX.countryCode] ?? 966)
-          : 966) as int)
-      .obs;
+  RxInt countryCode =
+      ((Get.arguments is Map ? (Get.arguments?[NameX.countryCode] ?? 966) : 966)
+              as int)
+          .obs;
   final loginVia = ValueNotifier(1);
 
   GlobalKey<FormState> formKey = GlobalKey();
   AutovalidateMode autoValidate = AutovalidateMode.disabled;
 
   TextEditingController phone = TextEditingController(
-      text: Get.arguments is Map ? Get.arguments[NameX.phone] : '');
+    text: Get.arguments is Map ? Get.arguments[NameX.phone] : '',
+  );
   TextEditingController email = TextEditingController();
 
   //============================================================================
@@ -51,13 +53,17 @@ class LoginController extends GetxController {
 
         /// to close login sheet
         await bottomSheetX(
-            child: SignUpView(isSheet: true).paddingOnly(top: 14));
+          child: SignUpView(isSheet: true).paddingOnly(top: 14),
+        );
       } else if (Get.previousRoute == RouteNameX.signUp) {
         Get.back();
 
         /// if sign up is open on background so just back to show it
       } else {
-        Get.toNamed(RouteNameX.signUp);
+        Get.toNamed(
+          RouteNameX.signUp,
+          arguments: {NameX.isFromQuickDonation: isFromQuickDonation},
+        );
       }
     }
   }
@@ -119,9 +125,7 @@ class LoginController extends GetxController {
 
     /// The time delay here is aesthetically beneficial
     buttonState.value = ButtonStateEX.success;
-    await Future.delayed(
-      const Duration(seconds: StyleX.successButtonSecond),
-    );
+    await Future.delayed(const Duration(seconds: StyleX.successButtonSecond));
 
     /// create otp object
     OtpX otp = OtpX(
@@ -129,13 +133,15 @@ class LoginController extends GetxController {
       countryCode: countryCode.value,
       isLogin: true,
       isPhone: true,
+      isFromQuickDonation: isFromQuickDonation,
     );
 
     /// go to otp screen
     if (isSheet) {
       Get.back();
       await bottomSheetX(
-          child: OTPView(isSheet: true, otp: otp).paddingOnly(top: 14));
+        child: OTPView(isSheet: true, otp: otp).paddingOnly(top: 14),
+      );
       return null;
     } else {
       Get.toNamed(RouteNameX.otp, arguments: {NameX.otp: otp});
@@ -148,9 +154,7 @@ class LoginController extends GetxController {
 
     /// The time delay here is aesthetically beneficial
     buttonState.value = ButtonStateEX.success;
-    await Future.delayed(
-      const Duration(seconds: StyleX.successButtonSecond),
-    );
+    await Future.delayed(const Duration(seconds: StyleX.successButtonSecond));
 
     Get.toNamed(
       RouteNameX.otp,
@@ -159,7 +163,8 @@ class LoginController extends GetxController {
           email: email.text.trim(),
           isLogin: true,
           isPhone: false,
-        )
+          isFromQuickDonation: isFromQuickDonation,
+        ),
       },
     );
     return massage;

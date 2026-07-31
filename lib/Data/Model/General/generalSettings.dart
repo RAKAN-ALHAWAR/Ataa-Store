@@ -1,6 +1,6 @@
 part of '../../data.dart';
 
-class GeneralAppSettingsX{
+class GeneralAppSettingsX {
   GeneralAppSettingsX({
     this.id,
     required this.isShowRegisterEmail,
@@ -19,9 +19,10 @@ class GeneralAppSettingsX{
     this.browserApplePayMessage,
     this.projectCompletionImageUrl,
     required this.defaultCountryCode,
+    required this.accountCreationMethodIsTraditionalForm,
     this.defaultQuickDonation,
     this.defaultZakat,
-    this.campaignTargetAmounts=const[],
+    this.campaignTargetAmounts = const [],
     this.campaignApprovalStatus,
   });
 
@@ -46,6 +47,7 @@ class GeneralAppSettingsX{
 
   String? browserApplePayMessage;
   String? projectCompletionImageUrl;
+  bool accountCreationMethodIsTraditionalForm;
 
   int defaultCountryCode;
   DonationX? defaultQuickDonation;
@@ -55,51 +57,63 @@ class GeneralAppSettingsX{
   String? campaignApprovalStatus;
 
   factory GeneralAppSettingsX.fromJson(Map<String, dynamic> json) {
-    Map<String, Object?> imageJson = Map<String, Object?>.from(json[NameX.projectCompletionImage] ?? {});
-    Map<String, Object?> defaultQuickDonationJson = Map<String, Object?>.from(json[NameX.defaultQuickDonation] ?? {});
-    Map<String, Object?> defaultZakatJson = Map<String, Object?>.from(json[NameX.defaultZakat] ?? {});
+    Map<String, Object?> imageJson = Map<String, Object?>.from(
+      json[NameX.projectCompletionImage] ?? {},
+    );
+    Map<String, Object?> defaultQuickDonationJson = Map<String, Object?>.from(
+      json[NameX.defaultQuickDonation] ?? {},
+    );
+    Map<String, Object?> defaultZakatJson = Map<String, Object?>.from(
+      json[NameX.defaultZakat] ?? {},
+    );
 
     return ModelUtilX.checkFromJson(
-        json,
-            (json) => GeneralAppSettingsX(
-          id: json[NameX.id].toStrNullableX,
-          isShowRegisterEmail: json[NameX.isShowRegisterEmail].toBoolX,
-          isRequiredRegisterName:
-          json[NameX.isRequiredRegisterName].toBoolX,
-          isShowTechnicalSupportIcon:
-          json[NameX.isShowTechnicalSupportIcon].toBoolDefaultX(false),
-          isActiveQuickDonation: json[NameX.isActiveQuickDonation].toBoolX,
-          isShowBrowserApplePayMessage:
-          json[NameX.isShowBrowserApplePayMessage].toBoolDefaultX(false),
-          isShowCountryCodeList:
-          json[NameX.isShowCountryCodeList].toBoolDefaultX(false),
-          isActiveDonationSearch:
-          json[NameX.isActiveProjectSearch].toBoolDefaultX(false),
-          isActiveDeductionSearch:
-          json[NameX.isActiveDeductionSearch].toBoolDefaultX(false),
-          isActiveCampaignSearch:
-          json[NameX.isActiveCampaignSearch].toBoolDefaultX(false),
-          isActiveComments:
-          json[NameX.isActiveComments].toBoolDefaultX(false),
-          minimumDonationAmount: json[NameX.minimumDonationAmount].toIntX,
-          minimumDeductionAmount: json[NameX.minimumDeductionAmount].toIntX,
-          productShippingAmount: json[NameX.productShippingAmount].toIntX,
-          browserApplePayMessage: json[NameX.browserApplePayMessage].toStrNullableX,
-          projectCompletionImageUrl: imageJson[NameX.url].toStrNullableX,
-          defaultCountryCode: json[NameX.defaultCountryCode].toIntDefaultX(966),
-          defaultQuickDonation: DonationX.fromJson(defaultQuickDonationJson),
-          defaultZakat: DonationX.fromJson(defaultZakatJson),
-          campaignTargetAmounts: List<num>.from((json[NameX.campaignTargetAmounts]??[]) as List),
-          campaignApprovalStatus: json[NameX.campaignApprovalStatus].toStrNullableX,
+      json,
+      (json) => GeneralAppSettingsX(
+        id: json[NameX.id].toStrNullableX,
+        isShowRegisterEmail: json[NameX.isShowRegisterEmail].toBoolX,
+        isRequiredRegisterName: json[NameX.isRequiredRegisterName].toBoolX,
+        isShowTechnicalSupportIcon: json[NameX.isShowTechnicalSupportIcon]
+            .toBoolDefaultX(false),
+        isActiveQuickDonation: json[NameX.isActiveQuickDonation].toBoolX,
+        isShowBrowserApplePayMessage: json[NameX.isShowBrowserApplePayMessage]
+            .toBoolDefaultX(false),
+        isShowCountryCodeList: json[NameX.isShowCountryCodeList].toBoolDefaultX(
+          false,
         ),
-        requiredDataKeys: [
-          NameX.isShowRegisterEmail,
-          NameX.isRequiredRegisterName,
-          NameX.isActiveQuickDonation,
-          NameX.minimumDonationAmount,
-          NameX.minimumDeductionAmount,
-          NameX.productShippingAmount,
-        ]);
+        isActiveDonationSearch: json[NameX.isActiveProjectSearch]
+            .toBoolDefaultX(false),
+        isActiveDeductionSearch: json[NameX.isActiveDeductionSearch]
+            .toBoolDefaultX(false),
+        isActiveCampaignSearch: json[NameX.isActiveCampaignSearch]
+            .toBoolDefaultX(false),
+        isActiveComments: json[NameX.isActiveComments].toBoolDefaultX(false),
+        accountCreationMethodIsTraditionalForm:
+            json[NameX.accountCreationMethod].toStrDefaultX('') != 'phone_only',
+        minimumDonationAmount: json[NameX.minimumDonationAmount].toIntX,
+        minimumDeductionAmount: json[NameX.minimumDeductionAmount].toIntX,
+        productShippingAmount: json[NameX.productShippingAmount].toIntX,
+        browserApplePayMessage:
+            json[NameX.browserApplePayMessage].toStrNullableX,
+        projectCompletionImageUrl: imageJson[NameX.url].toStrNullableX,
+        defaultCountryCode: json[NameX.defaultCountryCode].toIntDefaultX(966),
+        defaultQuickDonation: DonationX.fromJson(defaultQuickDonationJson),
+        defaultZakat: DonationX.fromJson(defaultZakatJson),
+        campaignTargetAmounts: List<num>.from(
+          (json[NameX.campaignTargetAmounts] ?? []) as List,
+        ),
+        campaignApprovalStatus:
+            json[NameX.campaignApprovalStatus].toStrNullableX,
+      ),
+      requiredDataKeys: [
+        NameX.isShowRegisterEmail,
+        NameX.isRequiredRegisterName,
+        NameX.isActiveQuickDonation,
+        NameX.minimumDonationAmount,
+        NameX.minimumDeductionAmount,
+        NameX.productShippingAmount,
+      ],
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -109,7 +123,7 @@ class GeneralAppSettingsX{
       NameX.isRequiredRegisterName: isRequiredRegisterName,
       NameX.isShowTechnicalSupportIcon: isShowTechnicalSupportIcon,
       NameX.isActiveQuickDonation: isActiveQuickDonation,
-      NameX.isShowBrowserApplePayMessage:isShowBrowserApplePayMessage,
+      NameX.isShowBrowserApplePayMessage: isShowBrowserApplePayMessage,
       NameX.isShowCountryCodeList: isShowCountryCodeList,
       NameX.isActiveProjectSearch: isActiveDonationSearch,
       NameX.isActiveDeductionSearch: isActiveDeductionSearch,
@@ -124,9 +138,7 @@ class GeneralAppSettingsX{
       NameX.campaignApprovalStatus: campaignApprovalStatus,
       NameX.defaultQuickDonation: defaultQuickDonation?.toJson(),
       NameX.defaultZakat: defaultZakat?.toJson(),
-      NameX.projectCompletionImage:{
-        NameX.url:projectCompletionImageUrl,
-      }
+      NameX.projectCompletionImage: {NameX.url: projectCompletionImageUrl},
     };
   }
 }

@@ -974,6 +974,23 @@ class DatabaseX {
     return ModelUtilX.generateItems(data.$1[NameX.data], DonationX.fromJson);
   }
 
+  /// Projects eligible to be used when creating a campaign.
+  ///
+  /// The `projects/show_campaign` endpoint returns the full list at once
+  /// (no pagination, no server-side search) and already excludes completed
+  /// projects, so the campaign selection sheet never shows a done project.
+  static Future<List<DonationX>> getAllDonationInCampaign() async {
+    var data = await RemoteDataSourceX.get(
+      DBEndPointX.getDonationIsShowInCampaign,
+      param: DataSourceParamX(
+        localCacheKey: 'all_donation_in_campaign',
+        localCacheMaxAge: const Duration(days: 3),
+        authToken: LocalDataX.token,
+      ),
+    );
+    return ModelUtilX.generateItems(data.$1[NameX.data], DonationX.fromJson);
+  }
+
   static Future<DonationOrderX> createDonationOrder({
     required DonationOrderFormX form,
   }) async {

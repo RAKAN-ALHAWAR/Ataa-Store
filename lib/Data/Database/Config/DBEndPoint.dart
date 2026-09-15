@@ -157,6 +157,8 @@ class DBEndPointX {
   static final String getDonationDetails = '${mainAPI}projects/{code}';
   static final String getDonationIsShowInQuickDonation =
       '${mainAPI}projects/show_quick_donation';
+  static final String getDonationIsShowInCampaign =
+      '${mainAPI}projects/show_campaign';
   static final String postCreateDonationOrder = '${mainAPI}projects/orders';
 
   //============================================================================

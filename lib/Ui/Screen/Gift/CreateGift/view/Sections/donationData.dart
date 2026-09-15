@@ -32,6 +32,9 @@ class DonationDataSectionX extends GetView<CreateGiftController> {
                     isMarginTop: false,
                     onSelected: controller.onChangeDonationAmount,
                     selected: controller.freeDonationSelected.value,
+                    amounts:
+                        controller.giftCategorySelected.value?.defaultAmounts ??
+                            const [],
                   ),
                   Form(
                     key: controller.formKeyDonationAmount,

@@ -437,6 +437,7 @@ class NameX {
   static const String ownerId = 'owner_id';
   static const String ownerType = 'owner_type';
   static const String isPaginate = 'is_paginate';
+  static const String defaultAmounts = 'default_amounts';
   static const String linkableId = 'linkable_id';
   static const String linkableType = 'linkable_type';
   static const String linkable = 'linkable';

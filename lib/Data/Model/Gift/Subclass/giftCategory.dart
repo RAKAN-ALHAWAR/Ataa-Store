@@ -13,6 +13,10 @@ class GiftCategoryX {
   String imageUrl;
   List<OrganizationX> donationCategories;
 
+  /// Admin-defined donation amounts for this gift category. Empty when the
+  /// admin did not set any (the gift screen then falls back to defaults).
+  List<int> defaultAmounts;
+
   GiftCategoryX({
     required this.id,
     required this.name,
@@ -22,6 +26,7 @@ class GiftCategoryX {
     required this.status,
     required this.imageUrl,
     this.donationCategories = const [],
+    this.defaultAmounts = const [],
   });
 
   factory GiftCategoryX.fromJson(Map<String, dynamic> json) {
@@ -35,6 +40,10 @@ class GiftCategoryX {
         order: json[NameX.order].toIntNullableX,
         imageUrl: imageJson[NameX.url].toStrX,
         donationCategories: ModelUtilX.generateItems((json[NameX.giftDonationCategories] ?? []) as List,OrganizationX.fromJson),
+        defaultAmounts: ((json[NameX.defaultAmounts] ?? []) as List)
+            .map((e) => int.tryParse(e.toString()))
+            .whereType<int>()
+            .toList(),
         giftCardFormMale: json[NameX.giftCategoryFormMale].toFromJsonNullableX(GiftCardFormByGenderX.fromJson),
         giftCardFormFemale: json[NameX.giftCategoryFormFemale].toFromJsonNullableX(GiftCardFormByGenderX.fromJson),
       ),
@@ -57,6 +66,7 @@ class GiftCategoryX {
       NameX.giftCategoryFormFemale: giftCardFormFemale?.toJson(),
       NameX.image: {NameX.url: imageUrl},
       NameX.donationCategories: donationCategories.map((e) => e.toJson()).toList(),
+      NameX.defaultAmounts: defaultAmounts.map((e) => e.toString()).toList(),
     };
   }
 }

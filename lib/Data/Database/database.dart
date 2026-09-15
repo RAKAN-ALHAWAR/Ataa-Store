@@ -976,19 +976,39 @@ class DatabaseX {
 
   /// Projects eligible to be used when creating a campaign.
   ///
-  /// The `projects/show_campaign` endpoint returns the full list at once
-  /// (no pagination, no server-side search) and already excludes completed
-  /// projects, so the campaign selection sheet never shows a done project.
-  static Future<List<DonationX>> getAllDonationInCampaign() async {
+  /// The `projects/show_campaign` endpoint already excludes completed projects.
+  /// It returns the full list at once and ignores server-side pagination and
+  /// search, so the query params are forwarded for consistency and the search
+  /// is applied locally on the returned list.
+  static Future<List<DonationX>> getAllDonationInCampaign({
+    int page = 1,
+    int perPage = 20,
+    String? searchQuery,
+  }) async {
     var data = await RemoteDataSourceX.get(
       DBEndPointX.getDonationIsShowInCampaign,
       param: DataSourceParamX(
         localCacheKey: 'all_donation_in_campaign',
         localCacheMaxAge: const Duration(days: 3),
         authToken: LocalDataX.token,
+        page: page,
+        limit: perPage,
+        search: searchQuery,
+        searchKey: NameX.search,
       ),
     );
-    return ModelUtilX.generateItems(data.$1[NameX.data], DonationX.fromJson);
+
+    List<DonationX> result =
+        ModelUtilX.generateItems(data.$1[NameX.data], DonationX.fromJson);
+
+    if (searchQuery != null && searchQuery.trim().isNotEmpty) {
+      final String query = searchQuery.trim().toLowerCase();
+      result = result
+          .where((d) => d.donationBasic.name.toLowerCase().contains(query))
+          .toList();
+    }
+
+    return result;
   }
 
   static Future<DonationOrderX> createDonationOrder({
@@ -1563,23 +1583,20 @@ class DatabaseX {
   // Share Links
 
   static Future<List<ShareLinkX>> getAllMyShareLinks({
-    required String? ownerId,
     int page = 1,
     int perPage = 20,
   }) async {
     var data = await RemoteDataSourceX.get(
       DBEndPointX.getAllMyShareLinks,
       param: DataSourceParamX(
-        localCacheKey: 'get_all_share_links_$ownerId',
-        localCacheMaxAge: const Duration(minutes: 5),
+        localCacheKey: 'get_all_share_links',
+        localCacheMaxAge: const Duration(days: 3),
         authToken: LocalDataX.token,
         page: page,
         limit: perPage,
         filterParams: {
-          // The list endpoint only returns the user's links when scoped by
-          // owner. Without owner_type + owner_id it responds with an empty set.
+          // Scope the list to the current user's links (token-scoped).
           NameX.ownerType: 'User',
-          NameX.ownerId: ownerId,
           NameX.isPaginate: 1,
         },
       ),

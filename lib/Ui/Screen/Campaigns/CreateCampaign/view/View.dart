@@ -90,9 +90,12 @@ class CreateCampaignView extends GetView<CreateCampaignController> {
                               ),
                               Flexible(
                                 child: Container(
-                                  height: 90,
+                                  constraints:
+                                      const BoxConstraints(minHeight: 90),
                                   padding: const EdgeInsets.all(12.0),
                                   child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
@@ -105,8 +108,9 @@ class CreateCampaignView extends GetView<CreateCampaignController> {
                                             .name,
                                         fontWeight: FontWeight.w600,
                                         style: TextStyleX.titleSmall,
+                                        maxLines: 2,
                                       ),
-                                      const Spacer(),
+                                      const SizedBox(height: 8),
                                       TextX(
                                         "${"Collected".tr} ${controller.donationSelectionController.donationSelected.value!.donationBasic.completionRate % 1 == 0 ? controller.donationSelectionController.donationSelected.value!.donationBasic.completionRate.toInt().toString() : controller.donationSelectionController.donationSelected.value!.donationBasic.completionRate.toStringAsFixed(2)}%",
                                         fontWeight: FontWeight.w500,

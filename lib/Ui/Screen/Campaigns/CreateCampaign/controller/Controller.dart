@@ -16,7 +16,8 @@ class CreateCampaignController extends GetxController {
 
   AppControllerX app = Get.find();
   DonationSelectionControllerX donationSelectionController = Get.put(
-    DonationSelectionControllerX(),
+    DonationSelectionControllerX(source: DonationSelectionSourceX.campaign),
+    tag: DonationSelectionControllerX.campaignTag,
   );
 
   //============================================================================

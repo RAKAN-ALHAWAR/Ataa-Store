@@ -1593,9 +1593,10 @@ class DatabaseX {
         localCacheMaxAge: const Duration(days: 3),
         authToken: LocalDataX.token,
         page: page,
-        limit: perPage,
+        // NOTE: the affiliations endpoint returns HTTP 502 when a per_page
+        // (limit) query param is sent, so it is intentionally omitted here and
+        // the server default page size is used.
         filterParams: {
-          // Scope the list to the current user's links (token-scoped).
           NameX.ownerType: 'User',
           NameX.isPaginate: 1,
         },

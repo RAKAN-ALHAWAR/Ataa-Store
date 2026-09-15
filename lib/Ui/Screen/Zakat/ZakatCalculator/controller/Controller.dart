@@ -623,8 +623,7 @@ class ZakatCalculatorController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    if(app.generalSettings.defaultZakat!=null) {
-      zakatSelectionController.optionSelected=app.generalSettings.defaultZakat.obs;
-    }
+    zakatSelectionController
+        .ensureDefaultSelected(app.generalSettings.defaultZakat);
   }
 }

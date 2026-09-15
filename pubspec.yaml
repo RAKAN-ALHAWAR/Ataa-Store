@@ -3,6 +3,7 @@
 
 name: ataa
 description: "description_project_x"
+publish_to: none
 version: 1.0.3+1
 
 #====================================================================

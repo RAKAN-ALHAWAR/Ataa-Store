@@ -30,16 +30,16 @@
 				<string>fb2436807496527582</string>
 			</array>
 		</dict>
-        <dict>
-            <key>CFBundleTypeRole</key>
-            <string>Editor</string>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>https</string>
-            </array>
-            <key>CFBundleURLName</key>
-            <string>store.edialoguec.org.sa</string>
-        </dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>store.edialoguec.org.sa</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>https</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
@@ -85,8 +85,31 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>The application does not use this feature</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-    <string>We save the gift card image to your photo library so you can keep or share it with others.</string>	<key>NSPhotoLibraryUsageDescription</key>
-    <string>We use your photo library to let you upload a profile picture or a bank transfer receipt when making a donation.</string>	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<string>We save the gift card image to your photo library so you can keep or share it with others.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We use your photo library to let you upload a profile picture or a bank transfer receipt when making a donation.</string>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<false/>
+		<key>UISceneConfigurations</key>
+		<dict>
+			<key>UIWindowSceneSessionRoleApplication</key>
+			<array>
+				<dict>
+					<key>UISceneClassName</key>
+					<string>UIWindowScene</string>
+					<key>UISceneConfigurationName</key>
+					<string>flutter</string>
+					<key>UISceneDelegateClassName</key>
+					<string>FlutterSceneDelegate</string>
+					<key>UISceneStoryboardFile</key>
+					<string>Main</string>
+				</dict>
+			</array>
+		</dict>
+	</dict>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIBackgroundModes</key>
 	<array>

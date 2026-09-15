@@ -16,6 +16,11 @@ directZakatPaymentSheetX() {
 
   final DirectZakatPaymentControllerX controller = Get.find();
 
+  /// Re-run on every open (the controller is a persisted lazyPut, so onInit
+  /// runs only once): pre-select the default/first project each time.
+  controller.zakatSelectionController
+      .ensureDefaultSelected(controller.app.generalSettings.defaultZakat);
+
   //============================================================================
   // Content
 
@@ -57,7 +62,10 @@ directZakatPaymentSheetX() {
               Obx(
                     () => MultipleSelectionCardX(
                   title: controller.zakatSelectionController.optionSelected
-                      .value?.donationBasic.name ??'',
+                          .value?.donationBasic.name ??
+                      (controller.zakatSelectionController.isLoadingDefault.value
+                          ? 'Loading...'
+                          : ''),
                   onTap: controller.onTapZakatSelection,
                 ),
               ).fadeAnimation400,

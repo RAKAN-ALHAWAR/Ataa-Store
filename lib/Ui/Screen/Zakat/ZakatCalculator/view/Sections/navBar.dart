@@ -112,7 +112,10 @@ class NavBarSectionX extends GetView<ZakatCalculatorController> {
                   () => MultipleSelectionCardX(
                     title: controller.zakatSelectionController.optionSelected
                             .value?.donationBasic.name ??
-                        'Choose a donation project',
+                        (controller.zakatSelectionController.isLoadingDefault
+                                .value
+                            ? 'Loading...'
+                            : 'Choose a donation project'),
                     onTap: controller.onTapZakatSelection,
                     asInputField: controller.zakatSelectionController
                             .optionSelected.value?.donationBasic.name ==

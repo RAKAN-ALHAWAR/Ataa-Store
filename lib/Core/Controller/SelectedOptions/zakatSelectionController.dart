@@ -11,6 +11,9 @@ class ZakatSelectionControllerX extends GetxController {
   late Rx<DonationX?> optionSelected = Rx<DonationX?>(null);
   List<(String, DonationX)> options = [];
   ScrollController scrollController = ScrollController();
+
+  /// True while the fallback (first zakat project) is being fetched.
+  RxBool isLoadingDefault = false.obs;
   //============================================================================
   // Functions
 
@@ -34,6 +37,7 @@ class ZakatSelectionControllerX extends GetxController {
     }
 
     try {
+      isLoadingDefault.value = true;
       final List<DonationX> list =
           await DatabaseX.getAllDonations(isZakat: true);
       final bool stillEmpty = optionSelected.value == null ||
@@ -43,6 +47,8 @@ class ZakatSelectionControllerX extends GetxController {
       }
     } catch (_) {
       // No default available; leave the field empty rather than crash.
+    } finally {
+      isLoadingDefault.value = false;
     }
   }
 

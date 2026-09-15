@@ -37,8 +37,10 @@ class EditCampaignControllerX extends GetxController {
       donationSelectionController =
           Get.find<DonationSelectionControllerX>(tag: campaign.id);
     } else {
-      donationSelectionController =
-          Get.put(DonationSelectionControllerX(), tag: campaign.id);
+      donationSelectionController = Get.put(
+        DonationSelectionControllerX(source: DonationSelectionSourceX.campaign),
+        tag: campaign.id,
+      );
     }
     title.text = campaign.title;
     if(app.generalSettings.campaignTargetAmounts.contains(campaign.targetAmount)) {

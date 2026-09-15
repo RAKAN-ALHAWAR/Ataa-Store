@@ -22,16 +22,19 @@ class ZakatSelectionControllerX extends GetxController {
     Get.back();
   }
 
-  /// Ensure a project is pre-selected so the field is never shown empty:
-  /// use the admin default zakat when valid, otherwise fall back to the first
-  /// zakat project. Does nothing when a valid project is already selected.
-  Future<void> ensureDefaultSelected(DonationX? defaultZakat) async {
-    if (optionSelected.value != null &&
-        optionSelected.value!.id.isNotEmpty) {
-      return;
-    }
+  /// A project is only usable as a selection when it has both an id and a
+  /// display name. The admin default can come back as an empty shell (id and
+  /// name blank) when none is configured, which must NOT be shown.
+  bool _isUsable(DonationX? d) =>
+      d != null && d.id.isNotEmpty && d.donationBasic.name.trim().isNotEmpty;
 
-    if (defaultZakat != null && defaultZakat.id.isNotEmpty) {
+  /// Ensure a usable project is pre-selected so the field is never shown empty:
+  /// use the admin default zakat when usable, otherwise fall back to the first
+  /// zakat project. Does nothing when a usable project is already selected.
+  Future<void> ensureDefaultSelected(DonationX? defaultZakat) async {
+    if (_isUsable(optionSelected.value)) return;
+
+    if (_isUsable(defaultZakat)) {
       optionSelected.value = defaultZakat;
       return;
     }
@@ -40,9 +43,7 @@ class ZakatSelectionControllerX extends GetxController {
       isLoadingDefault.value = true;
       final List<DonationX> list =
           await DatabaseX.getAllDonations(isZakat: true);
-      final bool stillEmpty = optionSelected.value == null ||
-          optionSelected.value!.id.isEmpty;
-      if (stillEmpty && list.isNotEmpty) {
+      if (!_isUsable(optionSelected.value) && list.isNotEmpty) {
         optionSelected.value = list.first;
       }
     } catch (_) {

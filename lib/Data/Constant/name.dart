@@ -26,6 +26,7 @@ class NameX {
   static const String partner = 'partner';
   static const String zakatExpenditures = 'zakat_expenditures';
   static const String donationOpportunities = 'donation_opportunities';
+  static const String campaigns = 'campaigns';
   static const String projectCompletionImage = 'project_completion_image';
   static const String defaultQuickDonation = 'default_quick_donation_project';
   static const String defaultZakat = 'default_zakat_project';

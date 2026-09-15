@@ -9,6 +9,7 @@ class HomeElementSettingsX {
   final HomeElementX org;
   final HomeElementX deduction;
   final HomeElementX zakat;
+  final HomeElementX campaign;
   final HomeElementX testimonial;
   final HomeElementX statistic;
   final HomeElementX partner;
@@ -18,6 +19,7 @@ class HomeElementSettingsX {
     required this.org,
     required this.deduction,
     required this.zakat,
+    required this.campaign,
     required this.testimonial,
     required this.statistic,
     required this.partner,
@@ -31,6 +33,7 @@ class HomeElementSettingsX {
         org: json[NameX.donationCategory].toFromJsonNullableX(HomeElementX.fromJson)??HomeElementX(name: NameX.donationCategory, order: -1),
         deduction: json[NameX.deductions].toFromJsonNullableX(HomeElementX.fromJson)??HomeElementX(name: NameX.deductions, order: -1),
         zakat: json[NameX.zakatExpenditures].toFromJsonNullableX(HomeElementX.fromJson)??HomeElementX(name: NameX.zakatExpenditures, order: -1),
+        campaign: json[NameX.campaigns].toFromJsonNullableX(HomeElementX.fromJson)??HomeElementX(name: NameX.campaigns, order: -1),
         testimonial: json[NameX.testimonials].toFromJsonNullableX(HomeElementX.fromJson)??HomeElementX(name: NameX.testimonials, order: -1),
         statistic: json[NameX.statistic].toFromJsonNullableX(HomeElementX.fromJson)??HomeElementX(name: NameX.statistic, order: -1),
         partner: json[NameX.partner].toFromJsonNullableX(HomeElementX.fromJson)??HomeElementX(name: NameX.partner, order: -1),
@@ -44,6 +47,7 @@ class HomeElementSettingsX {
       NameX.donationCategory: org.toJson(),
       NameX.deductions: deduction.toJson(),
       NameX.zakatExpenditures: zakat.toJson(),
+      NameX.campaigns: campaign.toJson(),
       NameX.testimonials: testimonial.toJson(),
       NameX.statistic: statistic.toJson(),
       NameX.partner: partner.toJson(),

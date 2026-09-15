@@ -13,6 +13,7 @@ import '../../../ScreenSheet/Pay/PayDonation/payDonationSheet.dart';
 import '../../../ScreenSheet/Pay/SubscriptionDeduction/subscriptionDeductionSheet.dart';
 import '../../Basic/Root/controller/Controller.dart';
 import '../view/Sections/AssociationProgramsSection.dart';
+import '../view/Sections/CampaignsSection.dart';
 import '../view/Sections/DeductionsSection.dart';
 import '../view/Sections/DonationsSection.dart';
 import '../view/Sections/PartnersHomeSection.dart';
@@ -37,18 +38,21 @@ class HomeController extends GetxController {
   List<OrganizationX> organizations = [];
   List<DeductionX> deductions = [];
   List<DonationX> zakat = [];
+  List<CampaignX> campaigns = [];
   List<ProductX> products = [];
 
   RxBool isHasErrorInDonations = false.obs;
   RxBool isHasErrorInOrganizations = false.obs;
   RxBool isHasErrorInDeductions = false.obs;
   RxBool isHasErrorInZakat = false.obs;
+  RxBool isHasErrorInCampaigns = false.obs;
   RxBool isHasErrorInProducts = false.obs;
   late final homeElements = [
     app.homeElementSettings.donation,
     app.homeElementSettings.org,
     app.homeElementSettings.deduction,
     app.homeElementSettings.zakat,
+    app.homeElementSettings.campaign,
     app.homeElementSettings.testimonial,
     app.homeElementSettings.statistic,
     app.homeElementSettings.partner,
@@ -131,6 +135,22 @@ class HomeController extends GetxController {
       return result;
     } catch (e) {
       isHasErrorInZakat.value = zakat.isNotEmpty;
+      return Future.error(e);
+    }
+  }
+
+  Future<List<CampaignX>> getCampaigns(
+      ScrollRefreshLoadMoreParametersX data) async {
+    try {
+      var result = await DatabaseX.getAllCampaigns(
+        perPage: data.perPage,
+        page: data.page,
+      );
+      isHasErrorInCampaigns.value = false;
+      campaigns += result;
+      return result;
+    } catch (e) {
+      isHasErrorInCampaigns.value = campaigns.isNotEmpty;
       return Future.error(e);
     }
   }
@@ -242,6 +262,20 @@ class HomeController extends GetxController {
   onDonationsMore() => root.openDonations();
 
   //----------------------------------------------------------------------------
+  // Campaign
+
+  onTapCampaign(CampaignX campaign) =>
+      Get.toNamed(RouteNameX.campaignDetails, arguments: campaign.code);
+  onCampaignDonation(CampaignX campaign) async =>
+      await payDonationSheet(campaign.donation, campaign: campaign);
+  onCampaignAddToCart(CampaignX campaign) async => await payDonationSheet(
+        campaign.donation,
+        campaign: campaign,
+        onlyAddToCart: true,
+      );
+  onCampaignsMore() => Get.toNamed(RouteNameX.allCampaigns);
+
+  //----------------------------------------------------------------------------
   // Product
 
   onTapProduct(String id) =>
@@ -318,6 +352,8 @@ class HomeController extends GetxController {
           return const DeductionsSectionX();
         case NameX.zakatExpenditures:
           return const ZakatSectionX();
+        case NameX.campaigns:
+          return const CampaignsSectionX();
         case NameX.testimonials:
           return const TestimonialsHomeSectionX();
         case NameX.statistic:

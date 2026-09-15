@@ -1563,17 +1563,25 @@ class DatabaseX {
   // Share Links
 
   static Future<List<ShareLinkX>> getAllMyShareLinks({
+    required String? ownerId,
     int page = 1,
     int perPage = 20,
   }) async {
     var data = await RemoteDataSourceX.get(
       DBEndPointX.getAllMyShareLinks,
       param: DataSourceParamX(
-        localCacheKey: 'get_all_share_links',
-        localCacheMaxAge: const Duration(days: 3),
+        localCacheKey: 'get_all_share_links_$ownerId',
+        localCacheMaxAge: const Duration(minutes: 5),
         authToken: LocalDataX.token,
         page: page,
         limit: perPage,
+        filterParams: {
+          // The list endpoint only returns the user's links when scoped by
+          // owner. Without owner_type + owner_id it responds with an empty set.
+          NameX.ownerType: 'User',
+          NameX.ownerId: ownerId,
+          NameX.isPaginate: 1,
+        },
       ),
     );
 

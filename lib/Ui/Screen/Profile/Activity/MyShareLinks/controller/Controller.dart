@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ataa/Core/core.dart';
 import '../../../../../../Core/Controller/Create/addShareLinkController.dart';
 import '../../../../../../Data/Model/ShareLink/shareLink.dart';
 import '../../../../../../Data/data.dart';
@@ -11,6 +12,7 @@ class MyShareLinksController extends GetxController {
   //============================================================================
   // Injection of required controls
 
+  final AppControllerX app = Get.find();
   final AddShareLinkControllerX addShareLinkController = Get.put(AddShareLinkControllerX());
 
   //============================================================================
@@ -26,6 +28,7 @@ class MyShareLinksController extends GetxController {
 
   Future<List<ShareLinkX>> getData(ScrollRefreshLoadMoreParametersX data) async {
     return await DatabaseX.getAllMyShareLinks(
+      ownerId: app.user.value?.id,
       page: data.page,
       perPage: data.perPage,
     );

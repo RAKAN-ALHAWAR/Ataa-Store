@@ -40,7 +40,9 @@ class MyShariLinksView extends GetView<MyShareLinksController> {
               ),
               header: ButtonX(text: 'Create a new link',onTap: controller.onAddShareLink,marginVertical: 0,).fadeAnimation100,
               isHideHeaderIfEmpty: true,
-              isHideHeaderIfError: true,
+              // Keep false: when true the widget renders an empty SizedBox on
+              // error, leaving the whole page blank instead of a message.
+              isHideHeaderIfError: false,
               spaceBetweenHeaderAndContent: 16,
               itemBuilder: (data, index) {
                 if (index > 6 && !controller.isShowMore) {

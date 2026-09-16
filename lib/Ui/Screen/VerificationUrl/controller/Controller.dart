@@ -63,11 +63,19 @@ class VerificationUrlController extends GetxController {
     ..loadRequest(Uri.parse(Get.arguments[0]));
 
   NavigationDecision checkVerification(NavigationRequest request) {
-    // Check if the domain is the same as the original verification domain
-    if (request.url.contains(callbackUrl)) {
+    final Uri uri = Uri.parse(request.url);
+    final bool hasRealCallback = callbackUrl.isNotEmpty && callbackUrl != 'null';
+    final bool matchedCallback =
+        hasRealCallback && request.url.contains(callbackUrl);
+    // Card flow: the backend returns no callback URL, so completion is detected
+    // by the `status` query parameter that only the final return URL carries
+    // (the intermediate 3DS/ACS redirects never carry it).
+    final bool matchedStatus =
+        !hasRealCallback && uri.queryParameters.containsKey('status');
+
+    if (!_completed && (matchedCallback || matchedStatus)) {
       _completed = true;
-      Uri uri = Uri.parse(request.url);
-      String result = uri.queryParameters['status'] ?? '';
+      final String result = uri.queryParameters['status'] ?? '';
       Get.back(result: result);
       return NavigationDecision.prevent;
     }

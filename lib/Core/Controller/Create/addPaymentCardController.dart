@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:ataa/Core/Error/error.dart';
 import 'package:ataa/Data/Enum/payment_card_status_status.dart';
+import 'package:ataa/Data/Enum/payment_status_status.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../Config/config.dart';
@@ -74,7 +75,11 @@ class AddPaymentCardControllerX extends GetxController {
               ],
             );
             // The screen returns the callback's status string on completion.
-            if (result is! String) {
+            // Empty (user backed out) or an explicit failed status = not
+            // verified. Any other status (paid / verified / initiated) proceeds.
+            if (result is! String ||
+                result.isEmpty ||
+                result == PaymentStatusStatusX.failed.name) {
               throw 'Card not verified, try again';
             }
           }

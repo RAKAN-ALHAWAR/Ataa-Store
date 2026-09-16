@@ -4,6 +4,12 @@
 <dict>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<!-- Disable Flutter's built-in deep linking so it never hijacks the initial
+	     route on a cold start (which bypasses the Loading screen that loads
+	     app settings). Deep links are handled by the uni_links service, exactly
+	     as on Android (flutter_deeplinking_enabled=false). -->
+	<key>FlutterDeepLinkingEnabled</key>
+	<false/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

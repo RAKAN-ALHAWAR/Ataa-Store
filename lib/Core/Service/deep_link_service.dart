@@ -10,6 +10,7 @@ import '../../Config/config.dart';
 /// - تفاصيل الاستقطاعات: https://store.edialoguec.org.sa/DeductionsDetails/{code}
 /// - تفاصيل الحمالات: https://store.edialoguec.org.sa/donation-campaigns/{code}
 /// - تفاصيل السله: https://store.edialoguec.org.sa/Cart
+/// - الإهداءات: https://store.edialoguec.org.sa/Dedications
 /// - بروفيل المتبرع: استقطاعاتي: https://store.edialoguec.org.sa/profile/MySubscriptions
 /// - تفاصيل البصمة تبع المتبرع: https://store.edialoguec.org.sa/UserCampaigns/{code}
 /// - تفاصيل التقرير: https://store.edialoguec.org.sa/public/report/{code}
@@ -144,6 +145,12 @@ class DeepLinkServiceX {
     // التعامل مع تفاصيل السله - Cart
     if (pathSegments[0].toLowerCase() == 'cart') {
       Get.toNamed(RouteNameX.cart);
+      return;
+    }
+
+    // التعامل مع الإهداءات - Dedications
+    if (pathSegments[0].toLowerCase() == 'dedications') {
+      Get.toNamed(RouteNameX.gift);
       return;
     }
 

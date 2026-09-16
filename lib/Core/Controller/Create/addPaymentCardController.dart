@@ -63,9 +63,18 @@ class AddPaymentCardControllerX extends GetxController {
             throw 'There is an error on our part, we were unable to verify the card.';
           }
           if (paymentCard.status != PaymentCardStatusStatusX.active) {
-            dynamic result = await Get.toNamed(RouteNameX.verificationUrl,
-                arguments: paymentCard.verificationUrl);
-            if (result != true) {
+            // The verification screen expects [verificationUrl, callbackUrl]
+            // (a list). Passing the url as a bare string made it read the
+            // first character ('h'), so the WebView threw "Missing scheme".
+            dynamic result = await Get.toNamed(
+              RouteNameX.verificationUrl,
+              arguments: [
+                paymentCard.verificationUrl,
+                paymentCard.callbackUrl ?? 'null',
+              ],
+            );
+            // The screen returns the callback's status string on completion.
+            if (result is! String) {
               throw 'Card not verified, try again';
             }
           }

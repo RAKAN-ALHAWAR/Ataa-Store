@@ -12,6 +12,10 @@ class PaymentCardX {
   final String? iconUrl;
   final String? verificationUrl;
 
+  /// URL the 3DS verification page redirects to once done; the verification
+  /// WebView watches for it to know the card check finished.
+  final String? callbackUrl;
+
   PaymentCardX({
     required this.id,
     required this.paymentGatewayCardId,
@@ -23,6 +27,7 @@ class PaymentCardX {
     required this.isDefault,
     required this.iconUrl,
     this.verificationUrl,
+    this.callbackUrl,
   });
 
   String get expiryDate=>'$month/$year';
@@ -41,6 +46,7 @@ class PaymentCardX {
         isDefault: json[NameX.isDefault].toBoolX,
         iconUrl: json[NameX.iconUrl].toStrNullableX,
         verificationUrl: json[NameX.verificationUrl].toStrNullableX,
+        callbackUrl: json[NameX.callbackUrl].toStrNullableX,
       ),
       requiredDataKeys: [
         NameX.id,
@@ -66,6 +72,7 @@ class PaymentCardX {
       NameX.isDefault: isDefault,
       NameX.iconUrl: iconUrl,
       NameX.verificationUrl: verificationUrl,
+      NameX.callbackUrl: callbackUrl,
     };
   }
 }

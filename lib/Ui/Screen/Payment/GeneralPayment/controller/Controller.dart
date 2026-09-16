@@ -228,7 +228,7 @@ class GeneralPaymentController extends GetxController {
                           .split(RegExp(r'(/)'))[0]),
                       year: int.parse(preSavedPaymentCardsController.date.text
                           .split(RegExp(r'(/)'))[1]),
-                      cvv: int.parse(preSavedPaymentCardsController.cvv.text),
+                      cvv: preSavedPaymentCardsController.cvv.text.trim(),
                       isDefault: false,
                     )
                   : null,

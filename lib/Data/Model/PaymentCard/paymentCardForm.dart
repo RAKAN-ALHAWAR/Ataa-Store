@@ -16,7 +16,11 @@ class PaymentCardFormX {
   final String cardNum;
   final int month;
   final int year;
-  final int cvv;
+
+  /// Kept as a String (never int): a CVV can legitimately start with a zero
+  /// (e.g. "012"), and int parsing would drop it, so the backend then rejects
+  /// it as fewer than 3 digits.
+  final String cvv;
   final bool isDefault;
 
   Map<String, dynamic> toJson() {

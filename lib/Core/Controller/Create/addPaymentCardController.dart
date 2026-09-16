@@ -51,7 +51,7 @@ class AddPaymentCardControllerX extends GetxController {
             cardNum: cardNum.text.removeAllWhitespace,
             month: int.parse(date.text.split(RegExp(r'(/)'))[0]),
             year: int.parse(date.text.split(RegExp(r'(/)'))[1]),
-            cvv: int.parse(cvv.text),
+            cvv: cvv.text.trim(),
             isDefault: isDefault.value,
           );
 

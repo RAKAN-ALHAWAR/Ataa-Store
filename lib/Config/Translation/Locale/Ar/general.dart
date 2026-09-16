@@ -713,6 +713,8 @@ const Map<String, String> arGeneral = {
   "Payment was not verified, try again.":
       "لم يتم التحقق من عملية الدفع، حاول مرة أخرى.",
   "Verification process": "عملية التحقق",
+  "The verification page could not be loaded. Please check your connection and try again.":
+      "تعذّر تحميل صفحة التحقق. تأكد من اتصالك بالإنترنت وحاول مرة أخرى.",
   "Log in to participate in the deduction": "سجل دخولك للمشاركة في الاستقطاع",
   "Linking the payment process to your account":
       "جاري ربط عملية الدفع مع حسابك",

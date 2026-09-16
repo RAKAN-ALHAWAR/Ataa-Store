@@ -744,6 +744,8 @@ const Map<String, String> enGeneral = {
   "Payment was not verified, try again.":
       "Payment was not verified, try again.",
   "Verification process": "Verification process",
+  "The verification page could not be loaded. Please check your connection and try again.":
+      "The verification page could not be loaded. Please check your connection and try again.",
   "Log in to participate in the deduction":
       "Log in to participate in the deduction",
   "Linking the payment process to your account":

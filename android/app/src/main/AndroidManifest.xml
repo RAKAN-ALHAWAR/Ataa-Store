@@ -49,7 +49,11 @@
             </intent-filter>
 
             <!-- Deep Link Intent Filter -->
+            <!-- autoVerify makes these verified Android App Links: with a valid
+                 /.well-known/assetlinks.json on the host, tapping an https link
+                 opens the app directly instead of the browser. -->
             <intent-filter
+                android:autoVerify="true"
                 tools:ignore="UnusedAttribute">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />

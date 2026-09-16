@@ -11,7 +11,7 @@ import '../../Config/config.dart';
 /// - تفاصيل الحمالات: https://store.edialoguec.org.sa/donation-campaigns/{code}
 /// - تفاصيل السله: https://store.edialoguec.org.sa/Cart
 /// - بروفيل المتبرع: استقطاعاتي: https://store.edialoguec.org.sa/profile/MySubscriptions
-/// - تفاصيل الحملة تبع المتبرع: https://store.edialoguec.org.sa/UserCampaigns/{code}
+/// - تفاصيل البصمة تبع المتبرع: https://store.edialoguec.org.sa/UserCampaigns/{code}
 /// - تفاصيل التقرير: https://store.edialoguec.org.sa/public/report/{code}
 /// - تفاصيل الكفالة: https://store.edialoguec.org.sa/public/sponsorships/{id}
 class DeepLinkServiceX {
@@ -155,7 +155,7 @@ class DeepLinkServiceX {
       return;
     }
 
-    // التعامل مع تفاصيل الحملة تبع المتبرع - UserCampaigns/{code}
+    // التعامل مع تفاصيل البصمة تبع المتبرع - UserCampaigns/{code}
     if (pathSegments.length == 2 &&
         pathSegments[0].toLowerCase() == 'usercampaigns' &&
         pathSegments[1].isNotEmpty) {

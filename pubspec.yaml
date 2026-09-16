@@ -67,8 +67,7 @@ dependencies:
 
   ##-------------------------------------
   ## Deeplink
-  uni_links:
-    path: ./packages/uni_links
+  app_links: ">=7.0.0 <7.1.0"
 
   ##-------------------------------------
   ## Features

@@ -1,6 +1,6 @@
 import 'dart:async';
+import 'package:app_links/app_links.dart';
 import 'package:get/get.dart';
-import 'package:uni_links/uni_links.dart';
 
 import '../../Config/config.dart';
 
@@ -16,6 +16,7 @@ import '../../Config/config.dart';
 /// - تفاصيل الكفالة: https://store.edialoguec.org.sa/public/sponsorships/{id}
 class DeepLinkServiceX {
   static final DeepLinkServiceX _instance = DeepLinkServiceX._internal();
+  static final AppLinks _appLinks = AppLinks();
   static StreamSubscription? _sub;
 
   /// متغير لحفظ الرابط العميق حتى يتم الانتهاء من التحميل
@@ -37,20 +38,18 @@ class DeepLinkServiceX {
   /// تهيئة خدمة الديب لينك وبدء الاستماع للروابط
   static Future<void> init() async {
     try {
-      // التعامل مع الرابط الأولي عند فتح التطبيق عبر ديب لينك
-      final initialLink = await getInitialUri();
+      // التعامل مع الرابط الأولي عند فتح التطبيق عبر ديب لينك (cold start)
+      final initialLink = await _appLinks.getInitialLink();
       if (initialLink != null) {
         _pendingDeepLink = initialLink;
       }
 
-      // الاستماع للروابط أثناء تشغيل التطبيق
-      _sub = uriLinkStream.listen((Uri? uri) {
-        if (uri != null) {
-          if (_isAppReady) {
-            _handleUri(uri);
-          } else {
-            _pendingDeepLink = uri;
-          }
+      // الاستماع للروابط أثناء تشغيل التطبيق (app_links يبعث Uri غير قابل للـ null)
+      _sub = _appLinks.uriLinkStream.listen((Uri uri) {
+        if (_isAppReady) {
+          _handleUri(uri);
+        } else {
+          _pendingDeepLink = uri;
         }
       }, onError: (err) {});
     } catch (_) {}

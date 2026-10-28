@@ -40,7 +40,7 @@ class OTPController extends GetxController with CodeAutoFill {
   final GlobalKey<OtpPinFieldState> otpKey = GlobalKey<OtpPinFieldState>();
 
   late Timer timer;
-  RxInt start = 240.obs;
+  RxInt start = 60.obs;
 
   Rx<String> appSignature = "".obs;
 
@@ -234,7 +234,7 @@ class OTPController extends GetxController with CodeAutoFill {
         if (start.value != 0) {
           start--;
         } else {
-          start.value = 240;
+          start.value = 60;
           isResendAgain.value = true;
           timer.cancel();
         }

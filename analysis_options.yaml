@@ -4,6 +4,10 @@ analyzer:
   errors:
     file_names: ignore
     invalid_use_of_protected_member: ignore
+  exclude:
+    - build/**
+    - android/**
+    - ios/**
 
 linter:
   rules:

@@ -12,7 +12,7 @@ class HeaderSectionX extends StatelessWidget {
       children: [
         /// Title
         TextX(
-          "Deductions",
+          "My Deductions",
           style: TextStyleX.headerSmall,
           color: Theme.of(context).primaryColor,
         ),

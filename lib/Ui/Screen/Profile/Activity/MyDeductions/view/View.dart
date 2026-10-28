@@ -14,7 +14,7 @@ class MyDeductionsView extends GetView<MyDeductionsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarX(
-        title: "Deductions",
+        title: "My Deductions",
         actions: [CartIconButtonsX()],
       ),
       body:SafeArea(

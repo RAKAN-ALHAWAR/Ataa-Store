@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:app_links/app_links.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 import '../../Config/config.dart';
@@ -64,14 +65,23 @@ class DeepLinkServiceX {
   /// تحديد أن التطبيق جاهز لمعالجة الروابط العميقة
   static bool setAppReady() {
     _isAppReady = true;
-    // معالجة الرابط المعلق إن وجد
-    if (_pendingDeepLink != null) {
-      _handleUri(_pendingDeepLink!, fromSetAppReady: true);
-      _pendingDeepLink = null;
-      return true;
-    } else {
-      return false;
-    }
+    final pending = _pendingDeepLink;
+    _pendingDeepLink = null;
+
+    // A link without a path (the bare domain) targets no screen: report "no deep link"
+    // so the caller runs its normal start-up routing. Returning true here would leave the
+    // loading screen blank, because `_handleUri` ignores links without a path.
+    if (pending == null || pending.pathSegments.isEmpty) return false;
+
+    _handleUri(pending, fromSetAppReady: true);
+    return true;
+  }
+
+  /// Test seam: simulates a link received before the app was ready.
+  @visibleForTesting
+  static void setPendingDeepLinkForTest(Uri? uri) {
+    _isAppReady = false;
+    _pendingDeepLink = uri;
   }
 
   /// التحقق من وجود رابط عميق معلق

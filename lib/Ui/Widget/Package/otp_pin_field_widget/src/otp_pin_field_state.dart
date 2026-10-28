@@ -5,6 +5,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'package:ataa/Core/Extension/convert/convert.dart';
+import 'package:ataa/Core/Util/arabicDigitsFormatter.dart';
+
 import '../otp_pin_field.dart';
 import '../otp_pin_field_platform_interface.dart';
 import 'gradient_outline_input_border.dart';
@@ -107,6 +110,7 @@ class OtpPinFieldState extends State<OtpPinField>
                       inputFormatters:
                           widget.keyboardType == TextInputType.number
                               ? <TextInputFormatter>[
+                                  const ArabicDigitsInputFormatter(),
                                   FilteringTextInputFormatter.digitsOnly
                                 ]
                               : null,
@@ -211,6 +215,7 @@ class OtpPinFieldState extends State<OtpPinField>
                 enableInteractiveSelection: false,
                 inputFormatters: widget.keyboardType == TextInputType.number
                     ? <TextInputFormatter>[
+                        const ArabicDigitsInputFormatter(),
                         FilteringTextInputFormatter.digitsOnly
                       ]
                     : null,
@@ -570,8 +575,9 @@ class OtpPinFieldState extends State<OtpPinField>
   void pasteCode() async {
     var data = await Clipboard.getData(Clipboard.kTextPlain);
     if (data?.text?.isNotEmpty ?? false) {
+      data = ClipboardData(text: data!.text!.arabicToEnglishNumbers);
       if (widget.beforeTextPaste != null) {
-        if (widget.beforeTextPaste?.call(data!.text) ?? false) {
+        if (widget.beforeTextPaste?.call(data.text) ?? false) {
           _pasteCopyCode(data);
         } else {
           log(

@@ -1,3 +1,4 @@
+import 'package:ataa/Core/Util/arabicDigitsFormatter.dart';
 import 'package:ataa/UI/Animation/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -52,6 +53,7 @@ addPaymentCardSheetX({required AddPaymentCardControllerX controller}) async {
                           label: "Expiry Date",
                           hint: "MM/YY",
                           inputFormatters: [
+                            const ArabicDigitsInputFormatter(),
                             FilteringTextInputFormatter.digitsOnly,
                             LengthLimitingTextInputFormatter(4),
                             CardMonthInputFormatter()
@@ -68,6 +70,7 @@ addPaymentCardSheetX({required AddPaymentCardControllerX controller}) async {
                           label: "CVV Verification Number",
                           hint: "123",
                           inputFormatters: [
+                            const ArabicDigitsInputFormatter(),
                             FilteringTextInputFormatter.digitsOnly,
                             LengthLimitingTextInputFormatter(4),
                           ],

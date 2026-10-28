@@ -55,6 +55,7 @@ class _CreditCardNumberFieldXState extends State<CreditCardNumberFieldX> {
             textInputAction: widget.textInputAction,
             controller: widget.controller,
             inputFormatters: [
+              const ArabicDigitsInputFormatter(),
               FilteringTextInputFormatter.digitsOnly,
               LengthLimitingTextInputFormatter(19),
               CardNumberInputFormatter(),

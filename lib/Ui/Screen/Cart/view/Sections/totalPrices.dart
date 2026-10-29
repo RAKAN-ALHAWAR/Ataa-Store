@@ -1,9 +1,9 @@
-import 'package:ataa/UI/Animation/animation.dart';
+import 'package:ataa/Ui/Animation/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../Config/config.dart';
 import '../../../../../Core/core.dart';
-import '../../../../../UI/Widget/widget.dart';
+import '../../../../../Ui/Widget/widget.dart';
 import '../../../../ScreenSheet/Other/DeliveryAddress/deliveryAddress.dart';
 import '../../controller/Controller.dart';
 

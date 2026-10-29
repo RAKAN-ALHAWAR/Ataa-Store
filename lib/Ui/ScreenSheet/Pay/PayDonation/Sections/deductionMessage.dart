@@ -1,10 +1,10 @@
-import 'package:ataa/UI/Animation/animation.dart';
+import 'package:ataa/Ui/Animation/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../../../../Core/Controller/Pay/payDonationController.dart';
 import '../../../../../Data/Enum/recurring_status.dart';
-import '../../../../../UI/Widget/widget.dart';
+import '../../../../../Ui/Widget/widget.dart';
 
 class DeductionMessageSectionX extends StatelessWidget {
   const DeductionMessageSectionX(this.controller, {super.key});

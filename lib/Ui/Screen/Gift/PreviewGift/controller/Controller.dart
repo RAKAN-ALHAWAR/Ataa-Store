@@ -4,7 +4,7 @@ import 'dart:ui' as ui;
 import 'package:ataa/Data/Model/Gift/Order/giftOrder.dart';
 import 'package:ataa/Data/Model/Gift/Subclass/giftCategory.dart';
 import 'package:ataa/Data/data.dart';
-import 'package:ataa/UI/Widget/widget.dart';
+import 'package:ataa/Ui/Widget/widget.dart';
 import 'package:downloadsfolder/downloadsfolder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';

@@ -1,9 +1,9 @@
-import 'package:ataa/UI/Animation/animation.dart';
+import 'package:ataa/Ui/Animation/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../Core/Controller/Pay/payDonationController.dart';
-import '../../../../../UI/Widget/widget.dart';
+import '../../../../../Ui/Widget/widget.dart';
 
 class FreeDonationSectionX extends StatelessWidget {
   const FreeDonationSectionX(this.controller, {super.key});

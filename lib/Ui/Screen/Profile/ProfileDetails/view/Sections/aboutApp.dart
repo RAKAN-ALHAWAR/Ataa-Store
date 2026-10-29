@@ -2,7 +2,7 @@ import 'package:ataa/Ui/Animation/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../../Config/config.dart';
-import '../../../../../../UI/Widget/widget.dart';
+import '../../../../../../Ui/Widget/widget.dart';
 import '../../controller/Controller.dart';
 
 class AboutAppSectionX extends GetView<ProfileDetailsController> {

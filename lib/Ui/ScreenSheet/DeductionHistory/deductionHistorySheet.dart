@@ -10,7 +10,7 @@ import '../../../Config/config.dart';
 import '../../../Core/Controller/DeductionHistory/deductionHistoryController.dart';
 import '../../../Core/core.dart';
 import '../../../Data/Enum/payment_status_status.dart';
-import '../../../UI/Widget/widget.dart';
+import '../../../Ui/Widget/widget.dart';
 
 // ~~~~~~~~~~~~~~~~~~~~~~~{{ Why this bottom sheet }}~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /// Show Deduction History

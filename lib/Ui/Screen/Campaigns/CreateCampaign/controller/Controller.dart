@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import '../../../../../Config/config.dart';
 import '../../../../../Core/Controller/SelectedOptions/donationSelectionController.dart';
 import '../../../../../Data/data.dart';
-import '../../../../../UI/Widget/widget.dart';
+import '../../../../../Ui/Widget/widget.dart';
 import '../../../../ScreenSheet/Other/ConfirmCampaignCreation/confirmCampaignCreationSheet.dart';
 
 class CreateCampaignController extends GetxController {

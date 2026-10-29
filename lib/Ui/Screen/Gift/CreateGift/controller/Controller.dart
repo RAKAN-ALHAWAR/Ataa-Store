@@ -17,7 +17,7 @@ import '../../../../../Data/Model/Gift/Subclass/giftCardFormByGender.dart';
 import '../../../../../Data/Model/Gift/Subclass/giftCategory.dart';
 import '../../../../../Data/Model/Gift/gift.dart';
 import '../../../../../Data/data.dart';
-import '../../../../../UI/Widget/widget.dart';
+import '../../../../../Ui/Widget/widget.dart';
 import '../../../../ScreenSheet/Other/PreviewGiftCard/previewGiftCardSheet.dart';
 
 class CreateGiftController extends GetxController {

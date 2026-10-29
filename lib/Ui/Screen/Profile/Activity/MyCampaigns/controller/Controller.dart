@@ -4,8 +4,8 @@ import '../../../../../../Config/config.dart';
 import '../../../../../../Data/Enum/campaign_status.dart';
 import '../../../../../../Data/Enum/linkable_type_status.dart';
 import '../../../../../../Data/data.dart';
-import '../../../../../../UI/ScreenSheet/Other/Share/shareSheet.dart';
-import '../../../../../../UI/Widget/widget.dart';
+import '../../../../../../Ui/ScreenSheet/Other/Share/shareSheet.dart';
+import '../../../../../../Ui/Widget/widget.dart';
 import '../../../../../ScreenSheet/Other/EditCampaign/editCampaignSheet.dart';
 import '../../../../../Widget/Basic/Other/scrollRefreshLoadMore.dart';
 

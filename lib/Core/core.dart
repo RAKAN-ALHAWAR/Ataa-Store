@@ -14,9 +14,9 @@ import '../Config/config.dart';
 import '../Data/Model/General/generalPaymentMethodsSettings.dart';
 import '../Data/Model/HomeElement/homeElementSettings.dart';
 import '../Data/data.dart';
-import '../UI/Screen/Auth/Login/view/loginView.dart';
-import '../UI/Screen/Auth/SignUp/view/View.dart';
-import '../UI/Widget/widget.dart';
+import '../Ui/Screen/Auth/Login/view/loginView.dart';
+import '../Ui/Screen/Auth/SignUp/view/View.dart';
+import '../Ui/Widget/widget.dart';
 
 import '../Ui/Screen/Donation/AllDonation/controller/Controller.dart';
 import 'Controller/Cart/cartGeneralController.dart';

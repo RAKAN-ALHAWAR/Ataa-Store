@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../../Config/config.dart';
 import '../../../../../../Core/core.dart';
-import '../../../../../../UI/Widget/widget.dart';
+import '../../../../../../Ui/Widget/widget.dart';
 import '../../../../../Animation/animation.dart';
 import '../../../../../Widget/Package/otp_pin_field_widget/otp_pin_field.dart';
 import '../../controller/Controller.dart';

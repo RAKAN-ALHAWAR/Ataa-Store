@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:ataa/Data/data.dart';
-import 'package:ataa/UI/Widget/widget.dart';
+import 'package:ataa/Ui/Widget/widget.dart';
 import 'package:ataa/Ui/Section/AppleAndGooglePay/controller/Controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

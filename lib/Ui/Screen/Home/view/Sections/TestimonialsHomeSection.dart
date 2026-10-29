@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../../Config/config.dart';
-import '../../../../../UI/Widget/widget.dart';
+import '../../../../../Ui/Widget/widget.dart';
 import '../../../../Section/Testimonials/view/View.dart';
 
 class TestimonialsHomeSectionX extends StatelessWidget {

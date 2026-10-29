@@ -9,7 +9,7 @@ import '../../../../../Core/Extension/convert/convert.dart';
 import '../../../../../Core/core.dart';
 import '../../../../../Data/Enum/linkable_type_status.dart';
 import '../../../../../Data/data.dart';
-import '../../../../../UI/ScreenSheet/Other/Share/shareSheet.dart';
+import '../../../../../Ui/ScreenSheet/Other/Share/shareSheet.dart';
 import '../../../../ScreenSheet/Pay/PayDonation/payDonationSheet.dart';
 
 class CampaignDetailsController extends GetxController {

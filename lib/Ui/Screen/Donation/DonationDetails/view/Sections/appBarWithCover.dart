@@ -1,4 +1,4 @@
-import 'package:ataa/UI/Animation/animation.dart';
+import 'package:ataa/Ui/Animation/animation.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart'; // الإمبورت الجديد
 import '../../../../../../Config/config.dart';
-import '../../../../../../UI/Widget/widget.dart';
+import '../../../../../../Ui/Widget/widget.dart';
 import '../../controller/Controller.dart';
 
 class AppBarWithCoverSectionX extends GetView<DonationDetailsController> {

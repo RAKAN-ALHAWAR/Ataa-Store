@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../../../../../../Core/Controller/Create/addShareLinkController.dart';
 import '../../../../../../Data/Model/ShareLink/shareLink.dart';
 import '../../../../../../Data/data.dart';
-import '../../../../../../UI/Widget/widget.dart';
+import '../../../../../../Ui/Widget/widget.dart';
 import '../../../../../ScreenSheet/Create/AddShareLink/addShareLinkSheet.dart';
 import '../../../../../Widget/Basic/Other/scrollRefreshLoadMore.dart';
 

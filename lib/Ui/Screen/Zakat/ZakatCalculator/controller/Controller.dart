@@ -15,7 +15,7 @@ import '../../../../../Data/Model/Donation/Order/donationOrderForm.dart';
 import '../../../../../Data/Model/ZakatCalculation/Subclass/zakatCalculationGold.dart';
 import '../../../../../Data/Model/ZakatCalculation/Subclass/zakatCalculationShares.dart';
 import '../../../../../Data/data.dart';
-import '../../../../../UI/Widget/widget.dart';
+import '../../../../../Ui/Widget/widget.dart';
 import '../../../../ScreenSheet/Selection/Zakat/zakatSelectionSheet.dart';
 
 class ZakatCalculatorController extends GetxController {

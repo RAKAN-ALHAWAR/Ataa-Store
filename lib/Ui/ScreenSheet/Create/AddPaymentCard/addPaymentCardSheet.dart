@@ -1,11 +1,11 @@
 import 'package:ataa/Core/Util/arabicDigitsFormatter.dart';
-import 'package:ataa/UI/Animation/animation.dart';
+import 'package:ataa/Ui/Animation/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../../../Core/Controller/Create/addPaymentCardController.dart';
 import '../../../../Core/core.dart';
-import '../../../../UI/Widget/widget.dart';
+import '../../../../Ui/Widget/widget.dart';
 
 // ~~~~~~~~~~~~~~~~~~~~~~~{{ Why this bottom sheet }}~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /// Enter bank card information and save it

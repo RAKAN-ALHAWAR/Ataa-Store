@@ -1,14 +1,14 @@
 import 'package:ataa/Config/Translation/translation.dart';
 import 'package:ataa/Core/core.dart';
 import 'package:ataa/Data/Enum/campaign_status.dart';
-import 'package:ataa/UI/Animation/animation.dart';
+import 'package:ataa/Ui/Animation/animation.dart';
 import 'package:ataa/Ui/Widget/Basic/Other/scrollRefreshLoadMore.dart';
 import 'package:ataa/Ui/Widget/Basic/Utils/future_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
 import '../../../../../Config/config.dart';
-import '../../../../../UI/Widget/widget.dart';
+import '../../../../../Ui/Widget/widget.dart';
 import '../controller/controller.dart';
 
 class MyCampaignDetailsView extends GetView<MyCampaignDetailsController> {

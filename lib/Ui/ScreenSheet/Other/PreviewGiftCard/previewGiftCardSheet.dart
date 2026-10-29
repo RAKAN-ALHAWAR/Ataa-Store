@@ -1,4 +1,4 @@
-import 'package:ataa/UI/Animation/animation.dart';
+import 'package:ataa/Ui/Animation/animation.dart';
 import 'package:ataa/Ui/Widget/Basic/Utils/future_builder.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

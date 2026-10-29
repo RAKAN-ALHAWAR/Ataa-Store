@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../Config/config.dart';
-import '../../../../../UI/Animation/animation.dart';
+import '../../../../../Ui/Animation/animation.dart';
 import '../../../../GeneralState/empty.dart';
 import '../../../../GeneralState/error.dart';
 import '../../../../Widget/widget.dart';

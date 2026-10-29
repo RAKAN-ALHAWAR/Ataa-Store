@@ -6,8 +6,8 @@ import '../../../../../Config/config.dart';
 import '../../../../../Core/Error/error.dart';
 import '../../../../../Core/core.dart';
 import '../../../../../Data/data.dart';
-import '../../../../../UI/Screen/Auth/Login/controller/Controller.dart';
-import '../../../../../UI/Screen/Auth/Login/view/loginView.dart';
+import '../../../../../Ui/Screen/Auth/Login/controller/Controller.dart';
+import '../../../../../Ui/Screen/Auth/Login/view/loginView.dart';
 import '../../../../Widget/widget.dart';
 import '../../OTP/view/View.dart';
 

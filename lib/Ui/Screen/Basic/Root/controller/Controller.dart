@@ -4,7 +4,7 @@ import '../../../../../../Config/config.dart';
 import '../../../../../../Data/data.dart';
 import '../../../../../Core/core.dart';
 import '../../../../../Data/Constant/navbarItems.dart';
-import '../../../../../UI/Widget/widget.dart';
+import '../../../../../Ui/Widget/widget.dart';
 import '../../../QuickDonation/controller/Controller.dart';
 import '../../../QuickDonation/view/View.dart';
 

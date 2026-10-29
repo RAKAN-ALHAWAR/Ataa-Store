@@ -1,6 +1,6 @@
 // ignore_for_file: invalid_use_of_protected_member
 
-import 'package:ataa/UI/Animation/animation.dart';
+import 'package:ataa/Ui/Animation/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../Config/config.dart';

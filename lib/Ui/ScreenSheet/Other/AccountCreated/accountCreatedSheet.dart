@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../Config/config.dart';
-import '../../../../UI/Widget/widget.dart';
+import '../../../../Ui/Widget/widget.dart';
 
 // ~~~~~~~~~~~~~~~~~~~~~~~{{ Why this bottom sheet }}~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /// Display the option to complete account information after account creation

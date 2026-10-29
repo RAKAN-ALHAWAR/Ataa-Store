@@ -13,7 +13,7 @@ import '../../../../Core/Controller/Cart/deliveryAddressController.dart';
 import '../../../../Core/core.dart';
 import '../../../../Data/Model/Cart/cartItem.dart';
 import '../../../../Data/data.dart';
-import '../../../../UI/Widget/widget.dart';
+import '../../../../Ui/Widget/widget.dart';
 import '../../../ScreenSheet/Other/MandatoryAuth/mandatoryAuth.dart';
 import '../../Basic/Root/controller/Controller.dart';
 

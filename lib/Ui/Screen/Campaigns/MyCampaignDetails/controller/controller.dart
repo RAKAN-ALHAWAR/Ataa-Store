@@ -4,7 +4,7 @@ import '../../../../../Config/Translation/translation.dart';
 import '../../../../../Data/Enum/linkable_type_status.dart';
 import '../../../../../Data/Model/Campaign/campaignDonation.dart';
 import '../../../../../Data/data.dart';
-import '../../../../../UI/ScreenSheet/Other/Share/shareSheet.dart';
+import '../../../../../Ui/ScreenSheet/Other/Share/shareSheet.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 class MyCampaignDetailsController extends GetxController {

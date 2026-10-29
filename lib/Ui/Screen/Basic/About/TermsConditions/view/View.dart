@@ -4,7 +4,7 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import '../../../../../../Config/config.dart';
 import '../../../../../../Data/data.dart';
-import '../../../../../../UI/Widget/widget.dart';
+import '../../../../../../Ui/Widget/widget.dart';
 import '../../../../../Widget/Basic/Utils/future_builder.dart';
 import '../controller/Controller.dart';
 

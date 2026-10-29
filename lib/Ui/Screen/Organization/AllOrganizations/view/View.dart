@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../Config/config.dart';
 import '../../../../../Core/Helper/html.dart';
-import '../../../../../UI/Animation/animation.dart';
+import '../../../../../Ui/Animation/animation.dart';
 import '../../../../Widget/Basic/Other/scrollRefreshLoadMore.dart';
 import '../../../../Widget/widget.dart';
 import '../controller/Controller.dart';

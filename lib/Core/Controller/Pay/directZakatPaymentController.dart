@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../Config/config.dart';
 import '../../../Data/data.dart';
-import '../../../UI/Widget/widget.dart';
+import '../../../Ui/Widget/widget.dart';
 import '../../core.dart';
 import '../SelectedOptions/zakatSelectionController.dart';
 

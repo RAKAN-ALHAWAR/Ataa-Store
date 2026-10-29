@@ -10,7 +10,7 @@ import '../../../../Data/Enum/payment_method_status.dart';
 import '../../../../Data/Model/PaymentTransaction/paymentTransaction.dart';
 import '../../../../Data/Model/PaymentTransaction/paymentTransactionForm.dart';
 import '../../../../Data/data.dart';
-import '../../../../UI/Widget/widget.dart';
+import '../../../../Ui/Widget/widget.dart';
 import '../../../ScreenSheet/Selection/Donation/quickDonationSelectionSheet.dart';
 import '../../../Section/AppleAndGooglePay/controller/Controller.dart';
 

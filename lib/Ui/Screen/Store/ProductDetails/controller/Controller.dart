@@ -4,7 +4,7 @@ import '../../../../../Config/config.dart';
 import '../../../../../Core/Controller/Cart/cartGeneralController.dart';
 import '../../../../../Core/core.dart';
 import '../../../../../Data/data.dart';
-import '../../../../../UI/Widget/widget.dart';
+import '../../../../../Ui/Widget/widget.dart';
 
 class ProductDetailsController extends GetxController {
   //============================================================================

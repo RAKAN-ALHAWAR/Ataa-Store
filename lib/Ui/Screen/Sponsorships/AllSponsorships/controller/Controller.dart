@@ -6,7 +6,7 @@ import '../../../../../Core/Controller/Cart/cartGeneralController.dart';
 import '../../../../../Core/Controller/Filter/sponsorshipFilterController.dart';
 import '../../../../../Core/core.dart';
 import '../../../../../Data/data.dart';
-import '../../../../../UI/Widget/widget.dart';
+import '../../../../../Ui/Widget/widget.dart';
 import '../../../../ScreenSheet/Filter/SponsorshipFilter/sponsorshipFilterSheet.dart';
 
 class AllSponsorshipsController extends GetxController {

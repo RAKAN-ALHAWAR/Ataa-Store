@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import '../../../../../Config/config.dart';
 import '../../../../../Core/core.dart';
 import '../../../../../Data/Model/PaymentTransaction/paymentTransaction.dart';
-import '../../../../../UI/Widget/widget.dart';
+import '../../../../../Ui/Widget/widget.dart';
 
 class PaymentSuccessfulController extends GetxController {
   //============================================================================

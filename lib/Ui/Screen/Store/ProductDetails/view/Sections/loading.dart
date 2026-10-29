@@ -1,7 +1,7 @@
 import 'package:ataa/Ui/Animation/animation.dart';
 import 'package:flutter/material.dart';
 import '../../../../../../Config/config.dart';
-import '../../../../../../UI/Widget/widget.dart';
+import '../../../../../../Ui/Widget/widget.dart';
 
 class LoadingSectionX extends StatelessWidget {
   const LoadingSectionX({super.key});

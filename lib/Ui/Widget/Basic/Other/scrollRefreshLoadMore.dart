@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:ataa/UI/GeneralState/error.dart';
+import 'package:ataa/Ui/GeneralState/error.dart';
 import 'package:ataa/Ui/Widget/Basic/Other/prototypeHeight.dart';
 import 'package:ataa/Ui/Widget/widget.dart';
 import 'package:flutter/material.dart';

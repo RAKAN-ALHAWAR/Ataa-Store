@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import '../../../GeneralState/error.dart';
-import '../../../../UI/Widget/widget.dart';
+import '../../../../Ui/Widget/widget.dart';
 import '../controller/Controller.dart';
 
 class VerificationUrlView extends GetView<VerificationUrlController> {

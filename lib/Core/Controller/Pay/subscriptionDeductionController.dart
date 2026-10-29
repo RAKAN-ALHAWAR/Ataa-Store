@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import '../../../Config/config.dart';
 import '../../../Data/Model/Deduction/deduction.dart';
 import '../../../Data/data.dart';
-import '../../../UI/Widget/widget.dart';
+import '../../../Ui/Widget/widget.dart';
 import '../../core.dart';
 import '../Other/donateOnBehalfOfFamilyController.dart';
 

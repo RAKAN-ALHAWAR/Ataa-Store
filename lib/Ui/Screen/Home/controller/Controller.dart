@@ -185,30 +185,30 @@ class HomeController extends GetxController {
         switch (ad.sectionType!) {
           case AdsSectionTypeStatusX.donation:
             if (ad.section.code != null) {
-              return Get.toNamed(RouteNameX.donationDetails,
+              return await Get.toNamed(RouteNameX.donationDetails,
                   arguments: ad.section.code);
             } else {
-              return root.openDonations();
+              return await root.openDonations();
             }
           case AdsSectionTypeStatusX.org:
-            return Get.toNamed(RouteNameX.allOrganizations);
+            return await Get.toNamed(RouteNameX.allOrganizations);
           case AdsSectionTypeStatusX.deduction:
             if (ad.section.id != null) {
-              return Get.toNamed(RouteNameX.deductionDetails,
+              return await Get.toNamed(RouteNameX.deductionDetails,
                   arguments: ad.section.code,
               );
             } else {
-              return Get.toNamed(RouteNameX.allDeductions);
+              return await Get.toNamed(RouteNameX.allDeductions);
             }
           case AdsSectionTypeStatusX.zakat:
             if (ad.section.code != null) {
-              return Get.toNamed(RouteNameX.donationDetails,
+              return await Get.toNamed(RouteNameX.donationDetails,
                   arguments: ad.section.code);
             } else {
-              return Get.toNamed(RouteNameX.zakatDisbursements);
+              return await Get.toNamed(RouteNameX.zakatDisbursements);
             }
           case AdsSectionTypeStatusX.gift:
-            return Get.toNamed(RouteNameX.gift);
+            return await Get.toNamed(RouteNameX.gift);
         }
       }
       await launchUrl(
@@ -223,30 +223,30 @@ class HomeController extends GetxController {
         switch (ad.sectionType!) {
           case AdsSectionTypeStatusX.donation:
             if (ad.section.code != null) {
-              return Get.toNamed(RouteNameX.donationDetails,
+              return await Get.toNamed(RouteNameX.donationDetails,
                   arguments: ad.section.code);
             } else {
-              return root.openDonations();
+              return await root.openDonations();
             }
           case AdsSectionTypeStatusX.org:
-            return Get.toNamed(RouteNameX.allOrganizations);
+            return await Get.toNamed(RouteNameX.allOrganizations);
           case AdsSectionTypeStatusX.deduction:
             if (ad.section.id != null) {
-              return Get.toNamed(RouteNameX.deductionDetails,
+              return await Get.toNamed(RouteNameX.deductionDetails,
                   arguments: ad.section.code,
               );
             } else {
-              return Get.toNamed(RouteNameX.allDeductions);
+              return await Get.toNamed(RouteNameX.allDeductions);
             }
           case AdsSectionTypeStatusX.zakat:
             if (ad.section.code != null) {
-              return Get.toNamed(RouteNameX.donationDetails,
+              return await Get.toNamed(RouteNameX.donationDetails,
                   arguments: ad.section.code);
             } else {
-              return Get.toNamed(RouteNameX.zakatDisbursements);
+              return await Get.toNamed(RouteNameX.zakatDisbursements);
             }
           case AdsSectionTypeStatusX.gift:
-            return Get.toNamed(RouteNameX.gift);
+            return await Get.toNamed(RouteNameX.gift);
         }
       }
       await launchUrl(

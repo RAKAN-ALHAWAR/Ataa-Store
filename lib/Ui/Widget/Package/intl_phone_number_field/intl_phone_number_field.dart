@@ -5,7 +5,7 @@ library intl_phone_number_field;
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:ataa/UI/Widget/widget.dart';
+import 'package:ataa/Ui/Widget/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
@@ -239,13 +239,18 @@ class _InternationalPhoneNumberInputState
 
   void loadFromJson(String data) {
     Iterable jsonResult = json.decode(data);
-    countries = List<CountryCodeModel>.from(jsonResult.map((model) {
-      try {
-        return CountryCodeModel.fromJson(model);
-      } catch (e, stackTrace) {
-        log("Json Converter Failed: ", error: e, stackTrace: stackTrace);
-      }
-    }));
+    // An entry that fails to parse is logged and skipped (it used to become a null element).
+    countries = jsonResult
+        .map<CountryCodeModel?>((model) {
+          try {
+            return CountryCodeModel.fromJson(model);
+          } catch (e, stackTrace) {
+            log("Json Converter Failed: ", error: e, stackTrace: stackTrace);
+            return null;
+          }
+        })
+        .whereType<CountryCodeModel>()
+        .toList();
     setState(() {});
   }
 }

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../../../../Config/config.dart';
 import '../controller/Controller.dart';
 import 'Sections/aboutApp.dart';
+import 'Sections/appVersion.dart';
 import 'Sections/appbar.dart';
 import 'Sections/logout.dart';
 import 'Sections/myAccount.dart';
@@ -32,6 +33,7 @@ class ProfileDetailsView extends GetView<ProfileDetailsController> {
                     const AboutAppSectionX(),
                    if (controller.app.isLogin.value)
                     const LogoutSectionX(),
+                  const AppVersionSectionX(),
                 ],
               ),
             ),

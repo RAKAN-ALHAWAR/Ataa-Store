@@ -62,7 +62,7 @@ class QuickDonationView extends StatelessWidget {
                         controller: controller.appleAndGooglePayController,
                       ).marginOnly(bottom: 5).fadeAnimation400,
 
-                      /// Pay with App
+                      /// Pay with App 
                       ButtonStateX(
                         onTap: controller.onDonatingByApp,
                         state: controller.buttonState.value,

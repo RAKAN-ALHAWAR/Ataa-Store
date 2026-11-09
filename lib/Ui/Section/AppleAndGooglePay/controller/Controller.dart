@@ -7,7 +7,7 @@ import 'package:pay/pay.dart';
 
 import '../../../../Data/data.dart';
 
-class AppleAndGooglePayController extends GetxController {
+class AppleAndGooglePayControllerX extends GetxController {
   //============================================================================
   // Variables
 

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:ataa/Core/Error/error.dart';
+import 'package:ataa/Ui/Section/AppleAndGooglePay/controller/Controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../Config/config.dart';
@@ -12,7 +13,6 @@ import '../../../../Data/Model/PaymentTransaction/paymentTransactionForm.dart';
 import '../../../../Data/data.dart';
 import '../../../../Ui/Widget/widget.dart';
 import '../../../ScreenSheet/Selection/Donation/quickDonationSelectionSheet.dart';
-import '../../../Section/AppleAndGooglePay/controller/Controller.dart';
 
 class QuickDonationController extends GetxController {
   //============================================================================
@@ -23,8 +23,8 @@ class QuickDonationController extends GetxController {
     QuickDonationSelectionController(),
     tag: "Quick Donation",
   );
-  late final AppleAndGooglePayController appleAndGooglePayController = Get.put(
-    AppleAndGooglePayController()
+  late final AppleAndGooglePayControllerX appleAndGooglePayController = Get.put(
+    AppleAndGooglePayControllerX()
       ..onPayDoneCallback = onPayByAppleOrGoogle
       ..isDisabled.value = true
       ..onTapDisabledCallback = onTapDisabledAppleAndGooglePay,

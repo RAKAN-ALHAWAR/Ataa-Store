@@ -1,24 +1,25 @@
 import 'dart:io';
 import 'package:ataa/Data/data.dart';
 import 'package:ataa/Ui/Widget/widget.dart';
-import 'package:ataa/Ui/Section/AppleAndGooglePay/controller/Controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay/pay.dart';
 
 import '../../../../Config/config.dart';
+import 'package:ataa/Ui/Section/AppleAndGooglePay/controller/Controller.dart';
+
 
 class AppleAndGooglePaySectionX extends StatelessWidget {
   AppleAndGooglePaySectionX({
     super.key,
     this.margin,
-    AppleAndGooglePayController? controller,
+    AppleAndGooglePayControllerX? controller,
   }) {
-    this.controller = controller ?? Get.put(AppleAndGooglePayController());
+    this.controller = controller ?? Get.put(AppleAndGooglePayControllerX());
   }
 
   final EdgeInsets? margin;
-  late final AppleAndGooglePayController controller;
+  late final AppleAndGooglePayControllerX controller;
 
   @override
   Widget build(BuildContext context) {

@@ -32,8 +32,8 @@ class GeneralPaymentController extends GetxController {
     PayByBankTransferController(),
     tag: 'GeneralPayment-PayByBank',
   );
-  late final AppleAndGooglePayController appleAndGooglePayController = Get.put(
-    AppleAndGooglePayController()
+  late final AppleAndGooglePayControllerX appleAndGooglePayController = Get.put(
+    AppleAndGooglePayControllerX()
       ..onPayDoneCallback = onPayByAppleOrGoogle
       ..onTapCallback = onTapAppleAndGooglePay,
     tag: 'GeneralPayment-AppleAndGooglePay',
